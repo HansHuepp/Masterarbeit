@@ -1,0 +1,11 @@
+Aspect,Pros,Cons
+Decentralization,"- Eliminates the need for a central third party.","- Vulnerable to malicious users exploiting the anonymity of the blockchain."
+Privacy,"- Users can determine ride-sharing possibilities while preserving trip data.","- Requires complex protocols (like zero-knowledge set membership proof) to ensure privacy."
+Security,"- Time-locked deposit protocol ensures commitment from both drivers and riders.","- Malicious users might submit multiple ride requests/offers without commitment, potentially disrupting service."
+Payment System,"- ""Pay-as-you-drive"" ensures fair payment based on actual distance covered.","- Requires users to be familiar with blockchain-based payment systems, which might be a learning curve for some."
+Reputation System,"- Rates drivers based on past behavior, promoting trust and reliability.","- New drivers without a history might find it challenging to get initial rides."
+Implementation on Blockchain,"- Operates on a public blockchain, ensuring transparency and immutability.","- Associated with gas costs and challenges related to the Ethereum Virtual Machine."
+Service Fees,"- Potentially lower service fees as there's no central entity taking a significant cut.","- Transaction fees (gas costs) associated with blockchain operations might apply."
+Resilience,"- Not prone to single points of failure typical of centralized systems.","- The decentralized nature might make dispute resolution or customer service more challenging."
+Transparency,"- All transactions are recorded on the blockchain, ensuring transparency.","- Balancing transparency with privacy can be challenging."
+User Adoption,"- Can attract users who prefer decentralized, transparent, and private platforms.","- Requires users to understand and trust blockchain technology, which might be a barrier for mainstream adoption."
