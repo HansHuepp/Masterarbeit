@@ -1,43 +1,144 @@
+\subsection{Selection of search parameters and research databases}
+Due to the diverse literature regarding decentralised ride-sharing platforms, the proven approach of a systematic literature search according to Vom Brocke was chosen. In this way, quality criteria such as traceability and reproducibility can be ensured through a clearly defined processes. Two common, cross-publisher research databases and one common publisher database were used for the literature search.
+The selection of several cross-publisher research databases is intended to ensure that the search provides a representative overview of existing research on decentralised ride-sharing platforms,. The selection of the database of a publisher with a focus on information technology is intended to show how the research topic is treated in the literature from a primarily information technology perspective. The cross-publisher research databases used are Scopus and Ebscohost. The publisher database is IEEE Xplore.
+The goal is to obtain research literature as a search result that deals with the development of decentralised ride-sharing platforms. To obtain results covering mainly decentralised platforms the search phrase "decentralised" was used. The following three synonyms were used to obtain search results that deal with the topic of ride-sharing: "ride-sharing", "ride-pooling" and "ride-hailing". Initial tests have shown that results with this search phrase return suitable research papers without noticeable gabs in regards to the topics covering decentralised ride-sharing .
+The complete search phrase looks as followed:
+("decentralised" AND ("ride-sharing" OR "ride-pooling" OR "ride-hailing"))
+
+For Scopus, Epscohost (all selectable databases included) and IEEE Xplore, the search phrase was applied to the title, abstract and keywords of the publications. Initial tests have shown that restricting the search to title, abstract and keywords is the best compromise between the quantity and quality of the search results. Only literature that was published in the after 2014 (2015 – 2023) was considered for the literature search. This is to ensure that the specialist literature found is of current relevance without overly restricting the scope of the existing research literature. Likewise, after the initial compilation of the search results, all duplicates were removed. In this way it is avoided that publications are counted twice because they are listed in several literature databases.
+
+\subsection{Selection of the findings}
+The literature search was carried out in July 2023 and resulted in 86 hits. A criteria-based selection was made beyond the search phrase and the time limit for the publication of the specialist literature. The exclusion criteria used in the criteria-based selection are: no publications in languages other than English, no panels and comments, no literature that only deals with decentralised platforms or ride-sharing. In addition, publications that are not freely available or accessible via a license from the University of Stuttgart had to be excluded. The inclusion criteria used are: Only publications in English, only publications from 2015 onwards, only papers discussing the technical development of decentralised ride-sharing platforms.
+Following Bandara, a first check of the actual relevance of the hits for answering the research question was carried out by screening the title, keywords and abstract. A full-text analysis was then carried out on the literature that was still considered relevant after the initial screening. By applying the inclusion and exclusion criteria in the initial screening and the subsequent full-text analysis, <REAL NUMBER> publications were identified from the 86 search hits that are relevant to answering the research question. Figure <FIGURE NUMBER> shows how the relevant research literature is distributed across the research databases.
+
 \begin{table}[h]
 \centering
-\caption{Evaluation of the BRide Platform}
+\caption{Results of the Literature Search}
+\begin{tabular}{|l|c|c|c|}
+\hline
+Scientific Database & Search Results & Excluded Literature & Included Literature \\ \hline
+Scopus & 54 & 49 & 5 \\ \hline
+Epscohost & 2 & 2 & 0 \\ \hline
+IEEE & 30 & 25 & 5 \\ \hline
+Citation search &  &  & 3 \\ \hline \hline
+Total & 86 & 73 & 13 \\ \hline
+\end{tabular}
+\end{table}
+
+The analysis of the publications shows that a large number of different approaches are discussed in the scientific literature on how decentralised ride sharing plafroms can be build. In order for the results of the literature analysis to be evaluated and interpreted, the results must first be structured. For this purpose, a concept matrix approach according to Webster and Watson is pursued. Based on the concept matrix approach, the specialist literature identified as relevant is assigned to nine topics relevant for the creation of a decentralised ride-sharing platform:
 
 \begin{itemize}
-    \item Privacy
-    \item Security
-    \item Payment System
-    \item Reputation System
-    \item Ride Matching
-    \item Service Fees
-    \item Resilience
-    \item Transparency
+    \item \textbf{Decentralisation}: Decentralisation is the foundational principle behind a distributed ride-sharing platform. It is important to cover how central intermediaries can be removed, to empowers individual participants, ensuring that the platform operates democratically. 
+    
+    \item \textbf{Transparency}: Transparency ensures that all transactions and interactions on the platform are open and verifiable. This fosters trust among users and providers, as they can independently verify the correctness of any action. It also discourages fraudulent activities and ensures accountability. It is important to show how transparency can be achieved without neglecting other important requirements like privacy and anonymity 
+    
+    \item \textbf{Security and Resilience}: For a decentralised platform to gain widespread adoption, it must guarantee the safety and security of its users. Ensuring robust security measures prevents malicious attacks, data breaches, and other vulnerabilities. Resilience ensures that the platform can recover and continue to function even after facing unforeseen challenges or disruptions.
+    
+    \item \textbf{User and Provider Interaction Protocols}: Clear protocols for interactions between users and providers are crucial for smooth platform operations. These protocols must define the rules of engagement, ensuring that both parties have a consistent and predictable experience. 
+    
+    \item \textbf{Payments and Service Fees}: A decentralised platform requires a transparent and efficient payment system. It is important to covers how payments are processed, the distribution of service fees, and the mechanisms to ensure that providers are compensated fairly for their services.
+    
+    \item \textbf{Privacy and Anonymity}:  Users and providers must be assured that their personal and transactions data are protected. The implementation of anonymity features has to ensure that users can engage with the platform without revealing their identities, providing an added layer of security.
+    
+    \item \textbf{Trust Mechanisms}: In the absence of a central authority, trust mechanisms become vital. These mechanisms, such as reviews, ratings, and reputation systems, must be implemented for users and providers gauge the reliability and credibility of one another, allowing for a trustworthy community.
+    
+    \item \textbf{Off-Chain Edge Cases}: Decentralised platforms often rely on blockchain technology. However, not all transactions or interactions are suitable for on-chain processing due to cost or efficiency concerns. Therfore it is important to address off-chain edge cases. so that the platform can handle scenarios that are outside its primary framework, enhancing its versatility.
+    
+    \item \textbf{Prototypical Realization}: Before full deployment, a decentralised platform should undergo prototypical realization to test its feasibility, identify potential issues, and gather user feedback. This iterative process is needed to ensures that the final platform is robust, user-friendly, and meets the needs of its target audience.
 \end{itemize}
 
 
+As a result, the concept matrix shows the frequency with which the concepts dealt with in the specialist literature are distributed over the nine topics of decentralised ride-sharing. The assignment of the concepts on the x-axis to authors of the relevant specialist literature on the y-axis can be seen in Figure 2 via the "x" markings.
 
-\begin{tabular}{p{3cm}p{5cm}p{5cm}}
-\toprule
-\textbf{Aspect} & \textbf{Pros} & \textbf{Cons} \\
-\midrule
-Decentralization &  Eliminates the need for a central third party. &  Vulnerable to malicious users exploiting the anonymity of the blockchain. \\
-\midrule
-Privacy &  Users can determine ridesharing possibilities while preserving trip data. &  Requires complex protocols (like zeroknowledge set membership proof) to ensure privacy. \\
-\midrule
-Security &  Timelocked deposit protocol ensures commitment from both drivers and riders. &  Malicious users might submit multiple ride requests/offers without commitment, potentially disrupting service. \\
-\midrule
-Payment System &  "Payasyoudrive" ensures fair payment based on actual distance covered. &  Requires users to be familiar with blockchainbased payment systems, which might be a learning curve for some. \\
-\midrule
-Reputation System &  Rates drivers based on past behavior, promoting trust and reliability. &  New drivers without a history might find it challenging to get initial rides. \\
-\midrule
-Implementation on Blockchain &  Operates on a public blockchain, ensuring transparency and immutability. &  Associated with gas costs and challenges related to the Ethereum Virtual Machine. \\
-\midrule
-Service Fees &  Potentially lower service fees as there's no central entity taking a significant cut. &  Transaction fees (gas costs) associated with blockchain operations might apply. \\
-\midrule
-Resilience &  Not prone to single points of failure typical of centralized systems. &  The decentralized nature might make dispute resolution or customer service more challenging. \\
-\midrule
-Transparency &  All transactions are recorded on the blockchain, ensuring transparency. &  Balancing transparency with privacy can be challenging. \\
-\midrule
-User Adoption &  Can attract users who prefer decentralized, transparent, and private platforms. &  Requires users to understand and trust blockchain technology, which might be a barrier for mainstream adoption. \\
-\bottomrule
-\end{tabular}
-\end{table}
+
+\begin{longtable}{p{5cm}l||l|l|l|l|l|l|l|l|l}
+\caption{Results of the Literature Search} \\
+\rotatebox{0}{Research Paper / Topic} & 
+\rotatebox{90}{} &
+\rotatebox{90}{Decentralisation} & 
+\rotatebox{90}{Transparency} & 
+\rotatebox{90}{User and Provider Interaction Protocols} & 
+\rotatebox{90}{Payments and Service Fees} & 
+\rotatebox{90}{Privacy and Anonymity} & 
+\rotatebox{90}{Security and Resilience} & 
+\rotatebox{90}{Trust Mechanisms} & 
+\rotatebox{90}{Off-Chain Edge Cases} & 
+\rotatebox{90}{Prototypical Realization} \\ 
+\hline
+\endfirsthead
+
+\multicolumn{11}{c}%
+{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+\hline
+\rotatebox{0}{Research Paper / Topic} & 
+\rotatebox{90}{} &
+\rotatebox{90}{Decentralisation} & 
+\rotatebox{90}{Transparency} & 
+\rotatebox{90}{User and Provider Interaction Protocols} & 
+\rotatebox{90}{Payments and Service Fees} & 
+\rotatebox{90}{Privacy and Anonymity} & 
+\rotatebox{90}{Security and Resilience} & 
+\rotatebox{90}{Trust Mechanisms} & 
+\rotatebox{90}{Off-Chain Edge Cases} & 
+\rotatebox{90}{Prototypical Realization} \\ 
+\hline
+\endhead
+
+\hline \multicolumn{11}{r}{{Continued on next page}} \\
+\endfoot
+
+\hline
+\endlastfoot
+
+B-Ride: Ride Sharing With Privacy-Preservation, Trust and Fair Payment Atop Public Blockchain & ~\cite{Baza.2021} & X & X & O & O & X & X & O & X & O \\
+\hline
+Application of Blockchain Technology to Smart City Service: A Case of Ridesharing & ~\cite{Chang.} & X & X & O & O & X & X & O & X & O \\
+\hline
+Ride-Hailing for Autonomous Vehicles: Hyperledger Fabric-Based Secure and Decentralize Blockchain Platform & ~\cite{Shivers.} & X & X & O & O & X & X & O & X & O \\
+\hline
+RiderS: Towards a Privacy-Aware Decentralized Self-Driving Ride-Sharing Ecosystem & ~\cite{Bathen.} & X & X & O & O & X & X & O & X & O \\
+\hline
+A Decentralized Ride-Hailing Mode Based on Blockchain and Attribute Encryption & ~\cite{Zhang.} & X & X & O & O & X & X & O & X & O \\
+\hline
+Enhancing Blockchain-based Ride-Sharing Services using IPFS & ~\cite{Mahmoud.2022} & X & X & O & O & X & X & O & X & O \\
+\hline
+BlockWheels - A Peer to Peer Ridesharing Network & ~\cite{Joseph.} & X & X & O & O & X & X & O & X & O \\
+\hline
+A Light Blockchain-Powered Privacy-Preserving Organization Scheme for Ride Sharing Services & ~\cite{Baza.52520205282020} & X & X & O & O & X & X & O & X & O \\
+\hline
+\pagebreak
+BlockV: A Blockchain Enabled Peer-Peer Ride Sharing Service & ~\cite{Pal.} & X & X & O & O & X & X & O & X & O \\
+\hline
+Blockchain-Based Ride-Sharing System with Accurate Matching and Privacy-Preservation & ~\cite{Badr.} & X & X & O & O & X & X & O & X & O \\
+\hline
+Towards Blockchain-based Ride-sharing Systems & ~\cite{Vazquez.} & X & X & O & O & X & X & O & X & O \\
+\hline
+Co-utile P2P ridesharing via decentralization and reputation management & ~\cite{Sanchez.2016} & X & X & O & O & X & X & O & X & O \\
+\hline
+\end{longtable}
+
+\subsection{Scientific Literature findings}
+
+B-Ride: Ride Sharing With Privacy-Preservation, Trust and Fair Payment Atop Public Blockchain
+
+Application of Blockchain Technology to Smart City Service: A Case of Ridesharing
+
+Ride-Hailing for Autonomous Vehicles: Hyperledger Fabric-Based Secure and Decentralize Blockchain Platform
+
+RiderS: Towards a Privacy-Aware Decentralized Self-Driving Ride-Sharing Ecosystem
+
+A Decentralized Ride-Hailing Mode Based on Blockchain and Attribute Encryption
+
+Enhancing Blockchain-based Ride-Sharing Services using IPFS
+
+BlockWheels - A Peer to Peer Ridesharing Network
+
+A Light Blockchain-Powered Privacy-Preserving Organization Scheme for Ride Sharing Services
+
+BlockV: A Blockchain Enabled Peer-Peer Ride Sharing Service
+
+Blockchain-Based Ride-Sharing System with Accurate Matching and Privacy-Preservation
+
+Towards Blockchain-based Ridesharing Systems
+
+Co-utile P2P ridesharing via decentralization and reputation management
