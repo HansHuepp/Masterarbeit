@@ -1,23 +1,162 @@
 \subsection{User Experience}
 In the realm of ride-pooling platforms, the user experience is paramount. From an end-user perspective, the conceptual design of the GETACAR platform is intentionally straightforward. Drawing inspiration from the research on decentralized ride-pooling platforms, GETACAR aligns its user flow with established centralized solutions such as Uber Pool and Lyft.
-Therefore the flow should look like this: Open the App, Login/Signup, Set Pickup Location, Set Destination, Choose Ride Requirements, Request Ride, Wait for Driver Match, Confirm Booking, Track the Driver, Ride, Payment, Rating \& Feedback
 
 The rationale behind this design choice is evident. Platforms like Uber and Lyft have already invested significant resources into refining and optimizing the user flow. Over the years, they have garnered invaluable insights and established best practices that have proven effective in ensuring a seamless user experience. It would be counterproductive to reinvent the wheel when such tried-and-true models exist. Instead, by basing the user flow on these best practices, GETACAR aims to provide an experience that is not only familiar to users but also efficient and intuitive. 
 One of the primary objectives of GETACAR is to offer an experience that rivals, if not surpasses, the current centralized solutions. By emulating the user flow of these established platforms, GETACAR aspires to incentivize users to transition from centralized platforms to its decentralized counterpart. The promise is twofold: a user experience that mirrors what users are already accustomed to, coupled with the added benefits of enhanced privacy, transparency, and more competitive pricing. The latter is achieved by offering reduced platform fees, which in turn can translate to better prices for the end-users. 
-Similarly, the platform's design also caters to the needs of ride providers. The process of offering rides and interacting with the platform is designed to be as straightforward and user-friendly as possible. Yet, this simplicity does not come at the expense of privacy and transparency. Both are upheld as core tenets, ensuring that all parties—be it users or providers—can operate with confidence and trust. This emphasis on ease of use for providers is crucial. Therefore a simplified provider flow would look like this: Wait for fitting Ride Requests, Bid on Ride Requests, Accept Ride Request, Navigate to Pickup Location, Confirm Passenger Pickup, Start the Ride, Navigate to Destination, End the Ride and Confirm Payment, Rate the Passenger, Wait for Next Ride or Go Offline
+Similarly, the platform's design also caters to the needs of ride providers. 
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\linewidth, height=0.75\textheight, keepaspectratio]{data/ride-flow.svg}
+    \caption{Ride Booking Flow}
+    \label{fig:directSVG}
+\end{figure}
+
+As shown in diagram <diagram number> a generic Customer - Ride provider flow looks like this:
+The customer's journey begins by opening the app, followed by entering their destination. They then choose the type of ride they prefer and confirm their pickup location. Once these steps are completed, they request a ride and wait for a driver match. Upon receiving a match, the customer can track the driver's location in real-time. When the driver arrives, the customer enters the vehicle and confirms their readiness to start the ride. At the destination, the customer exits the vehicle, ends the ride, and has the opportunity to rate and review their experience.
+
+On the driver's side, the process starts by opening the app and going online. The driver then waits for a ride request. Upon receiving a request, they can choose to accept it. If accepted, they navigate to the pickup location, confirm the customer's pickup, and start the ride. The driver then navigates to the destination. Once the ride concludes, the driver receives payment and, like the customer, has the chance to rate and review the experience. After this, the driver waits for the next ride request, completing the cycle.
+
+
+
+The process of offering rides and interacting with the platform is designed to be as straightforward and user-friendly as possible. 
+Yet, this simplicity does not come at the expense of privacy and transparency. Both are upheld as core tenets, ensuring that all parties—be it users or providers—can operate with confidence and trust. This emphasis on ease of use for providers is crucial.
 To compete with existing centralized platforms, which boast vast fleets of ride providers, GETACAR needs to ensure a substantial influx of ride providers. By offering a platform that is both simple to use and transparent, GETACAR aims to attract and retain a large pool of providers, making it a formidable competitor in the ride-pooling landscape.<Aspects of self driving cars>
 
 \subsection{Component Overview}
-- Now that the goal for the GETACAR UX is clear we can focus on how our requirements towards privacy, transparency and price advantage and how these can  be achieved without deteriorating the UX.
+In the pursuit of creating a decentralized ride-pooling platform that prioritizes privacy, transparency, and cost-effectiveness, it is imperative to ensure that the user experience (UX) remains intuitive and seamless. To achieve this, the GETACAR platform is built upon several interconnected components, each serving a distinct purpose to ensure the smooth functioning of the platform. Here's a breakdown of these components:
 
--To achieve this a number of components need to interact with each other.
-- These are the components:
+\begin{enumerate}
+    \item \textbf{User Frontend}:
+    \begin{itemize}
+        \item \textbf{Purpose}: This is the primary interface for users to interact with the platform.
+        \item \textbf{Features}:
+        \begin{itemize}
+            \item Allows users to request rides.
+            \item Enables users to rate ride-providers and fellow passengers.
+            \item Provides settings for users to specify preferences, such as the minimum acceptable rating for ride providers.
+        \end{itemize}
+    \end{itemize}
 
-1. User Frontend: Provides Users the ability to make ride requests, rate ride-providers and passengers and adjust general settings like the preferred min. rating of ride providers
-2. Ride Provider Frontend: Provides Ride Providers with the ability to search for / bid on open ride request, 
-3. Authentication Service: The Authentication Service manages the user accounts and ratings and is the only component that can match user pseudonyms with the real account owner 
-4. Matching Service: The Matching Service has the job to ensure that each user gets matched with its optimal ride provider to a fair price. 
-5. Ride Contract Service
-6. Crypto Exchnage 
+    \item \textbf{Ride Provider Frontend}:
+    \begin{itemize}
+        \item \textbf{Purpose}: This interface is tailored for ride providers to manage their services.
+        \item \textbf{Features}:
+        \begin{itemize}
+            \item Enables ride providers to view and bid on open ride requests.
+            \item Allows ride providers to rate passengers.
+            \item Provides settings for ride providers to specify preferences, like the minimum acceptable rating of passengers.
+        \end{itemize}
+    \end{itemize}
 
+    \item \textbf{Authentication Service}:
+    \begin{itemize}
+        \item \textbf{Purpose}: To ensure the security and privacy of user data.
+        \item \textbf{Features}:
+        \begin{itemize}
+            \item Manages user accounts and their associated ratings.
+            \item Ensures that user pseudonyms are kept separate from their real identities, providing an added layer of privacy.
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Matching Service}:
+    \begin{itemize}
+        \item \textbf{Purpose}: To optimize the pairing of users with ride providers.
+        \item \textbf{Features}:
+        \begin{itemize}
+            \item Facilitates an auction mechanism where users post ride requests visible to all ride providers in the vicinity.
+            \item Ride providers can anonymously bid on these requests, ensuring competitive pricing and optimal matching.
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Ride Contract Service}:
+    \begin{itemize}
+        \item \textbf{Purpose}: To manage the intricacies of the ride and payment process.
+        \item \textbf{Features}:
+        \begin{itemize}
+            \item Manages each phase of the ride process, from initiation to completion.
+            \item Handles the ride and payment process, ensuring secure and auditable transactions between users and ride providers.
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Crypto Exchange}:
+    \begin{itemize}
+        \item \textbf{Purpose}: To bridge the gap between traditional fiat currency and the cryptocurrency used within the platform.
+        \item \textbf{Features}:
+        \begin{itemize}
+            \item Allows users and ride providers to transact in fiat currency for their real-world needs.
+            \item Facilitates the conversion between fiat and cryptocurrency, ensuring that all platform transactions remain crypto-based for added security and transparency.
+        \end{itemize}
+    \end{itemize}
+\end{enumerate}
+
+The GETACAR platform is a comprehensive system designed with multiple components that work in tandem. Each component plays an important role in ensuring that users and ride providers have a seamless, secure, and private experience while using the platform. Each of the components is decentralised, ether in the sense that the component is designed so that an individual or a group is able to run and host it them self, to interact with the network, or the component runs decentralised on the blockchain. After providing a small overview over the important components of the GETACAR Platform we will use the following Sections of this Chapter to dive deeper into the concepts and architecture behind each component. 
+
+\subsection{User Frontend}
+In the context of creating a decentralized platform for ride-pooling, the user interface plays a pivotal role in ensuring a seamless experience for both riders and providers. Drawing inspiration from established platforms like Uber and Lyft, our frontend design aims to provide an intuitive and privacy-preserving interface that aligns with the project's objectives and research questions. The primary interaction point for users is the booking screen, designed to be straightforward and user-friendly. Users can easily input their desired pickup and dropoff locations through a search bar with auto-suggestions based on popular destinations and previous rides. Once the locations are set, the screen displays a map preview of the proposed route, giving users a visual representation of their journey. Alongside the map, users see essential details such as the expected time and distance of the ride. A prominently placed button allows users to finalize and request their ride, initiating the backend processes of matching a provider to the user while ensuring privacy and trust mechanisms are in place.
+
+Once a ride match is found, the on-ride view becomes active, guiding the user through the ride experience. The screen first presents crucial information about the matched ride, including the vehicle type (e.g., sedan, SUV), the provider's rating, the number of passengers already in the vehicle, and the expected pickup time. Two clear buttons allow users to either accept the ride offer or decline it. Accepting the offer transitions the user to the next phase of the on-ride experience, where they receive real-time status updates about the vehicle's current status, such as "Vehicle is on its way," "Arrived at Pickup Location," and "Arrived at Dropoff Location". Once inside the vehicle, users can confirm they're ready to start the journey and, upon reaching the destination, confirm the ride's successful completion. At any point between ride confirmation and completion, users have the option to abort the ride for safety or other reasons. After the ride, users are prompted to rate their experience, providing feedback on the provider and fellow passengers, crucial for the platform's trust mechanism.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{data/3.svg}
+    \caption{Ride Booking Flow}
+    \label{fig:directSVG}
+\end{figure}
+
+A dedicated section allows users to manage their account and customize their ride experience. Users can view their account details, including their rating. They can also set their ride preferences, such as specifying a minimum rating for ride providers, ensuring they're matched with providers that meet their standards. Similarly, they can set a minimum rating for co-passengers, ensuring a comfortable ride environment. This section also allows users to manage other account-related settings, such as payment methods, ride history, and privacy preferences. In conclusion, the frontend design, inspired by industry leaders like Uber and Lyft, aims to provide a seamless and intuitive experience for users while ensuring the platform's decentralized and privacy-preserving nature. By focusing on user needs and integrating essential features, we believe this design will significantly contribute to the platform's success and user adoption.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Ride Provider Frontend}
+Therefore a simplified provider flow would look like this: Wait for fitting Ride Requests, Bid on Ride Requests, Accept Ride Request, Navigate to Pickup Location, Confirm Passenger Pickup, Start the Ride, Navigate to Destination, End the Ride and Confirm Payment, Rate the Passenger, Wait for Next Ride or Go Offline
+
+\subsection{Authentication Service}
+
+\subsection{Matching Service}
+
+\subsection{Ride Contract Service}
+
+\subsection{Crypto Exchange}
