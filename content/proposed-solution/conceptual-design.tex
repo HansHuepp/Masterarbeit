@@ -1,0 +1,23 @@
+\subsection{User Experience}
+In the realm of ride-pooling platforms, the user experience is paramount. From an end-user perspective, the conceptual design of the GETACAR platform is intentionally straightforward. Drawing inspiration from the research on decentralized ride-pooling platforms, GETACAR aligns its user flow with established centralized solutions such as Uber Pool and Lyft.
+Therefore the flow should look like this: Open the App, Login/Signup, Set Pickup Location, Set Destination, Choose Ride Requirements, Request Ride, Wait for Driver Match, Confirm Booking, Track the Driver, Ride, Payment, Rating \& Feedback
+
+The rationale behind this design choice is evident. Platforms like Uber and Lyft have already invested significant resources into refining and optimizing the user flow. Over the years, they have garnered invaluable insights and established best practices that have proven effective in ensuring a seamless user experience. It would be counterproductive to reinvent the wheel when such tried-and-true models exist. Instead, by basing the user flow on these best practices, GETACAR aims to provide an experience that is not only familiar to users but also efficient and intuitive. 
+One of the primary objectives of GETACAR is to offer an experience that rivals, if not surpasses, the current centralized solutions. By emulating the user flow of these established platforms, GETACAR aspires to incentivize users to transition from centralized platforms to its decentralized counterpart. The promise is twofold: a user experience that mirrors what users are already accustomed to, coupled with the added benefits of enhanced privacy, transparency, and more competitive pricing. The latter is achieved by offering reduced platform fees, which in turn can translate to better prices for the end-users. 
+Similarly, the platform's design also caters to the needs of ride providers. The process of offering rides and interacting with the platform is designed to be as straightforward and user-friendly as possible. Yet, this simplicity does not come at the expense of privacy and transparency. Both are upheld as core tenets, ensuring that all parties—be it users or providers—can operate with confidence and trust. This emphasis on ease of use for providers is crucial. Therefore a simplified provider flow would look like this: Wait for fitting Ride Requests, Bid on Ride Requests, Accept Ride Request, Navigate to Pickup Location, Confirm Passenger Pickup, Start the Ride, Navigate to Destination, End the Ride and Confirm Payment, Rate the Passenger, Wait for Next Ride or Go Offline
+
+To compete with existing centralized platforms, which boast vast fleets of ride providers, GETACAR needs to ensure a substantial influx of ride providers. By offering a platform that is both simple to use and transparent, GETACAR aims to attract and retain a large pool of providers, making it a formidable competitor in the ride-pooling landscape.<Aspects of self driving cars>
+
+\subsection{Component Overview}
+- Now that the goal for the GETACAR UX is clear we can focus on how our requirements towards privacy, transparency and price advantage and how these can  be achieved without deteriorating the UX.
+
+-To achieve this a number of components need to interact with each other.
+- These are the components:
+
+1. User Frontend: Provides Users the ability to make ride requests, rate ride-providers and passengers and adjust general settings like the preferred min. rating of ride providers
+2. Ride Provider Frontend: Provides Ride Providers with the ability to search for / bid on open ride request, 
+3. Authentication Service: The Authentication Service manages the user accounts and ratings and is the only component that can match user pseudonyms with the real account owner 
+4. Matching Service: The Matching Service has the job to ensure that each user gets matched with its optimal ride provider to a fair price. 
+5. Ride Contract Service
+6. Crypto Exchnage 
+
