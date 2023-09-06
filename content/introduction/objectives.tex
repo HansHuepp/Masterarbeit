@@ -1,66 +1,35 @@
-The landscape of transportation is transforming rapidly. As stated in the problem statement, while autonomous driving is set to redefine the way we perceive mobility, it simultaneously brings forth a number of challenges. Chief among them is the anticipated surge in traffic and privacy and centralisation concerns surrounding the conventional ride-pooling solutions. As we are coming closer to this future of autonomous transportation, it becomes necessary to address these challenges head-on. This section outlines the primary objectives I seek to accomplish in this study, ensuring that the benefits of autonomous mobility are maximized while minimizing potential drawbacks.
+While autonomous driving is set to redefine our general mobility, it simultaneously brings forth a number of challenges. Chief among them is the anticipated surge in traffic and privacy and centralisation concerns surrounding the conventional ride-pooling solutions. As we are coming closer to this future of autonomous transportation, it becomes necessary to address these challenges. This section outlines the primary objectives this research seeks to accomplish, ensuring that the advantages of autonomous mobility are maximized while minimizing potential drawbacks.
 
-\subsection{Prototypical Realization of the Decentralized Platform}
 
-The main goal of this research lies in the creation of a decentralized platform for ride-pooling. Unlike traditional systems where power and control are concentrated, decentralized platforms spread power across nodes, ensuring distributed control and reduced risk of  single entity dominance.
+\textbf{Prototypical Realization of the Decentralized Platform}
 
-The objective is twofold:
+The main goal of this research is the creation of a decentralized platform for ride-pooling.  To archive this  the research follows two objectives:
 
-Conceptualization: Before diving into implementation, I will lay down a theoretical framework for the platform. This involves establishing parameters for participation, mapping out user flows, and ensuring the system's robustness against potential threats.
+1. Conceptualization: Before diving into implementation, this research will cover the theoretical design of the framework for the platform. This involves establishing a general vision of the platform, mapping out user flows, and ensuring the platform's privacy considerations and robustness against potential threats.
 
-Prototyping: Based on the theoretical design, I will proceed to construct a prototype of the platform. By building the system, I can simulate real-world scenarios, understand unforeseen challenges, and refine the design in response to these challenges.
+2. Prototyping: Based on the theoretical design, we will proceed to construct a prototype of the platform. By building the platform,  we can simulate real-world scenarios, understand unforeseen challenges, and refine the design in response to these challenges.
 
-\subsection{Design of an Interaction Protocol between the Platform, Users, and Providers}
 
-The platform, at its core, is an ecosystem of interaction flows. These interactions include:
+\textbf{Design of an Interaction Protocol between the Platform, Users, and Providers}
 
-\begin{itemize}
-    \item Users seeking rides
-    \item Providers offering ride services
-    \item Transactions facilitating the above exchanges
-    \item <TODO: Complete List>
-\end{itemize}
+The platform, at its core, is an ecosystem of interaction flows.  A streamlined, secure, and efficient protocol for these interactions is necessary for the success of the platform. The objective here is to develop an interaction flow that: Ensures Seamless ride booking, facilitates trustworthy transactions and preserves privacy.
 
-A streamlined, secure, and efficient protocol for these interactions is necessary for the success of the platform. The objective here is to develop a protocol that:
 
-Ensures Seamless Ride Booking: The protocol should allow an easy to use ride booking flow for users as well as for ride providers which can compete with existing, centralised platforms.
+\textbf{Design of a Trust Mechanism for Users and Providers}
 
-Facilitates Trustworthy Transactions: Every transaction must ensure that the provider is fairly compensated and the user receives the promised ride.
+Trust is a necessity for any successful platform. In decentralized systems, where there is not a central authority to manage disputes or verify participants, the importance of trust is high. The objective is to instate mechanisms that: verifies participants, incentives good behavior and penalize misconduct.
 
-Preserves Privacy: Given the emphasis on privacy, the protocol should ensure that the interactions between users and providers remain untraceable by external entities.
 
-<TODO: Complete List>
+\textbf{Evaluation of User and Provider Anonymity in Transactions}
 
-\subsection{Design of a Trust Mechanism for Users and Providers}
+An integral part of the platform's advantage is the security that users and providers can have transaction with each other without directly knowing each other's identity. This objective involves:
+Showing how the platform hides the identities of participants during transactions and insuring that no party is able to collect critical amounts of data.
 
-Trust is a necessity for any successful platform. In decentralized systems, where there is not a central authority to manage disputes or verify participants, the importance of trust is magnified. The objective is to instate mechanisms that:
 
-Verify Participants: A mechanism to authenticate and verify new entrants to the platform to prevent malicious actors.<Might need to rephrase this because i am not doing the Auth Service>
+\textbf{Proposal of Solutions for Physical Issues and Edge Cases}
 
-Incentivize Good Behavior: Introduce incentives for platform participants who consistently adhere to platform guidelines and receive positive ratings.
+While much of the research focuses on the digital side of the platform, the handling of unpredictable issues that accrue in the real-world can not be ignored. Prominent concerns in ride-pooling, especially with autonomous vehicles, are the potential damage to vehicles by passengers or inappropriate actions by individuals towards other passengers. Therefor, the aim is to: Ensure accountability and conceptualise reporting mechanisms.
 
-Penalize Misconduct: Conversely, there should be negative effects for those engaging in fraudulent or malicious activities.
+To ensure a realistic scope fir this research we have excluded some aspects of the platform. Therefore this research will not cover the creation of a decentralised authentication service for the platform. The reason for this is that an authentication service is a generic component that is used for all kinds of decentralised platforms. However the platform will discuss the general authentication flow that the platform will utilise. While ensuring that the platform is generally economically feasible, this research will also not cover the economic intricacies of running a decentralised ride pooling platform.
 
-<TODO: Complete List>
-
-\subsection{Evaluation of User and Provider Anonymity in Transactions}
-
-An integral part of the platform's advantage is the assurance that users and providers can transact without directly knowing each other's identity. This objective involves:
-
-Anonymity Verification: Showing how the platform hides the identities of participants during transactions.
-
-Data Collection Prevention: Insuring that no party is able to collect critical amounts of data.
-
-<TODO: Complete List>
-
-\subsection{Proposal of Solutions for Physical Issues and Edge Cases}
-
-While much of the research focuses on the digital side of the platform, the handling of unpredictable issues that accrue in the real-world can not be ignored. Prominent concerns in ride-pooling, especially with autonomous vehicles, are the potential damage to vehicles by passengers or inappropriate actions by individuals towards other passengers. Therefor, the aim is to:
-
-Ensure Accountability: While preserving user privacy, create a system that holds individuals accountable for any damages or misconduct.
-
-Develop Reporting Mechanisms: Allow users and ride providers to report any damages or misconduct they encounter during their ride.
-
-<TODO: Complete List>
-
- Through these objectives, the goal is to construct a platform that shows that the concept of a decentralised, privacy protecting ride-pooling platform is feasible.
+ Through the defined objectives, the goal is to construct a platform that shows that the concept of a decentralised, privacy protecting ride-pooling platform is feasible.

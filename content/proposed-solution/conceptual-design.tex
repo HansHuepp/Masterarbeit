@@ -151,7 +151,7 @@ Given the immense power vested in the authentication service, it's imperative to
 \subsection{Matching Service}
 The primary responsibility of the Matching Service is to align ride requests from users with suitable ride providers. Traditional centralized services, such as Uber and Lyft, employ algorithmic matching systems. These algorithms consider various factors like proximity, availability, and user preferences to quickly assign a driver to a user's request. While efficient, this centralized approach often lacks transparency, and the decision-making process is entirely controlled by the platform, potentially leading to biases or unfair advantages for certain drivers or riders.
 
-Recognizing these challenges, GETACAR has adopted an auction-based ride matching system. This approach offers several advantages. Firstly, it introduces a competitive environment where ride providers can bid for rides, ensuring that users get the most cost-effective offers. Secondly, it promotes transparency the exact selection method known to everyone. Lastly, it empowers ride providers by giving them the autonomy to choose rides based on their preferences and profitability.
+Recognizing these challenges, GETACAR has adopted an auction-based ride matching system. This approach offers several advantages. Firstly, it introduces a competitive environment where ride providers can bid for rides, ensuring that users get the most cost-effective offers. Secondly, it promotes transparency by making the selection method known to everyone. Lastly, it empowers ride providers by giving them the autonomy to choose rides based on their preferences and profitability.
 
 \begin{figure}[h]
     \centering
@@ -161,19 +161,20 @@ Recognizing these challenges, GETACAR has adopted an auction-based ride matching
 \end{figure}
 
 
-Within this framework, GETACAR employs a generalized, anonymous second-price auction for its matching. The second-price auction, often termed as the Vickrey auction, has distinct advantages. In this model, the highest bidder wins but pays the amount bid by the second-highest bidder. This encourages ride providers to bid their true valuation without the fear of overpaying. It promotes honest bidding, reduces the chances of strategic manipulation, and ensures that users receive competitive prices while providers are fairly compensated.
+Within this framework, GETACAR employs a generalized, anonymous second-price auction for its matching. The second-price auction, often termed as the Vickrey auction, has distinct advantages. In this model, the highest bidder wins but pays the amount bid by the second-highest bidder. This encourages ride providers to bid their true valuation without the fear of overpaying. It promotes honest bidding, reduces the chances of strategic manipulation, and ensures that users receive competitive prices while providers are fairly compensated.<Ist eine Vickrey Auction + Liefert Optimale Rente für alle beteiligten>
 
 
 Building upon the generalized, anonymous second-price auction concept, the intricate auction flow within the matching service unfolds as follows:
 
 A user initiates the process by submitting a ride request to the matching service. This request encapsulates an approximation of both the pickup and dropoff locations, ensuring that the precise coordinates are exclusively shared between the customer and ride provider once a mutual commitment to the ride is established. Additionally, the request conveys pertinent details such as the user's rating, the minimum acceptable rating for the ride provider, the minimum rating for potential co-passengers, and the maximum passenger count.
 
-Upon receipt of the ride request, the matching service earmarks it as an open auction, inviting ride providers to place their bids. This auction remains accessible for a predetermined duration, during which ride providers can submit their bids. These bids articulate the proposed ride price and are accompanied by supplementary data like the provider's rating, anticipated arrival time, vehicle model, and other relevant specifics.
+Upon receipt of the ride request, the matching service marks it as an open auction, inviting ride providers to place their bids. This auction remains accessible for a predetermined duration, during which ride providers can submit their bids. These bids articulate the proposed ride price and are accompanied by supplementary data like the provider's rating, anticipated arrival time, vehicle model, and other relevant specifics.
 
-Following the auction's closure, the matching service identifies the winning bid and communicates the result to the customer. Subsequently, the customer is granted a fixed window to review and accept the offer before it lapses.
+Following the auction's closure, the matching service identifies the winning bid and communicates the result to the customer. Subsequently, the customer is granted a fixed time window to review and accept the offer before it lapses.
 
 Should the customer endorse the winning bid, they generate a ride contract that encompasses the agreed-upon sum from the bid. The triumphant bidder is then notified of their successful bid and furnished with the ride contract's address, marking the commencement of their service obligation.
 
+<Diffi Halmann Key Exchnage>
 
 Having elucidated the core concept of the matching service, it's pivotal to delve into its decentralization mechanism. One conceivable method to ensure decentralization is to execute the matching process on-chain. Running the matching service on-chain offers transparency, immutability, and a trustless environment, ensuring that all transactions are verifiable and irreversible.
 
@@ -212,3 +213,14 @@ This decentralized ride-sharing platform ensures transparency and trustworthines
 
 
 \subsection{Crypto Exchange}
+
+The Crypto Exchange plays an instrumental role in bridging the gap between traditional fiat currencies and cryptocurrencies, ensuring that all transactions within the platform remain rooted in the crypto realm. When a user books a ride, the frontend instantiates a new wallet. To fund this wallet for the impending ride, the user remits payment to a crypto exchange, which then credits the wallet with the requisite cryptocurrency amount. Post-ride, ride providers have the option to convert the cryptocurrency they've accrued into fiat currency via the crypto exchange.
+
+This modus operandi enables the platform to harness the benefits of blockchain and cryptocurrency, such as transparency, security, and reduced transaction fees. Simultaneously, it offers the flexibility for users and ride providers to transact in the more universally accepted fiat currency, thereby enhancing usability.
+
+However, a significant privacy concern emerges when considering that most crypto exchanges mandate personal identification for buying and trading cryptocurrency. This could inadvertently establish a traceable link between real-world identities and wallet owners, undermining the platform's commitment to privacy. To mitigate this, several solutions are on the table. One approach involves collaborating with an exchange that solely requires verification from a GETACAR authentication service to authorize trades, bypassing the need for personal identification. Alternatively, diversifying transactions across multiple crypto exchanges or employing coin mixers can obfuscate transaction trails.
+
+A coin mixer, or cryptocurrency tumbler, is a service that mixes potentially identifiable cryptocurrency funds with others, making it challenging to trace specific coins back to their original source. This ensures enhanced privacy and anonymity for users, making transactions less traceable on the blockchain.
+
+Another intriguing proposition is for the authentication service providers themselves to don the hat of crypto exchanges. This would further integrate the platform's services, potentially offering users a more streamlined and cohesive experience.
+ 
