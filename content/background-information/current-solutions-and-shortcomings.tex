@@ -1,62 +1,65 @@
 \subsection{Selection of search parameters and research databases}
-Due to the diverse literature regarding decentralised ride-sharing platforms, the proven approach of a systematic literature search according to Vom Brocke was chosen. In this way, quality criteria such as traceability and reproducibility can be ensured through a clearly defined processes. Two common, cross-publisher research databases and one common publisher database were used for the literature search.
+Due to the diverse literature regarding decentralised ride-sharing platforms, the proven approach of a systematic literature search according to Vom Brocke was chosen~\cite{inproceedings}. In this way, quality criteria such as traceability and reproducibility can be ensured through a clearly defined processes. Two common, cross-publisher research databases and one common publisher database were used for the literature search.
 The selection of several cross-publisher research databases is intended to ensure that the search provides a representative overview of existing research on decentralised ride-sharing platforms,. The selection of the database of a publisher with a focus on information technology is intended to show how the research topic is treated in the literature from a primarily information technology perspective. The cross-publisher research databases used are Scopus and Ebscohost. The publisher database is IEEE Xplore.
-The goal is to obtain research literature as a search result that deals with the development of decentralised ride-sharing platforms. To obtain results covering mainly decentralised platforms the search phrase "decentralised" was used. The following three synonyms were used to obtain search results that deal with the topic of ride-sharing: "ride-sharing", "ride-pooling" and "ride-hailing". Initial tests have shown that results with this search phrase return suitable research papers without noticeable gabs in regards to the topics covering decentralised ride-sharing .
+The goal is to obtain research literature as a search result that deals with the development of decentralised ride-sharing platforms. To obtain results covering mainly decentralised platforms the search phrase ``decentralised'' was used. The following three synonyms were used to obtain search results that deal with the topic of ride-sharing: ``ride-sharing'', ``ride-pooling'' and ``ride-hailing''. Initial tests have shown that results with this search phrase return suitable research papers without noticeable gaps in regards to the topics covering decentralised ride-sharing.
+
 The complete search phrase looks as followed:
-("decentralised" AND ("ride-sharing" OR "ride-pooling" OR "ride-hailing"))
+\begin{verbatim}
+("decentralised" AND ("ride-pooling" OR "ride-sharing" OR "ride-hailing"))
+\end{verbatim}
 
 For Scopus, Epscohost (all selectable databases included) and IEEE Xplore, the search phrase was applied to the title, abstract and keywords of the publications. Initial tests have shown that restricting the search to title, abstract and keywords is the best compromise between the quantity and quality of the search results. Only literature that was published in the after 2014 (2015 – 2023) was considered for the literature search. This is to ensure that the specialist literature found is of current relevance without overly restricting the scope of the existing research literature. Likewise, after the initial compilation of the search results, all duplicates were removed. In this way it is avoided that publications are counted twice because they are listed in several literature databases.
 
 \subsection{Selection of the findings}
-The literature search was carried out in July 2023 and resulted in 86 hits. A criteria-based selection was made beyond the search phrase and the time limit for the publication of the specialist literature. The exclusion criteria used in the criteria-based selection are: no publications in languages other than English, no panels and comments, no literature that only deals with decentralised platforms or ride-sharing. In addition, publications that are not freely available or accessible via a license from the University of Stuttgart had to be excluded. The inclusion criteria used are: Only publications in English, only publications from 2015 onwards, only papers discussing the technical development of decentralised ride-sharing platforms.
-Following Bandara, a first check of the actual relevance of the hits for answering the research question was carried out by screening the title, keywords and abstract. A full-text analysis was then carried out on the literature that was still considered relevant after the initial screening. By applying the inclusion and exclusion criteria in the initial screening and the subsequent full-text analysis, <REAL NUMBER> publications were identified from the 86 search hits that are relevant to answering the research question. Figure <FIGURE NUMBER> shows how the relevant research literature is distributed across the research databases.
+The literature search was carried out in July 2023 and resulted in 86 hits. A criteria-based selection was made beyond the search phrase and the time limit for the publication of the specialist literature. The exclusion criteria used in the criteria-based selection are: no publications in languages other than English, no panels and comments, no literature that only deals with decentralised platforms or ride-sharing. In addition, publications that are not freely available or accessible via a license from the University of Stuttgart had to be excluded. The inclusion criteria used are: Only publications in English, only publications from 2015 onwards, only papers discussing the technical development of decentralised ride-sharing platforms~\cite{Bandara.2015}.
+Following Bandara, a first check of the actual relevance of the hits for answering the research question was carried out by screening the title, keywords and abstract. A full-text analysis was then carried out on the literature that was still considered relevant after the initial screening. By applying the inclusion and exclusion criteria in the initial screening and the subsequent full-text analysis, 10 publications were identified from the 86 search hits that are relevant to answering the research question. Additionally 2 more relevant papers could be identified by following citations from the relevant literature.  Table \ref{tab:litSearchResults} shows how the relevant research literature is distributed across the research databases. 
+
 
 \begin{table}[h]
 \centering
 \caption{Results of the Literature Search}
+\label{tab:litSearchResults}
 \begin{tabular}{|l|c|c|c|}
 \hline
 Scientific Database & Search Results & Excluded Literature & Included Literature \\ \hline
 Scopus & 54 & 49 & 5 \\ \hline
 Epscohost & 2 & 2 & 0 \\ \hline
 IEEE & 30 & 25 & 5 \\ \hline
-Citation search &  &  & 3 \\ \hline \hline
-Total & 86 & 73 & 13 \\ \hline
+Citation search &  &  & 2 \\ \hline \hline
+Total & 86 & 73 & 12 \\ \hline
 \end{tabular}
 \end{table}
 
-The analysis of the publications shows that a large number of different approaches are discussed in the scientific literature on how decentralised ride sharing plafroms can be build. In order for the results of the literature analysis to be evaluated and interpreted, the results must first be structured. For this purpose, a concept matrix approach according to Webster and Watson is pursued. Based on the concept matrix approach, the specialist literature identified as relevant is assigned to nine topics relevant for the creation of a decentralised ride-sharing platform:
+The analysis of the publications shows that a large number of different approaches are discussed in the scientific literature on how decentralised ride sharing plafroms can be build. In order for the results of the literature analysis to be evaluated and interpreted, the results must first be structured. For this purpose, a concept matrix approach according to Webster and Watson is pursued~\cite{Webster.2002}. Based on the concept matrix approach, the specialist literature identified as relevant is assigned to eight topics relevant for the creation of a decentralised ride-sharing platform. These nine topic are derived from a general analysis of the topics covered by the scientific literature combined with topics relevant to fulfilling the research objectives:
 
 \begin{itemize}
-    \item \textbf{Decentralisation}: Decentralisation is the foundational principle behind a distributed ride-sharing platform. It is important to cover how central intermediaries can be removed, to empowers individual participants, ensuring that the platform operates democratically. 
-    
-    \item \textbf{Transparency}: Transparency ensures that all transactions and interactions on the platform are open and verifiable. This fosters trust among users and providers, as they can independently verify the correctness of any action. It also discourages fraudulent activities and ensures accountability. It is important to show how transparency can be achieved without neglecting other important requirements like privacy and anonymity 
-    
-    \item \textbf{Security and Resilience}: For a decentralised platform to gain widespread adoption, it must guarantee the safety and security of its users. Ensuring robust security measures prevents malicious attacks, data breaches, and other vulnerabilities. Resilience ensures that the platform can recover and continue to function even after facing unforeseen challenges or disruptions.
-    
-    \item \textbf{User and Provider Interaction Protocols}: Clear protocols for interactions between users and providers are crucial for smooth platform operations. These protocols must define the rules of engagement, ensuring that both parties have a consistent and predictable experience. 
+    \item \textbf{Blockchain Utilisation}: Blockchain Utilisation is the foundation behind a distributed ride-sharing platform. It is important to cover how central intermediaries can be removed, to empowers individual participants, ensuring that the platform operates democratically. 
     
     \item \textbf{Payments and Service Fees}: A decentralised platform requires a transparent and efficient payment system. It is important to covers how payments are processed, the distribution of service fees, and the mechanisms to ensure that providers are compensated fairly for their services.
-    
+
     \item \textbf{Privacy and Anonymity}:  Users and providers must be assured that their personal and transactions data are protected. The implementation of anonymity features has to ensure that users can engage with the platform without revealing their identities, providing an added layer of security.
+    
+    \item \textbf{Security and Resilience}: For a decentralised platform to gain widespread adoption, it must guarantee the safety and security of its users. Ensuring robust security measures prevents malicious attacks, data breaches, and other vulnerabilities. Resilience ensures that the platform can recover and continue to function even after facing unforeseen challenges or disruptions.
     
     \item \textbf{Trust Mechanisms}: In the absence of a central authority, trust mechanisms become vital. These mechanisms, such as reviews, ratings, and reputation systems, must be implemented for users and providers gauge the reliability and credibility of one another, allowing for a trustworthy community.
     
     \item \textbf{Off-Chain Edge Cases}: Decentralised platforms often rely on blockchain technology. However, not all transactions or interactions are suitable for on-chain processing due to cost or efficiency concerns. Therfore it is important to address off-chain edge cases. so that the platform can handle scenarios that are outside its primary framework, enhancing its versatility.
     
+    \item \textbf{User and Provider Interaction Protocols}: Clear protocols for interactions between users and providers are crucial for smooth platform operations. These protocols must define the rules of engagement, ensuring that both parties have a consistent and predictable experience. 
+    
     \item \textbf{Prototypical Realization}: Before full deployment, a decentralised platform should undergo prototypical realization to test its feasibility, identify potential issues, and gather user feedback. This iterative process is needed to ensures that the final platform is robust, user-friendly, and meets the needs of its target audience.
 \end{itemize}
 
 
-As a result, the concept matrix shows the frequency with which the concepts dealt with in the specialist literature are distributed over the nine topics of decentralised ride-sharing. The assignment of the concepts on the x-axis to authors of the relevant specialist literature on the y-axis can be seen in Figure 2 via the "x" markings.
+As a result, the concept matrix shows the frequency with which the concepts dealt with in the specialist literature are distributed over the nine topics of decentralised ride-sharing. The assignment of the concepts on the x-axis to authors of the relevant specialist literature on the y-axis can be seen in Table \ref{tab:litSearchResultsMatrix}. If a research paper covers a topic in detail it is marked with $\checkmark$ $\checkmark$. if a research paper covers some aspects of a topic it is marked with a $\checkmark$ . If a paper does not cover a topic at all or in a way that does not align with the objectvies of this research it is marked with a $\times$. 
 
 
-\begin{longtable}{p{5cm}l||l|l|l|l|l|l|l|l|l}
+\begin{longtable}{p{5cm}l|l|l|l|l|l|l|l|l}
 \caption{Results of the Literature Search} \\
-\rotatebox{0}{Research Paper / Topic} & 
-\rotatebox{90}{} &
+\label{tab:litSearchResultsMatrix}
+Research Paper / Topic & 
+&
 \rotatebox{90}{Blockchain Utilisation} & 
-\rotatebox{90}{Transparency} & 
 \rotatebox{90}{User and Provider Interaction Protocols} & 
 \rotatebox{90}{Payments and Service Fees} & 
 \rotatebox{90}{Privacy and Anonymity} & 
@@ -67,13 +70,12 @@ As a result, the concept matrix shows the frequency with which the concepts deal
 \hline
 \endfirsthead
 
-\multicolumn{11}{c}%
+\multicolumn{9}{c}%
 {{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
 \hline
-\rotatebox{0}{Research Paper / Topic} & 
-\rotatebox{90}{} &
+Research Paper / Topic & 
+&
 \rotatebox{90}{Blockchain Utilisation} & 
-\rotatebox{90}{Transparency} & 
 \rotatebox{90}{User and Provider Interaction Protocols} & 
 \rotatebox{90}{Payments and Service Fees} & 
 \rotatebox{90}{Privacy and Anonymity} & 
@@ -84,110 +86,81 @@ As a result, the concept matrix shows the frequency with which the concepts deal
 \hline
 \endhead
 
-\hline \multicolumn{11}{r}{{Continued on next page}} \\
+\hline \multicolumn{9}{r}{{Continued on next page}} \\
 \endfoot
 
 \hline
 \endlastfoot
 
-B-Ride: Ride Sharing With Privacy-Preservation, Trust and Fair Payment Atop Public Blockchain & ~\cite{Baza.2021} & X & X & X & X & O & X & X & O & O \\
+
+B-Ride: Ride Sharing With Privacy-Preservation, Trust and Fair Payment Atop Public Blockchain & ~\cite{Baza.2021} & $\checkmark$ $\checkmark$ & $\checkmark$ $\checkmark$ & $\checkmark$  & $\times$ & $\times$ & $\checkmark$ & $\times$ & $\checkmark$  \\
 \hline
-Application of Blockchain Technology to Smart City Service: A Case of Ridesharing & ~\cite{Chang.} & X & X & X & O & X & X & O & O & X \\
+Application of Blockchain Technology to Smart City Service: A Case of Ridesharing & ~\cite{Chang.} & $\checkmark$ & $\checkmark$ & $\times$ & $\checkmark$  & $\checkmark$ $\checkmark$ & $\times$ & $\times$ & $\times$ \\
 \hline
-Ride-Hailing for Autonomous Vehicles: Hyperledger Fabric-Based Secure and Decentralize Blockchain Platform & ~\cite{Shivers.} & X & X & O & O & X & X & O & X & O \\
+Ride-Hailing for Autonomous Vehicles: Hyperledger Fabric-Based Secure and Decentralize Blockchain Platform & ~\cite{Shivers.} & $\checkmark$ & $\checkmark$ & $\times$ & $\checkmark$ & $\times$ & $\times$ & $\times$ & $\checkmark$  \\
 \hline
-RiderS: Towards a Privacy-Aware Decentralized Self-Driving Ride-Sharing Ecosystem & ~\cite{Bathen.} & X & X & O & O & X & X & O & X & O \\
+RiderS: Towards a Privacy-Aware Decentralized Self-Driving Ride-Sharing Ecosystem & ~\cite{Bathen.} & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$$\checkmark$ & $\checkmark$ & $\times$ & $\times$ & $\checkmark$ \\
 \hline
-A Decentralized Ride-Hailing Mode Based on Blockchain and Attribute Encryption & ~\cite{Zhang.} & X & X & O & O & X & X & O & X & O \\
+A Decentralized Ride-Hailing Mode Based on Blockchain and Attribute Encryption & ~\cite{Zhang.} & $\checkmark$& $\checkmark$ & $\checkmark$ $\checkmark$ & $\checkmark$ & $\times$ & $\times$ & $\times$ & $\checkmark$  \\
 \hline
-Enhancing Blockchain-based Ride-Sharing Services using IPFS & ~\cite{Mahmoud.2022} & X & X & O & O & X & X & O & X & O \\
+Enhancing Blockchain-based Ride-Sharing Services using IPFS & ~\cite{Mahmoud.2022} & $\checkmark$$\checkmark$ & $\checkmark$$\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\times$ & $\times$ & $\checkmark$  \\
 \hline
-BlockWheels - A Peer to Peer Ridesharing Network & ~\cite{Joseph.} & X & X & O & O & X & X & O & X & O \\
+BlockWheels - A Peer to Peer Ridesharing Network & ~\cite{Joseph.} & $\checkmark$ & $\checkmark$$\checkmark$ & $\checkmark$ & $\checkmark$ & $\times$  & $\times$  & $\times$ & $\times$  \\
 \hline
-A Light Blockchain-Powered Privacy-Preserving Organization Scheme for Ride Sharing Services & ~\cite{Baza.52520205282020} & X & X & O & O & X & X & O & X & O \\
+A Light Blockchain-Powered Privacy-Preserving Organization Scheme for Ride Sharing Services & ~\cite{Baza.52520205282020} & $\checkmark$ & $\checkmark$ $\checkmark$ & $\checkmark$ & $\checkmark$ & $\times$ & $\times$ & $\times$ & $\times$ \\
 \hline
 \pagebreak
-BlockV: A Blockchain Enabled Peer-Peer Ride Sharing Service & ~\cite{Pal.} & X & X & O & O & X & X & O & X & O \\
+BlockV: A Blockchain Enabled Peer-Peer Ride Sharing Service & ~\cite{Pal.} & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\times$  & $\checkmark$ & $\checkmark$  &  $\checkmark$ &  $\checkmark$ \\
 \hline
-Blockchain-Based Ride-Sharing System with Accurate Matching and Privacy-Preservation & ~\cite{Badr.} & X & X & X & O & X & X & O & O & X  \\
+Blockchain-Based Ride-Sharing System with Accurate Matching and Privacy-Preservation & ~\cite{Badr.} &  $\checkmark$ & $\checkmark$ & $\times$ & $\checkmark$  & $\checkmark$ $\checkmark$ & $\times$ & $\times$ & $\times$ \\
 \hline
-Towards Blockchain-based Ride-sharing Systems & ~\cite{Vazquez.} & X & X & O & O & X & X & O & X & O \\
+Towards Blockchain-based Ride-sharing Systems & ~\cite{Vazquez.} & $\checkmark$ $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\times$ & $\times$ & $\checkmark$  \\
 \hline
-Co-utile P2P ridesharing via decentralization and reputation management & ~\cite{Sanchez.2016} & X & X & O & O & X & X & O & X & O \\
+Co-utile P2P ridesharing via decentralization and reputation management & ~\cite{Sanchez.2016} &  $\checkmark$ &  $\checkmark$ &  $\checkmark$ &  $\checkmark$  $\checkmark$ &  $\checkmark$ &  $\checkmark$ & $\times$ & $\times$   \\
 \hline
 \end{longtable}
 
 \subsection{Scientific Literature findings}
+The concept matrix \ref{tab:litSearchResultsMatrix} shows that the literature review did not identify a single paper that provides a detailed coverage of all topics and would thereby allow us to answer all research objectives. The matrix also shows, that while many of the papers discuss multiple topics they often remain on a conceptual level without the goal to develop a feature complete platform. It is still very important to take a detailed look at the identified literature, to discuss their approaches on developing a decentralised ride pooling platform. In the following we will take a look at the outstanding features that are proposed in each paper and evaluate how they can support the creation of our feature complete ride polling service.
+
+~\cite{Baza.2021} introduces B-Ride, a decentralized ride-sharing service built on public Blockchain. B-Ride ensures ride data privacy for both drivers and riders. To counter malicious users exploiting blockchain's anonymity, the system introduces a time-locked deposit protocol using smart contracts and zero-knowledge set membership proof. This ensures trust and commitment from all participants. A unique "pay-as-you-drive" methodology is proposed for fair payment, where drivers are compensated based on the distance covered. This 
+system has many advantages. It ensures that ride provider gets paid for the driven distance and the customer does not have to deposit more money then necessary at once. The problem with this apporach is, that it requres so called Location Prover. These hardware devices ensure that the car provides honest location information about its position. While this technology is superior to systems that do not relay on Location Prover, a global network of Location Provers is currently not feasible. Therefore our platform will utilise an upfront deposit of the expected ride cost by the user that can be claimed by the ride provider after completing the ride.
+Additionally, B-Ride features a decentralized reputation management mechanism, rating drivers on past behavior, incentivizing them to maintain good conduct. The system was successfully implemented and tested on the Ethereum blockchain, highlighting its real-world applicability. While a rating system is needed to ensure trust on the platform, B-Rides implementation also relays on Location Provers. Therefore we will look at other research papers and their approaches in regards to rating mechanisms.
+
+The authors, Shuchih Ernest Chang and Chi-Yin Chang, highlight in their research paper Application of Blockchain Technology to Smart City Service: A Case of Ridesharing ~\cite{Chang.} the challenges faced by traditional ridesharing platforms. To address the challenges of traditional ridesharing platforms, the SmaRi system leverages blockchain technology and smart contracts. This approach not only ensures secure and automated transactions but also promotes decentralized decision-making. The research emphasizes the potential of blockchain in reshaping ridesharing services. A notable design decision by the authors is to use an off-chain authentication serivice called social networking service. This service allows users to utilise social media accounts to share rides with friend's and to authenticate against the platform. While this concept is not covered in depth it provides insides into the many advantages of an off-chain authentication service.
+
+The paper Ride-Hailing for Autonomous Vehicles: Hyperledger Fabric-Based Secure and Decentralize Blockchain Platform ~\cite{Shivers.}  addresses the problems of centralised ride-sharing platforms, the authors propose a decentralized approach using blockchain technology, allowing individual AV owners to contribute their vehicles to a community-driven fleet when not in use. The chosen blockchain platform for this endeavor is Hyperledger Fabric. The paper is notable for utilizing a private blockchain to tackle the problems in regards to anonymity and privacy which are inherent downsides of public blockchains. The decision between a public and a private blockchain is one of the core architectural decisions for our own ride sharing platform.  After taking the arguments by ~\cite{Shivers.} as well as other research papers into consideration, we decided to go forward with a public blockchain for our platform. With privacy being a focus of our ride pooling platform, there should be no possibility to trace individual user activity by monitoring the chain activities even if it is public. Therefore we priorities the increased decentralisation of public chains. Using a public chain allows us to utilize generic public nodes to handle smart contracts. Thereby we do not need to build a private network of independent node providers to build a private blockchain. Other research papers also prove the feasibility of decentralised ride pooling platforms on public chains ~\cite{Mahmoud.2022} ~\cite{Joseph.} ~\cite{Baza.52520205282020}
+
+Another research paper introduces "RiderS," a groundbreaking decentralized self-driving ride-sharing ecosystem. ~\cite{Bathen.}Central to this is the emphasis on user privacy, achieved through a privacy-first biometric technology. Instead of traditional passwords, users become their own unique identifier, ensuring genuine system interactions. To fortify this ecosystem, blockchain technology is employed, offering benefits like decentralization and auditability. Each participant, whether a rider or an autonomous vehicle (AV), accesses the system via a "Wallet." This software client manages credentials, facilitates transactions, and serves as the primary gateway into the blockchain. Monetary exchanges within this ecosystem utilize a stable coin named "Mobi," anchored to various cryptocurrencies and fiat currencies. This system is very usefull and should be adapted by our platform. By introducing a Crypto Exchnage to the platform we allow the users to pay with a verity of different currencies including fiat currencies while still utilising the advantages of crypto currencies   in our platform. A standout feature is the emphasis on privacy. Users can generate single-use addresses, ensuring anonymity for each ride. This also should be adapted by our platform. Even though the wallet owner is anonymous on the chain, it prevents wallet tracking over a long period of time, which could lead the exposure of the wallet holder.
+
+The research paper A Decentralized Ride-Hailing Mode Based on Blockchain and Attribute Encryption presents a novel ride-hailing approach using blockchain and attribute encryption.~\cite{Zhang.} 
+The system includes a decentralized Blockchain-Based Ride-Hailing Mode: This mode has roles such as the Passenger, who generates encrypted ride details; the Driver, who decrypts and decides on ride acceptance; the Location Prover (LP), verifying the driver's location; and the Authentication Center, distributing keys and authenticating identities. Thereby the paper introduces a number of concepts that help us create our privacy preserving ride pooling platform. First of all the concept of creating a shared secret between customer and ride provider should be used  to share sensitive information on chain, like exact coordinates. With the  Authentication Center the paper also introduces an off chain authentication service, which further promotes the concept of an off chain authority that can verify  wallets to handle on chain nteractions with the ride pooling platform.
+
+The authors of Enhancing Blockchain-based Ride-Sharing Services using IPFS  propose a decentralized ride-sharing system to address challenges in centralized services, such as security concerns and single points of failure.~\cite{Mahmoud.2022}  The solution integrates blockchain with the Interplanetary File System (IPFS). Instead of storing all ride-sharing data on the blockchain, the system moves this data to IPFS and only retains a compact hash on the blockchain. This approach reduces data storage on the blockchain, leading to faster processing and lower costs. The system uses smart contracts on the Ethereum platform for management, and experimental results highlight its scalability and efficiency. This concept should be utalised if the prototype implementation or future iterations of the platforms should struggle with managing the amounts of data necessary to hanlde rides, resulting in high gas prices or slow blockchain performance.
 
 
-\textbf{B-Ride: Ride Sharing With Privacy-Preservation, Trust and Fair Payment Atop Public Blockchain}
+The paper BlockWheels - A Peer to Peer Ridesharing Network a ridesharing system built on the Ethereum blockchain. ~\cite{Joseph.} introduces a sophisticated ride-matching system, utilizing geolocation tools to pair riders with nearby drivers. While out platform is utilising an auction based approach to match customers with ride providers, this paper showcases the advantages of an off chain matching approach to handle the complex matching with an on chain ride handelig that tracks the actual ride.
 
-The research paper introduces B-Ride, a decentralized ride-sharing service built on public Blockchain. Unlike traditional centralized systems, B-Ride doesn't rely on a trusted third party, addressing vulnerabilities and high service fees. B-Ride ensures ride data privacy for both drivers and riders. To counter malicious users exploiting blockchain's anonymity, the system introduces a time-locked deposit protocol using smart contracts and zero-knowledge set membership proof. This ensures trust and commitment from all participants. A unique "pay-as-you-drive" methodology is proposed for fair payment, where drivers are compensated based on the distance covered. Additionally, B-Ride features a decentralized reputation management mechanism, rating drivers on past behavior, incentivizing them to maintain good conduct. The system was successfully implemented and tested on the Ethereum blockchain, highlighting its real-world applicability.
+The paper A Light Blockchain-Powered Privacy-Preserving Organization Scheme for Ride Sharing Services introduce a decentralized system using public blockchain, eliminating the central third-party vulnerabilities.~\cite{Baza.52520205282020} This system ensures location and time privacy by employing spatial and temporal cloaking techniques, allowing riders and drivers to share generalized locations and time intervals instead of exact details. This approach should also be utilised with our platform. With a location matching based on approximated data we can ensure that the customer only needs to share their exact location with the ride provider that will fulfill the ride request.
+ BlockWheels participants also uses changing pseudonyms for each trip, ensuring untraceability. With BlockWheels also promoting this concept it shows that this approach to ensuring untraceability is a best practice in regards to on chain user activities. The entire scheme has been practically implemented and tested on the Ethereum platform, showcasing its feasibility and effectiveness in real-world scenarios.
 
-\textbf{Application of Blockchain Technology to Smart City Service: A Case of Ridesharing}
-
-The authors, Shuchih Ernest Chang and Chi-Yin Chang, highlight the challenges faced by traditional ridesharing platforms, such as Uber and Lyft, including regulatory and management issues. To address these challenges, the SmaRi system leverages blockchain technology and smart contracts. This approach not only ensures secure and automated transactions but also promotes decentralized decision-making, shifting power from centralized entities to individual users. The research emphasizes the potential of blockchain in reshaping ridesharing services, aligning with the core values of the sharing economy and moving society closer to the vision of smart cities.
-
-\textbf{Ride-Hailing for Autonomous Vehicles: Hyperledger Fabric-Based Secure and Decentralize Blockchain Platform}
-
-To address the problems of centralised ride-sharing platforms, the authors propose a decentralized approach using blockchain technology, allowing individual AV owners to contribute their vehicles to a community-driven fleet when not in use. The chosen blockchain platform for this endeavor is Hyperledger Fabric, prized for its permissioned and secure nature. This framework isn't just limited to AVs; it's designed to be versatile, catering to both AV and traditional human-driven ride-hailing systems. Through rigorous evaluations, the framework demonstrated robust security and efficient performance under heavy network loads. In essence, the paper underscores the potential of a decentralized, blockchain-driven ride-hailing system, paving the way for a more secure, scalable, and community-centric transportation future.
-
-\textbf{RiderS: Towards a Privacy-Aware Decentralized Self-Driving Ride-Sharing Ecosystem}
-
-The research paper introduces "RiderS," a groundbreaking decentralized self-driving ride-sharing ecosystem. Central to this is the emphasis on user privacy, achieved through a privacy-first biometric technology. Instead of traditional passwords, users become their own unique identifier, ensuring genuine system interactions. To fortify this ecosystem, blockchain technology is employed, offering benefits like decentralization and auditability. Each participant, whether a rider or an autonomous vehicle (AV), accesses the system via a "Wallet." This software client manages credentials, facilitates transactions, and serves as the primary gateway into the blockchain. Monetary exchanges within this ecosystem utilize a stable coin named "Mobi," anchored to various cryptocurrencies and fiat currencies. The system supports diverse transactions, from registering biometrics to confirming rides. A standout feature is the emphasis on privacy. Users can generate single-use addresses, ensuring anonymity for each ride. Furthermore, to validate transactions, AVs provide biometric proofs for pickups and drop-offs, ensuring the correct client is serviced
-
-\textbf{A Decentralized Ride-Hailing Mode Based on Blockchain and Attribute Encryption}
-The research paper presents a novel ride-hailing approach using blockchain and attribute encryption. The system comprises:
-
-Decentralized Blockchain-Based Ride-Hailing Mode: This mode has roles such as the \textit{Passenger}, who generates encrypted ride details; the \textit{Driver}, who decrypts and decides on ride acceptance; the \textit{Location Prover (LP)}, verifying the driver's location; and the \textit{Authentication Center (AC)}, distributing keys and authenticating identities.
-Matching Phase: Passengers and drivers match on the blockchain. Passengers submit encrypted ride details, and drivers with matching attributes can decrypt and decide on ride acceptance.
-
-Deposit Payment Phase: A protocol requiring deposits to deter malicious behavior. Drivers send a deposit to a smart contract upon reaching the designated location. Failure to arrive results in the passenger receiving the deposit.
-
-Fair Payment Phase: The journey is segmented, and passengers pay for each segment, ensuring fairness.
-
-Reputation Calculation Phase: Smart contracts compute user reputation based on driver performance metrics.
-
-In summary, the paper introduces a decentralized ride-hailing model leveraging blockchain and attribute encryption, emphasizing security, transparency, and fairness.
-
-
-\textbf{Enhancing Blockchain-based Ride-Sharing Services using IPFS}
-
-The authors propose a decentralized ride-sharing system to address challenges in centralized services, such as security concerns and single points of failure. The solution integrates blockchain with the Interplanetary File System (IPFS). Instead of storing all ride-sharing data on the blockchain, the system moves this data to IPFS and only retains a compact hash on the blockchain. This approach reduces data storage on the blockchain, leading to faster processing and lower costs. The system uses smart contracts on the Ethereum platform for management, and experimental results highlight its scalability and efficiency. In essence, the paper offers a secure and efficient decentralized ride-sharing solution by combining blockchain and IPFS.
-
-\textbf{BlockWheels - A Peer to Peer Ridesharing Network}
-
-The paper introduces a novel ridesharing system built on the Ethereum blockchain, aiming to revolutionize the traditional centralized model. The system is inherently decentralized, ensuring no single entity has overarching control, thereby enhancing user trust. This decentralization also guarantees user privacy, as data isn't exposed to any unnecessary external entities. Payments are streamlined and secure, facilitated through cryptocurrency wallets, eliminating the need for physical cash. One of the standout features is its transparency, especially in fare calculations, addressing the common confusion users face with fare surges in traditional platforms. The system boasts quick transactions, with riders and drivers connecting directly without intermediaries, making the process efficient and cost-effective. A sophisticated ride-matching system is in place, utilizing geolocation tools to swiftly pair riders with nearby drivers. Lastly, while the blockchain stores essential user and ride details, auxiliary data, like public keys, are stored in external databases to ensure operational efficiency. In sum, BlockWheels offers a transparent, efficient, and user-centric approach to ridesharing, addressing many pitfalls of its centralized counterparts.
-
-\textbf{A Light Blockchain-Powered Privacy-Preserving Organization Scheme for Ride Sharing Services}
-
- The authors introduce a decentralized system using public blockchain, eliminating the central third-party vulnerabilities. This system ensures location and time privacy by employing spatial and temporal cloaking techniques, allowing riders and drivers to share generalized locations and time intervals instead of exact details. The matching process between riders and drivers is transparently conducted on the blockchain, with riders publishing their requests and drivers submitting encrypted offers. To further enhance privacy, participants use changing pseudonyms for each trip, ensuring untraceability. The entire scheme has been practically implemented and tested on the Ethereum platform, showcasing its feasibility and effectiveness in real-world scenarios.
-
-\textbf{BlockV: A Blockchain Enabled Peer-Peer Ride Sharing Service}
-
-The authors introduces a decentralized ride-sharing solution using blockchain. BlockV ensures fairness in ride-sharing in two main ways:
-
+The authors ~\cite{Pal.}  introduces a decentralized ride-sharing solution using blockchain. BlockV ensures fairness in ride-sharing in two main ways:
 Payment Fairness: It allows any network peer to compute the ride cost based on path details.
 Ride Fairness: In case of disputes, the system collaborates with Road Side Units (RSUs) to determine and penalize any malicious activity by drivers or riders.
 The BlockV system involves four key participants: the DRIVER, RIDER, BlockV, and RSUs. The process starts with riders selecting a route and fare from a decentralized database. Once chosen, they confirm the ride and lock in the fare. At the ride's end, riders can either complete the ride, releasing funds, or raise complaints if unsatisfied. The system then verifies complaints using RSUs and takes appropriate action.
+With the RSUs BlockV provides a solution to the problem on how to manage edge-cases like customer complaints. While this concept relies on the existence of RSUs and mainly focuses on the handling of false routes taken by the ride provider it showcases the importance of robust edge case handling.
 
-In essence, BlockV offers a transparent and fair solution for ride-sharing, potentially benefiting platforms like Uber and Lyft by leveraging blockchain technology.
+The paper Blockchain-Based Ride-Sharing System with Accurate Matching and Privacy-Preservation proposes a method of dividing the ride-sharing coverage area into small cells using overlapping grids ~\cite{Badr.}. This ensures that customers and ride providers are matched with location accuracy, as they report their locations by cell numbers. When their exact locations coincide within a common cell across any grid, a match is made. While this approach does not utilises the planned auction system proposed by our platform it promotes a grid based approach that can help to ensure that potential matching services can be bound to specific areas. By assinging matching services to single tiles in a grid we can assure that each customer can find their local matching service and no matching service can collect data for areas that are too large.
 
-\textbf{Blockchain-Based Ride-Sharing System with Accurate Matching and Privacy-Preservation}
 
-At the heart of their proposal is a decentralized system that eliminates the vulnerabilities of a central trusted unit, a common weak point in traditional ride-sharing platforms. Their ingenious method divides the ride-sharing coverage area into small cells using an overlapping grids strategy. This ensures that drivers and riders are matched with pinpoint accuracy, as they report their locations by cell numbers. When their exact locations coincide within a common cell across any grid, a match is made.
+The paper Towards Blockchain-based Ridesharing Systems addresses privacy concerns, by also utilising spatial cloaking and an off chain mathcing service.~\cite{Vazquez.} When a passenger requests a ride, an off-blockchain algorithm matches them with suitable drivers based on this cloaked data. To foster a sense of trust, both parties, the ride provide and the customer, post a deposit fee through a smart contract. This deposit acts as a commitment, and if either party defaults, the other is automatically compensated. This flow very much aligns with our vision of interaction flow of our decentralised ride pooling platform. The main advantage of this approach is that it allows for more complex matching algorithms without dramatically increasing gas fees, while still utilising the advantages of blockchain by tracking the actual ride and related payments on chain. 
 
-But what truly sets this system apart is its commitment to user privacy. Each participant, whether a driver or a rider, encrypts their ride requests or offers using a lightweight cryptosystem before dispatching them to the blockchain. A smart contract on the blockchain then takes over, executing a matching algorithm on these encrypted requests. This process organizes shared rides without ever decrypting the actual data, ensuring that while rides are matched seamlessly, the privacy of the users remains uncompromised.
+The research paper Co-utile P2P ridesharing via decentralization and reputation management focusses on preserving user privacy~\cite{Sanchez.2016}. In practice, this means that only when a driver's and passenger's trips align will they be privy to each other's identity, desired trip details, and reputation. This selective disclosure ensures that personal data remains confidential. This also aligns with the research objectives of our decentralised ride pooling platform and needs to be considered in the final design.
+Addressing privacy alone isn't enough; trust is equally important. The authors tackle this by weaving in a decentralized reputation management mechanism. Post a shared ride, both drivers and passengers have the liberty to rate each other. This allows peers to gauge the aggregated reputation of others, based on historical ratings, in a manner that's both transparent and trustworthy. This is a common best practice even with centralised ride sharing platforms. For our decentralised platform the rating should also be managed on chain, as it profits from the tamper proof nature of blockchain.
 
-The team's contributions to the field are twofold. Firstly, they've achieved unparalleled accuracy in matching ride requests and offers, thanks to their unique overlapping grids and time vectors strategy. Secondly, they've set a new standard in privacy preservation in the ride-sharing domain. Their system not only guarantees location privacy for both drivers and riders but does so without sacrificing the precision of ride matching.
+\subsection{Conclusion}
+The detailed literature review show that there are many different approaches on how a decentralised ride pooling platform should be designed, with different authors focusing on different aspects of the platform. While there are many common best practices in regards to safety and user privacy there is also no uniform approach to designing the different components of the platform. While some papers suggest to handle all interactions with the platform on chain others suggest taking some elements off chain to allow for more complex flows. Therefore we can not rely on simply combining the platforms from the research papers into a single, feature complete platform.
 
-\textbf{Towards Blockchain-based Ridesharing Systems}
-Instead of relying on a centralized system, where a single authority manages all transactions, their proposal distributes data across multiple network nodes, enhancing security and transparency. Central to this system are smart contracts, which are self-executing digital agreements with terms directly written in code. These contracts not only facilitate ride requests but also ensure that transactions between drivers and passengers are automated and secure. To address privacy concerns, the system employs spatial cloaking, a technique that blurs exact location data, ensuring users' privacy is maintained. When a passenger requests a ride, an off-blockchain algorithm matches them with suitable drivers based on this cloaked data. To foster a sense of trust, both parties, the driver and the passenger, post a deposit fee through a smart contract. This deposit acts as a commitment, and if either party defaults, the other is automatically compensated. As the journey progresses, the system uses smart contracts to make regular partial payments to the driver, ensuring a transparent payment process. Finally, upon the ride's completion, a smart contract verifies the journey's success and transfers the appropriate fee to the driver. The infrastructure of this innovative system assumes the use of smartphones by both drivers and passengers, equipped with GPS and internet connectivity, and also incorporates a location-based service provider to validate the driver's whereabouts. Through this blockchain-based approach, the authors envision a more transparent, secure, and trustworthy ride-sharing experience for all users.
+Therefore, to create a feature complete ride pooling platform, it will be necessary to make design decisions that will contradict the suggested approaches of some papers to embrace design decisions made by other papers. These decisions will be made based on our research objectives, that state that the maximisation of privacy, security and transparency is the underlying goal of our platform.
 
-\textbf{Co-utile P2P ridesharing via decentralization and reputation management}
-The research paper delves into the challenges that the ridesharing industry faces, especially the paradoxical decline in its adoption. This decline is attributed to growing privacy concerns and a palpable lack of trust among users. To address these challenges, the authors introduce a fully decentralized Peer-to-Peer (P2P) ridesharing system. This system is devoid of central matching agencies, which often compile, aggregate, and potentially exploit users' data. By decentralizing, the system not only assuages privacy concerns but also eradicates a central point of vulnerability susceptible to external attacks.
-
-A standout feature of this system is its commitment to preserving user privacy. In practice, this means that only when a driver's and passenger's trips align will they be privy to each other's identity, desired trip details, and reputation. This selective disclosure ensures that personal data remains confidential. But addressing privacy alone isn't enough; trust is equally pivotal. The authors tackle this by weaving in a decentralized reputation management mechanism. Post a shared ride, both drivers and passengers have the liberty to rate each other. This allows peers to gauge the aggregated reputation of others, based on historical ratings, in a manner that's both transparent and trustworthy.
-
-To underpin the system's integrity, the authors employ the principle of co-utility. This principle posits that individuals maximize their benefits when they assist others in maximizing theirs. Translated to the realm of ridesharing, it ensures that users, driven by rationality, find it in their best interest to adhere to the system's protocols. In essence, the authors believe that this blend of decentralization, privacy preservation, trust-building through reputation management, and the co-utility principle can rejuvenate the ridesharing landscape, making it more appealing and trustworthy for all participants.
 

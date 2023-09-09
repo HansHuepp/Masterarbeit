@@ -1,10 +1,12 @@
-In the journey of conceptualizing the GETACAR platform, paramount importance has been accorded to privacy measures, ensuring the protection of user data at every juncture. The following chapter will focus on how data is orchestrated and disseminated across the platform's multifaceted components.
+In the journey of conceptualizing the GETACAR platform, paramount importance has been accorded to privacy measures and the trust mechanism design, ensuring the protection of users  at every juncture. 
+
+\subsection{Data Privacy from a Customer Perspective}
+Now that we explained the functions and concepts behind all the components relevant to the GETACAR ride pooling platform in detail we can analyse how data privacy is  effected by tthe design of the platform.
 
 
-\subsection{Customer Privacy}
 
-This table delineates a compilation of both conventional and GETACAR-specific data points typically exchanged in ride-sharing platforms.
 
+Table x is a compilation of both conventional and GETACAR-specific data points typically exchanged in ride-sharing platform.
 To facilitate clarity and ease of interpretation, each data point, in the context of each service, is represented using specific symbols:
 
 \begin{itemize}
@@ -16,26 +18,7 @@ To facilitate clarity and ease of interpretation, each data point, in the contex
 
 The ensuing table provides a detailed breakdown of these data points in relation to the various services within the platform.
 
-The GETACAR platform has been meticulously designed with a primary focus on user privacy. Through its architecture, the platform ensures that user data is managed with the utmost discretion, granting access only where necessary across its specific components. The table provided offers a detailed overview of this data sharing mechanism.
-
-When it comes to basic personal details such as the full name, gender, and date of birth, these are exclusively accessible by the customer themselves and the authentication service. This design choice ensures that these personal identifiers remain shielded and aren't exposed to other facets of the platform. Similarly, contact details like the email address, phone number, and home address are safeguarded, with access limited to the customer and the authentication service. This setup ensures that personal contact details remain undisclosed to ride providers or other services.
-
-In the realm of payment information, details like credit/debit card numbers and bank account specifics are primarily shared between the customer and the crypto exchange. This arrangement facilitates smooth transactions while upholding the confidentiality of the user's financial data. Moreover, the payment history, which is vital for transparency in transactions, is accessible to the customer and, to some extent, by the crypto exchange.
-
-Ride details form a crucial part of the platform's operations. Information such as pickup and drop-off locations, the date and time of rides, and specific ride preferences are shared between the customer and the ride provider. This sharing ensures that the ride provider is equipped with all necessary details to fulfill the ride request, all the while maintaining the user's privacy. Additionally, location data, including real-time location during a ride, frequent visitation points, and the route taken during the ride, are shared between the customer and the ride provider. This is pivotal for ensuring safety and efficiency during the journey.
-
-Device-related information, which encompasses details like the device type, operating system, app version, and unique device identifiers, remains confidential, with access restricted solely to the customer. This ensures that device-specific data remains shielded. Communication, especially in-app messages exchanged between the driver and the rider, is kept private, confined to just the two parties, ensuring that all communication remains confidential.
-
-Behavioral data, which includes insights into app usage patterns, click patterns within the app, and features that are frequently accessed, is kept private, with access limited exclusively to the customer. This ensures that user behavior within the app remains undisclosed. Safety and security data, particularly records of any incidents or disputes during rides, are shared between the customer and the ride provider, ensuring a prompt and effective resolution to any issues that may arise.
-
-Ratings form an integral part of the platform's feedback mechanism. Ratings that customers provide about drivers are accessible to both the customer and the authentication service. On the flip side, ratings that drivers give about the user are accessible to the ride provider and the authentication service. This dual-access system ensures transparency in the rating process while upholding user privacy.
-
-Lastly, user preferences and settings, which include language preferences and notification settings, are kept confidential, with access limited solely to the customer.
-
-In essence, the table and its accompanying explanation underscore the GETACAR platform's unwavering commitment to safeguarding user data. By judiciously limiting access and ensuring that only necessary data is shared, the platform promises a secure and privacy-centric ride-sharing experience.
-
-
-\begin{table}[h]
+\begin{table}[ht!]
 \centering
 \small % Reduce font size
 \begin{tabular}{|l|c|c|c|c|c|c|}
@@ -130,104 +113,31 @@ Notification settings & $\checkmark$$\bullet$ & $\times$ & $\times$ & $\times$ &
 \end{table}
 
 
+The GETACAR platform has been meticulously designed with a primary focus on user privacy. Through its architecture, the platform ensures that user data is managed with the utmost discretion, granting access only where necessary across its specific components. The table provided offers a detailed overview of this data sharing mechanism.
+
+
+When it comes to basic personal details such as the full name, gender, and date of birth, these are exclusively accessible by the customer themselves and the authentication service. This design choice ensures that these personal identifiers remain shielded and aren't exposed to other facets of the platform. Similarly, contact details like the email address, phone number, and home address are safeguarded, with access limited to the customer and the authentication service. This setup ensures that personal contact details remain undisclosed to ride providers or other services. As explained in XXX the only time the authentication service exposes these data points to third parties is in extreme edge cases ,for example when a  ride provider seeks to lodge an insurance claim due to intentional vehicle damage by a customer or when a passenger wishes to report harassment to law enforcement.
+
+In the realm of payment information, details like credit/debit card numbers and bank account specifics are primarily shared between the customer and the crypto exchange. This arrangement facilitates smooth transactions while upholding the confidentiality of the user's financial data. Moreover, the payment history, which is vital for transparency in transactions, is accessible only to the customer if the the customer utilises a number of different crypto exchanges or other methods to hide their payment history as explained in xxx.
+
+Ride details form a crucial part of the platform's operations. Information such as pickup and drop-off locations, the date and time of rides, and specific ride preferences are shared between the customer and the ride provider. While most of the ride details are shared only between the customer and ride provider, the Date and time of rides are also visible by the authentication service, because the service is able to look up on chain activities of users because the service knows all wallet addresses connected to one customer.
+
+
+Additionally, location data, including real-time location during a ride and the route taken during the ride, are encrypted and shared only between the customer and the ride provider executing the ride, as decided in XXX. This is pivotal for ensuring safety and efficiency during the journey. To some extend Date and time of rides and Ride preferences are also shared with the matching service. This could be prevented by applying encyption algorithms like homomorphic encryption to the matching flow. For the design of the GETACAR platform we decided to utilise a different approach detailed in chapter XXX. This appraoch ensures that no matching service can collect enough data to analyse customer behaviour. It is also important to note that the matching service only receivers changing pseudonyms as ride requester, no personal details are shared. 
+
+Device-related information, which encompasses details like the device type, operating system, app version, and unique device identifiers, remains confidential, with access restricted solely to the customer. As decided in XXX this is ensured by providing the frontend as open source code with no user data collection features.
+
+Communication, especially in-app messages exchanged between the driver and the rider, is kept private, confined to just the two parties, ensuring that all communication remains confidential as descibed in XXX.
+
+Behavioral data, which includes insights into app usage patterns, click patterns within the app, and features that are frequently accessed, is kept private, with access limited exclusively to the customer. This is also ensures by providing the frontend as open source code with no user data collection features.
+
+Ratings form an integral part of the platform's security mechanism. Ratings that customers provide about drivers are accessible to both the customer and the authentication service. On the flip side, ratings that drivers give about the user are accessible to the ride provider and the authentication service. This dual-access system ensures transparency in the rating process while upholding user privacy as descibed in XXX.
+
+In essence, the table and its accompanying explanation underscore the GETACAR platform's unwavering commitment to safeguarding user data. 
 
 
 
 
-\begin{table}
-\centering
-\small % Reduce font size
-\begin{tabular}{|l|c|c|c|c|c|c|}
-\hline
-\textbf{Data} & \rotatebox{90}{\textbf{Ride Provider}} & \rotatebox{90}{\textbf{Customer}} & \rotatebox{90}{\textbf{Matching Service}} & \rotatebox{90}{\textbf{Crypto Exchange}} & \rotatebox{90}{\textbf{Authentication Service}} & \rotatebox{90}{\textbf{Publicly Available}} \\
-\hline
-\multicolumn{1}{|l|}{\textbf{Basic Personal Details:}} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c|}{} \\
-\hline
-Full name & $\checkmark$$\bullet$ & $\checkmark$$\bullet$ & $\times$ & $\times$ & $\checkmark$$\bullet$ & $\times$ \\
-\hline
-Gender & $\checkmark$ & $\checkmark$ & $\times$ & $\times$ & $\times$ & $\times$ \\
-\hline
-Date of birth & $\checkmark$ & $\checkmark$ & $\times$ & $\times$ & $\times$ & $\times$ \\
-\hline
-\multicolumn{1}{|l|}{\textbf{Contact Information:}} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c|}{} \\
-\hline
-Email address & $\checkmark$$\bullet$ & $\checkmark$$\bullet$ & $\checkmark$$\bullet$ & $\times$ & $\checkmark$$\bullet$ & $\times$ \\
-\hline
-Phone number & $\checkmark$$\bullet$ & $\checkmark$$\bullet$ & $\times$ & $\times$ & $\checkmark$$\bullet$ & $\times$ \\
-\hline
-Home address & $\checkmark$ & $\checkmark$ & $\times$ & $\times$ & $\times$ & $\times$ \\
-\hline
-\multicolumn{1}{|l|}{\textbf{Payment Information:}} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c|}{} \\
-\hline
-Credit/debit card details & $\times$ & $\checkmark$$\bullet$ & $\times$ & $\checkmark$$\bullet$ & $\times$ & $\times$ \\
-\hline
-Bank account details & $\times$ & $\checkmark$$\bullet$ & $\times$ & $\checkmark$$\bullet$ & $\times$ & $\times$  \\
-\hline
-Payment history & $\times$ & $\checkmark$ & $\times$ & $\times$ & $\times$ & $\times$ \\
-\hline
-Billing address & $\times$ & $\checkmark$ & $\times$ & $\times$ & $\times$ & $\times$ \\
-\hline
-\multicolumn{1}{|l|}{\textbf{Ride Details:}} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c|}{} \\
-\hline
-Pickup and drop-off locations & $\checkmark$$\bullet$ & $\checkmark$$\bullet$ & $\checkmark$$\bullet$ & $\times$ & $\times$ & $\times$ \\
-\hline
-Date and time of rides & $\checkmark$$\bullet$ & $\checkmark$$\bullet$ & $\checkmark$$\bullet$ & $\times$ & $\times$ & $\times$ \\
-\hline
-Ride preferences & $\checkmark$ & $\checkmark$ & $\times$ & $\times$ & $\times$ & $\times$ \\
-\hline
-Ride history & $\checkmark$$\bullet$ & $\checkmark$$\bullet$ & $\times$ & $\times$ & $\times$ & $\times$ \\
-\hline
-Driver ratings and feedback & $\checkmark$$\bullet$ & $\checkmark$$\bullet$ & $\times$ & $\times$ & $\times$ & $\checkmark$$\bullet$ \\
-\hline
-\multicolumn{1}{|l|}{\textbf{Location Data: }} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c|}{} \\
-\hline
-Real-time location during a ride & $\checkmark$$\bullet$ & $\checkmark$$\bullet$ & $\times$ & $\times$ & $\times$ & $\times$ \\
-\hline
-Frequent locations & $\checkmark$ & $\checkmark$ & $\times$ & $\times$ & $\times$ & $\times$ \\
-\hline
-Route taken during the ride & $\checkmark$ & $\checkmark$ & $\times$ & $\times$ & $\times$ & $\times$ \\
-\hline
-\multicolumn{1}{|l|}{\textbf{Device Information: }} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c|}{} \\
-\hline
-Device type & $\checkmark$ & $\checkmark$ & $\times$ & $\times$ & $\times$ & $\times$ \\
-\hline
-Operating system & $\checkmark$ & $\checkmark$ & $\times$ & $\times$ & $\times$ & $\times$ \\
-\hline
-IP address & $\checkmark$ & $\checkmark$ & $\times$ & $\times$ & $\times$ & $\times$ \\
-\hline
-App version & $\checkmark$ & $\checkmark$ & $\times$ & $\times$ & $\times$ & $\times$ \\
-\hline
-Device identifiers & $\checkmark$ & $\checkmark$ & $\times$ & $\times$ & $\times$ & $\times$ \\
-\hline
-\multicolumn{1}{|l|}{\textbf{Communication Data: }} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c|}{} \\
-\hline
-In-app messages between driver and rider & $\checkmark$$\bullet$ & $\checkmark$$\bullet$ & $\times$ & $\times$ & $\times$ & $\times$ \\
-\hline
-\multicolumn{1}{|l|}{\textbf{Behavioral Data: }} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c|}{} \\
-\hline
-App usage patterns & $\checkmark$ & $\checkmark$ & $\times$ & $\times$ & $\times$ & $\times$ \\
-\hline
-Click patterns within the app & $\checkmark$ & $\checkmark$ & $\times$ & $\times$ & $\times$ & $\times$ \\
-\hline
-Features frequently used & $\checkmark$ & $\checkmark$ & $\times$ & $\times$ & $\times$ & $\times$ \\
-\hline
-\multicolumn{1}{|l|}{\textbf{Safety and Security Data: }} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c|}{} \\
-\hline
-Records of any incidents or disputes during rides & $\checkmark$$\bullet$ & $\checkmark$$\bullet$ & $\times$ & $\times$ & $\times$ & $\times$ \\
-\hline
-\multicolumn{1}{|l|}{\textbf{Ratings: }} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c|}{} \\
-\hline
-Ratings provided about drivers & $\checkmark$$\bullet$ & $\checkmark$$\bullet$ & $\times$ & $\times$ & $\times$ & $\checkmark$$\bullet$ \\
-\hline
-Ratings received from drivers about the user & $\checkmark$$\bullet$ & $\checkmark$$\bullet$ & $\times$ & $\times$ & $\times$ & $\checkmark$$\bullet$ \\
-\hline
-\multicolumn{1}{|l|}{\textbf{Preferences and Settings: }} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c|}{} \\
-\hline
-Language preference & $\checkmark$ & $\checkmark$ & $\times$ & $\times$ & $\times$ & $\times$ \\
-\hline
-Notification settings & $\checkmark$ & $\checkmark$ & $\times$ & $\times$ & $\times$ & $\times$ \\
-\hline
-\end{tabular}
-\caption{Data access from the perspective of the Ride Provider}
-\label{tab:ride_provider_perspective}
-\end{table}
+
+\subsection{Data Privacy from a Ride Provider Perspective}
+

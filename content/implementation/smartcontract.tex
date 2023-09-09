@@ -9,3 +9,419 @@ In the event of unforeseen circumstances, both parties have the ability to cance
 Post-ride, both parties have the opportunity to rate each other. The ride provider can rate the user using the \texttt{setUserRating} function, and the user can rate the ride with the \texttt{setRideRating} function. Finally, the \texttt{claimETH} function allows the ride provider to claim the deposited ETH after the user marks the ride as complete. A hardcoded address receives 10\% of the balance, with the remainder being distributed between the user and the ride provider.
 
 In essence, this smart contract offers a transparent and trustworthy framework for decentralized ride-sharing, eliminating the need for intermediaries and fostering direct interactions between the user and the ride provider.
+
+\lstset{
+  basicstyle=\ttfamily,
+  breaklines=true,
+  numbers=left
+}
+
+\begin{lstlisting}
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "./contract.sol";
+import "./matching.sol";
+
+contract ContractFactory {
+
+    MatchingService private matchingServiceInstance;
+    address[] public registeredContracts;
+
+    uint256 public contractCounter = 0;  // Counter to keep track of contract IDs
+
+    // Mapping from contract ID to contract address
+    mapping(uint256 => address) public contractsByID;
+
+    // Mapping from contract ID to contract timestamp
+    mapping(uint256 => uint256) public timestampByID;
+
+
+    constructor(address _matchingServiceAddress) {
+        matchingServiceInstance = MatchingService(_matchingServiceAddress);
+
+        // Set this contract as the factory address in the MatchingService contract
+        matchingServiceInstance.setFactoryAddress(address(this));
+    }
+
+    mapping(address => Contract[]) public userContracts;
+    event ContractCreated(address indexed user, Contract newContract, uint256 contractID);  // Added contractID to the event
+
+    function registerNewContract(address _contractAddress) external {
+        // Call the registerContract() function on the MatchingService contract
+        matchingServiceInstance.registerContract(_contractAddress);
+
+        // Optionally, store the registered contract's address in this factory for record-keeping
+        registeredContracts.push(_contractAddress);
+    }
+
+    function createContract(uint256 _amount) public payable {
+        require(msg.value == _amount, "Sent value does not match the specified amount.");
+        Contract newContract = new Contract{value: _amount}(msg.sender);
+        userContracts[msg.sender].push(newContract);
+
+        // Increment contract counter and map new contract's address to the counter
+        contractCounter++;
+        contractsByID[contractCounter] = address(newContract);
+        
+        // Store the current block's timestamp
+        timestampByID[contractCounter] = block.timestamp;
+
+        // Call registerNewContract with the new contract's address
+        this.registerNewContract(address(newContract));
+
+        emit ContractCreated(msg.sender, newContract, contractCounter);
+    }
+
+    function getContractsByUser(address user) public view returns (Contract[] memory) {
+        return userContracts[user];
+    }
+
+    function getContractByID(uint256 contractID) public view returns (address) {
+        return contractsByID[contractID];
+    }
+
+    // Fetch the timestamp by contract ID
+    function getContractTimestampByID(uint256 contractID) public view returns (uint256) {
+        return timestampByID[contractID];
+    }
+}
+\end{lstlisting}
+
+
+
+\begin{lstlisting}
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract Contract {
+    address public party1;
+    address public party2;
+    bool public isActive;
+    bool public rideProviderAcceptedStatus;
+    bool public rideProviderArrivedAtPickupLocation;
+    bool public userReadyToStartRide;
+    bool public rideProviderStartedRide;
+    bool public rideProviderArrivedAtDropoffLocation;
+    bool public userMarkedRideComplete;
+    bool public userCanceldRide;
+    bool public rideProviderCanceldRide;
+
+    uint public userRating;
+    uint public rideRating;
+    bool public isUserRatingSet;
+    bool public isRideRatingSet;
+
+    constructor(address _party1) payable {
+        party1 = _party1;
+        rideProviderAcceptedStatus = false;
+        rideProviderArrivedAtPickupLocation = false;
+        userReadyToStartRide = false;
+        rideProviderStartedRide = false;
+        rideProviderArrivedAtDropoffLocation = false;
+        userMarkedRideComplete = false;
+        userCanceldRide = false;
+        rideProviderCanceldRide = false;
+
+    }
+
+    struct Passenger {
+        string passengerID;
+        uint seatingPosition;
+        string startTime;
+        uint rating;
+    }
+
+    Passenger[] public passengers;
+
+    function addPassenger(string memory _passengerID, uint _seatingPosition, string memory _startTime) public {
+        require(isActive, "Contract is not active.");
+        require(msg.sender == party2, "Only Party2 can add passengers.");
+
+        Passenger memory newPassenger = Passenger({
+            passengerID: _passengerID,
+            seatingPosition: _seatingPosition,
+            startTime: _startTime,
+            rating: 0
+        });
+
+        passengers.push(newPassenger);
+    }
+
+    function addPassengerRating(uint _passengerIndex, uint _rating) public {
+        require(isActive, "Contract is not active.");
+        require(msg.sender == party1, "Only Party1 can rate passengers.");
+        require(_rating >= 0 && _rating <= 5, "Rating must be between 0 and 5.");
+        require(_passengerIndex < passengers.length, "Passenger not found.");
+
+        passengers[_passengerIndex].rating = _rating;
+    }
+
+    function signContract() public payable {
+        require(party2 == address(0), "Party2 has already signed the contract.");
+        require(!isActive, "Contract is already active.");
+        require(!userCanceldRide, "User cannceld ride ");
+        require(msg.sender != party1, "Party2 cannot be identical to Party1.");
+        
+        party2 = msg.sender;
+        isActive = true;
+
+        uint256 tenPercent = (address(this).balance * 10) / 100;
+        require(msg.value >= tenPercent, "Party2 must deposit an amount equal to 10% of the contract balance.");
+
+        // Refund any excess amount deposited by party2
+        if (msg.value > tenPercent) {
+            payable(msg.sender).transfer(msg.value - tenPercent);
+        }
+    }
+
+    event UpdatePosted(address indexed author, string message, string functionName);
+
+
+    function setRideProviderAcceptedStatus(string memory _message) public {
+        require(isActive, "Contract is not active.");
+        require(msg.sender == party2, "Only Party2 can set the ride provider accepted status.");
+        require(!rideProviderAcceptedStatus, "Ride Provider Accepted Status can only be set once.");
+
+        require(!rideProviderCanceldRide, "Ride Provider Canceld Ride Status can only be set once.");
+        require(!userCanceldRide, "User Canceld Ride Status can only be set once.");
+
+        rideProviderAcceptedStatus = true;
+        emit UpdatePosted(msg.sender, _message, "rideProviderAcceptedStatus");
+    }
+
+    function setRideProviderArrivedAtPickupLocation(string memory _message) public {
+        require(isActive, "Contract is not active.");
+        require(msg.sender == party2, "Only Party2 can set the ride provider arrived status.");
+        require(rideProviderAcceptedStatus, "Ride Provider Accepted Status must be set before setting arrived status.");
+        require(!rideProviderArrivedAtPickupLocation, "Ride Provider Arrived Status can only be set once.");
+
+        require(!rideProviderCanceldRide, "Ride Provider Canceld Ride Status can only be set once.");
+        require(!userCanceldRide, "User Canceld Ride Status can only be set once.");
+        
+        rideProviderArrivedAtPickupLocation = true;
+        emit UpdatePosted(msg.sender, _message, "rideProviderArrivedAtPickupLocation");
+    }
+
+    function setUserReadyToStartRide(string memory _message) public {
+        require(isActive, "Contract is not active.");
+        require(msg.sender == party1, "Only Party1 can set the user ready to start ride status.");
+        require(rideProviderArrivedAtPickupLocation, "Ride Provider Arrived Status must be set before setting user ready to start ride status.");
+        require(!userReadyToStartRide, "User Ready To Start Ride Status can only be set once.");
+
+        require(!rideProviderCanceldRide, "Ride Provider Canceld Ride Status can only be set once.");
+        require(!userCanceldRide, "User Canceld Ride Status can only be set once.");
+
+        userReadyToStartRide = true;
+        emit UpdatePosted(msg.sender, _message, "userReadyToStartRide");
+    }
+
+    function setRideProviderStartedRide(string memory _message) public {
+        require(isActive, "Contract is not active.");
+        require(msg.sender == party2, "Only Party2 can set the ride provider started ride status.");
+        require(userReadyToStartRide, "User Ready To Start Ride Status must be set before setting ride provider started ride status.");
+        require(!rideProviderStartedRide, "Ride Provider Started Ride Status can only be set once.");
+
+        require(!rideProviderCanceldRide, "Ride Provider Canceld Ride Status can only be set once.");
+        require(!userCanceldRide, "User Canceld Ride Status can only be set once.");
+
+        rideProviderStartedRide = true;
+        emit UpdatePosted(msg.sender, _message, "rideProviderStartedRide");
+    }
+
+    function setRideProviderArrivedAtDropoffLocation(string memory _message) public {
+        require(isActive, "Contract is not active.");
+        require(msg.sender == party2, "Only Party2 can set the ride provider arrived at dropoff location status.");
+        require(rideProviderStartedRide, "Ride Provider Started Ride Status must be set before setting ride provider arrived at dropoff location status.");
+        require(!rideProviderArrivedAtDropoffLocation, "Ride Provider Arrived At Dropoff Location Status can only be set once.");
+
+        require(!rideProviderCanceldRide, "Ride Provider Canceld Ride Status can only be set once.");
+        require(!userCanceldRide, "User Canceld Ride Status can only be set once.");
+
+        rideProviderArrivedAtDropoffLocation = true;
+        emit UpdatePosted(msg.sender, _message, "rideProviderArrivedAtDropoffLocation");
+    }
+
+    function setUserMarkedRideComplete(string memory _message) public {
+        require(isActive, "Contract is not active.");
+        require(msg.sender == party1, "Only Party1 can set the user marked ride complete status.");
+        require(rideProviderArrivedAtDropoffLocation, "Ride Provider Arrived At Dropoff Location Status must be set before setting user marked ride complete status.");
+        require(!userMarkedRideComplete, "User Marked Ride Complete Status can only be set once.");
+
+        require(!rideProviderCanceldRide, "Ride Provider Canceld Ride Status can only be set once.");
+        require(!userCanceldRide, "User Canceld Ride Status can only be set once.");
+
+        userMarkedRideComplete = true;
+        emit UpdatePosted(msg.sender, _message, "userMarkedRideComplete");
+    }
+
+    function setUserCanceldRide(string memory _message) public {
+        require(msg.sender == party1, "Only Party1 can set the user canceld ride status.");
+        
+        if(!isActive) {
+            uint256 balance = address(this).balance;
+            payable(party1).transfer(balance);
+            return;
+        }
+
+        require(!rideProviderCanceldRide, "Ride Provider Canceld Ride Status can only be set once.");
+        require(!userCanceldRide, "User Canceld Ride Status can only be set once.");
+
+        userCanceldRide = true;
+        
+        if(isActive) {
+            uint256 balance = address(this).balance;
+            payable(party2).transfer(balance);
+        }
+        
+        emit UpdatePosted(msg.sender, _message, "userCanceldRide");
+    }
+
+    function setRideProviderCanceldRide(string memory _message) public {
+        require(isActive, "Contract is not active.");
+        require(msg.sender == party2, "Only Party2 can set the ride provider canceld ride status.");
+        
+        require(!rideProviderCanceldRide, "Ride Provider Canceld Ride Status can only be set once.");
+        require(!userCanceldRide, "User Canceld Ride Status can only be set once.");
+
+        rideProviderCanceldRide = true;
+
+        uint256 balance = address(this).balance;
+        payable(party1).transfer(balance);
+        
+        emit UpdatePosted(msg.sender, _message, "rideProviderCanceldRide");
+    }
+
+    function setUserRating(uint _rating) public {
+        require(msg.sender == party2, "Only Party2 can set the user rating.");
+        require(!isUserRatingSet, "User rating can only be set once.");
+        require(isActive, "Contract is not active.");
+        require(_rating >= 0 && _rating <= 5, "Rating must be between 0 and 5.");
+        userRating = _rating;
+        isUserRatingSet = true;
+    }
+
+    function setRideRating(uint _rating) public {
+        require(msg.sender == party1, "Only Party1 can set the ride rating.");
+        require(!isRideRatingSet, "Ride rating can only be set once.");
+        require(_rating >= 0 && _rating <= 5, "Rating must be between 0 and 5.");
+        require(isActive, "Contract is not active.");
+        rideRating = _rating;
+        isRideRatingSet = true;
+    }
+
+
+    function claimETH(uint256 amount) public {
+        require(isActive, "Contract is not active.");
+        require(msg.sender == party2, "Only Party2 can claim the deposited ETH.");
+        require(userMarkedRideComplete, "User must mark the ride complete before claiming the deposited ETH.");
+        require(amount <= address(this).balance, "Requested amount exceeds the contract balance.");
+        
+        address payable hardcodedAddress = payable(0xE39a3085CB78341547F30a1C6bD12977d51aa967);  // replace with the actual hardcoded address
+
+        uint256 balance = address(this).balance;
+        uint256 tenPercent = balance / 10;
+        uint256 remainder = balance - tenPercent;
+
+        hardcodedAddress.transfer(tenPercent);
+
+        uint256 payback = remainder - amount;
+        remainder -= payback;
+
+        payable(party1).transfer(payback);
+        payable(party2).transfer(remainder);
+    }
+
+}
+\end{lstlisting}
+
+
+
+\begin{lstlisting}
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract MatchingService {
+
+    struct MatchingServiceObject {
+        string name;
+        uint256 matches;
+        uint256 requests;
+    }
+
+    MatchingServiceObject[5] public services;
+
+    address public FACTORY_ADDRESS;
+    bool public isFactoryAddressSet = false;
+
+    mapping(address => bool) public registeredContracts;
+    address[] public registeredContractsList; // Added this line
+
+    // Declare the event
+    event LowestMatchService(string serviceName, uint256 serviceRating);
+
+    modifier onlyFactory() {
+        require(msg.sender == FACTORY_ADDRESS, "Only the factory can call this");
+        _;
+    }
+
+    modifier onlyRegisteredContracts() {
+        require(registeredContracts[msg.sender], "Only registered contracts can call this");
+        _;
+    }
+
+    constructor() {
+        services[0] = MatchingServiceObject("ms1", 10, 15);
+        services[1] = MatchingServiceObject("ms2", 15, 20);
+        services[2] = MatchingServiceObject("ms3", 20, 30);
+        services[3] = MatchingServiceObject("ms4", 5, 10);
+        services[4] = MatchingServiceObject("ms5", 8, 12);
+    }
+
+    function setFactoryAddress(address _factoryAddress) external {
+        require(!isFactoryAddressSet, "Factory address is already set");
+        FACTORY_ADDRESS = _factoryAddress;
+        isFactoryAddressSet = true;
+    }
+
+    function registerContract(address contractAddress) external onlyFactory {
+        require(!registeredContracts[contractAddress], "Contract is already registered"); // Additional check to prevent duplicate addresses
+        registeredContracts[contractAddress] = true;
+        registeredContractsList.push(contractAddress); // Added this line
+    }
+
+    function getAllRegisteredContracts() external view returns (address[] memory) {
+        return registeredContractsList;
+    }
+
+    function getMatchingService(string[] memory names) public {
+        uint256 lowestMatches = type(uint256).max;
+
+        string memory lowestMatchServiceName = "";
+        uint256 lowestMatchServiceRating;
+
+        for (uint i = 0; i < names.length; i++) {
+            for (uint j = 0; j < services.length; j++) {
+                if (keccak256(bytes(services[j].name)) == keccak256(bytes(names[i]))) {
+                    if (services[j].matches < lowestMatches) {
+                        lowestMatches = services[j].matches;
+                        lowestMatchServiceName = services[j].name;
+                        lowestMatchServiceRating = (services[j].matches * 100) / services[j].requests; // Multiply by 100 for two decimal places
+                        services[j].requests += 1;
+                    }
+                }
+            }
+        }
+        // Emit the event with the result
+        emit LowestMatchService(lowestMatchServiceName, lowestMatchServiceRating);
+    }
+
+    function addMatch(string memory serviceName) external onlyRegisteredContracts {
+        for (uint i = 0; i < services.length; i++) {
+            if (keccak256(bytes(services[i].name)) == keccak256(bytes(serviceName))) {
+                services[i].matches += 1;
+            }
+        }
+    }
+}
+\end{lstlisting}
