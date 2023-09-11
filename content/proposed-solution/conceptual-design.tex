@@ -1,33 +1,33 @@
-For ride-pooling platforms, the user experience is most important. From customer perspective, the conceptual design of the GETACAR platform is intentionally straightforward. Like other research paper, GETACAR also aligns its user flow with established centralized solutions such as Uber Pool and Lyft.
+For ride-pooling platforms, the user experience is most important. From a customer perspective, the GETACAR platform's conceptual design is intentionally straightforward. Like other research papers, GETACAR aligns its user flow with established centralized solutions such as Uber Pool and Lyft.
 
-The reason behind this design decision is evident. Current platforms like Uber and Lyft have already invested significant resources into optimizing the user flow. Over the years, they have collected invaluable insights and established best practices that have proven effective. It would be counterproductive to reinvent the wheel when these robust models exist. Instead, by basing the user flow on these best practices, GETACAR aims to provide an experience that is not only familiar to users but also efficient and intuitive. 
-One of the primary objectives of GETACAR is to provide an offer that rivals (if not surpasses) current centralized solutions. By emulating the user flow of these established platforms, GETACAR aims to get users to transition from these centralized platforms to decentralized counterparts. GETACAR aims to offer two main advantages: a user experience that mirrors what users are already accustomed to, combined with the added benefits of enhanced privacy, transparency, and a competitive pricing. The competitive pricing is achieved by offering reduced platform fees, which translate to better prices for the end-users. 
+The reason behind this design decision is evident. Platforms like Uber and Lyft have already invested significant resources to optimize user flow. Over the years, they have collected invaluable insights and established best practices that have proven effective. It would be counterproductive to reinvent the wheel when these robust models exist. Instead, by basing the user flow on these best practices, GETACAR aims to provide an experience that is not only familiar to users but also efficient and intuitive. 
+One of the primary objectives of GETACAR is to provide an offer that rivals (if not surpasses) current centralized solutions. GETACAR aims to get users to transition from these centralized platforms to decentralized counterparts by emulating the user flow of these established platforms. GETACAR aims to offer two main advantages: a user experience that mirrors what users are already accustomed to, combined with the added benefits of enhanced privacy, transparency, and competitive pricing. Competitive pricing is achieved by offering reduced platform fees, which translates to better end-user prices. 
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.95\linewidth, height=0.75\textheight, keepaspectratio]{data/ride-flow.svg}
     \caption{Ride Booking Flow}
-    \label{fig:directSVG}
+    \label{fig:RideBookingFlow}
 \end{figure}
 
-As shown in diagram <diagram number> a generic Customer - Ride provider flow looks like this:
-The customer's journey begins by opening the app. This followed by entering their destination. They then choose the type of ride they prefer by adjusting their ride settings and then confirm their pickup location. Once these steps are completed, they request a ride and wait for a driver match. After receiving a match, the customer can track the driver's location in real-time. When the driver arrives, the customer enters the vehicle and confirms their readiness to start the ride. This is an especially important step with autonomous vehicles, as it allows the customer to provide a clear signal their readiness. At the destination, the customer exits the vehicle, ends the ride, and has the opportunity to rate and review their experience.
+As shown in diagram \ref{fig:RideBookingFlow}, a generic Customer - Ride provider flow looks like this:
+The customer's journey begins by opening the app. This is followed by entering their destination. They then choose the type of ride they prefer by adjusting their ride settings and confirming their pickup location. Once these steps are completed, they request a ride and wait for a driver match. After receiving a match, the customer can track the driver's location in real time. The customer enters the vehicle when the driver arrives and confirms their readiness to start the ride. This is a crucial step with autonomous vehicles, as it lets customers signal their readiness clearly. At the destination, the customer exits the car, ends the ride, and has the opportunity to rate and review their experience.
 
-On the ride provider's side, the process starts by opening the app if the ride provider is human. Autonomous vehicle will just need to connect to the platform and set their status on online. The ride provider then waits for a ride request. After receiving a request, they can choose to accept it. If accepted, the ride provider navigates to the pickup location. Upon arrival they confirm to  customer that they arrived at the pickup location. After the customer confirmed that they are indeed ready to start the ride the ride provider starts the drive to the dropoff location. Once the ride is concluded, the driver receives their payment and, like the customer, has the chance to rate the experience. After this, the driver waits for the next ride request, completing the cycle.
+The process starts on the ride provider's side by opening the app if the ride provider is human. Autonomous vehicles will just need to connect to the platform and set their status on online. The ride provider then waits for a ride request. After receiving a request, they can choose to accept it. If accepted, the ride provider navigates to the pickup location. Upon arrival, they confirm to  the customer that they arrived at the pickup location. The provider begins the drive to the dropoff location after the customer confirms they are ready to start the ride. Once the ride is concluded, the driver receives their payment and, like the customer, has the chance to rate the experience. After this, the driver waits for the subsequent ride request, completing the cycle.
 
-The process of offering rides and interacting with the platform also needs to be designed to be as straightforward and user-friendly as possible. To compete with existing centralized platforms, which already employ huge fleets of ride providers, GETACAR needs to ensure a huge influx of ride providers. Therefore it is important to ensure that it is easy to connect autonomous vehicle to the platform as well as allowing human ride providers to interact with it. 
+Offering rides and interacting with the platform must also be designed to be as straightforward and user-friendly as possible. To compete with existing centralized platforms, which already employ huge fleets of ride providers, GETACAR needs to ensure a massive influx of ride providers. Therefore, it is essential to ensure that it is easy to connect autonomous vehicles to the platform and allow human ride providers to interact with it. 
 
-The decision to primarily focus on the interaction between a single ride provider and a single customer, without putting extra emphasis on the ride pooling aspect of the platform was done so on purpose. For our vision of a decentralised ride pooling platform the difference between a classic ride ordering service and a ride pooling service is minimal. From a customer point of view the only difference between a ride ordering service and our ride pooling service is, that the customer is able to select how many passengers are allowed to ride with them, what there minimum rating is supposed to be and how much time they are willing to take into account for detours to pick up other passengers. While a customer does not need to share their ride with other customers they are incentivised to do so, has it results in lower overall ride cost and higher chances of finding matches. 
+The decision to primarily focus on the interaction between a single ride provider and a single customer, without putting extra emphasis on the ride pooling aspect of the platform, was done so on purpose. For our vision of a decentralized ride-pooling platform, the difference between a classic ride-ordering service and a ride-pooling service is minimal. From a customer point of view, the only difference between a ride-hailing service and our ride pooling service is that the customer can select how many passengers are allowed to ride with them, what their minimum rating is supposed to be and how much time they are willing to take into account for detours to pick up other passengers. While a customer does not need to share their ride with other customers, they are incentivized to do so, as it results in lower overall ride cost and higher chances of finding matches. 
 
-On the other hand this model of operation creates a very competitive market for ride providers. Ride providers can maximise their sales volume by taking on multiple customers at once for a ride pool. But with an increased number of customers joining a ride, the chances of delays also increase which can result in bad customer reviews. This constant decision making about which customer to offer a ride and which not to allows for a variety of operation strategies by the ride providers and promotes calculated decision making and risk taking. 
+On the other hand, this operation model creates a very competitive market for ride providers. Ride providers can maximize their sales volume by taking on multiple customers at once for a ride pool. But with an increased number of customers joining a ride, the chances of delays also increase, which can result in bad customer reviews. This constant decision-making about which customer to offer a ride to and which not to allows for various operation strategies by the ride providers and promotes calculated decision-making and risk-taking. 
 
-\subsection{Organisational Overview}
-While the focus of our research is to create the technical architecture and design for our feature complete decentralised ride pooling platform it is necessary to also consider the organisational structure behind the platform. For the platform to grow it is most important to have some form of supervising entity, that it is capable to develop updates for the technical components, represent and promote the platform to external parties and to verify the trustworthiness of some components. When implementing this kind of supervising entity it necessary to ensure that the centralised nature of this entity does not revert the decentralised nature of the ride pooling platform. Luckily there are already many examples from the realm of open source software projects that successfully showcase how to enable such kind of organisational structure. One example for  this is the Open Source Initiative. OSI is a California based public benefit corporation that educates about and advocates for the benefits of open source since 1998. Therefore we will assume for the design of the technical components, that a so called GETACAR Foundation exists, that can handle organisational tasks that are necessary for the design of a feature complete ride pooling platform. The exact structure of this organisation should be part of future research in this field.
+\subsection{Organisational Overview}\label{subsec:OrganisationalOverview}
+While our research focuses on creating the technical architecture and design for our feature-complete decentralized ride-pooling platform, it is necessary to consider the organizational structure behind the platform. For the platform to grow, it is most important to have some form of supervising entity capable of developing updates for the technical components, representing and promoting the platform to external parties and verifying the trustworthiness of some components. When implementing this kind of supervising entity, it is necessary to ensure that its centralized nature does not revert to the decentralized nature of the ride-pooling platform. Luckily, many examples from open-source software projects successfully showcase how to enable such an organizational structure. One example of  this is the Open Source Initiative. OSI is a California-based public benefit corporation that has been educating about and advocating for the benefits of open source since 1998. Therefore, we will assume, for the design of the technical components, that a so-called GETACAR Foundation exists that can handle organizational tasks necessary for creating a feature-complete ride pooling platform. The exact structure of this organization should be part of future research in this field.
 
-\subsection{Component Overview}
-As previously discussed, it is important to ensure that the user experience remains intuitive and seamless for all parties. To achieve this, the GETACAR platform is built upon a number of interconnected, decentralised components, with each serving a distinct purpose to allow for an intuitive user flow that does not comprising security, transparency and privacy.
+\subsection{Component Overview}\label{subsec:ComponentOverview}
+As previously discussed, ensuring that the user experience remains intuitive and seamless for all parties is important. To achieve this, the GETACAR platform is built upon several interconnected, decentralised components, each serving a distinct purpose to allow for an intuitive user flow that does not comprise security, transparency and privacy.
 
-In the following we will provide an overview of these components:
+In the following, we will provide an overview of these components:
 
 \begin{enumerate}
     \item \textbf{User Frontend}:
@@ -39,6 +39,7 @@ In the following we will provide an overview of these components:
             \item Enables users to rate ride-providers and fellow passengers.
             \item Provides settings for users to specify preferences, such as the minimum acceptable rating for ride providers.
         \end{itemize}
+        \item \textbf{Mode of decentralisation}: Self-hosted 
     \end{itemize}
 
     \item \textbf{Ride Provider Frontend}:
@@ -50,6 +51,7 @@ In the following we will provide an overview of these components:
             \item Allows ride providers to rate passengers.
             \item Provides settings for ride providers to specify preferences, like the minimum acceptable rating of passengers.
         \end{itemize}
+        \item \textbf{Mode of decentralisation}: Self-hosted 
     \end{itemize}
 
     \item \textbf{Authentication Service}:
@@ -60,6 +62,7 @@ In the following we will provide an overview of these components:
             \item Manages user accounts and their associated ratings.
             \item Ensures that user pseudonyms are kept separate from their real identities, providing an added layer of privacy.
         \end{itemize}
+        \item \textbf{Mode of decentralisation}: Self-hosted 
     \end{itemize}
 
     \item \textbf{Matching Service}:
@@ -70,6 +73,7 @@ In the following we will provide an overview of these components:
             \item Facilitates an auction mechanism where users post ride requests visible to all ride providers in the vicinity.
             \item Ride providers can anonymously bid on these requests, ensuring competitive pricing and optimal matching.
         \end{itemize}
+        \item \textbf{Mode of decentralisation}: Self-hosted / Blockchain based
     \end{itemize}
 
     \item \textbf{Ride Contract Service}:
@@ -80,6 +84,7 @@ In the following we will provide an overview of these components:
             \item Manages each phase of the ride process, from initiation to completion.
             \item Handles the ride and payment process, ensuring secure and auditable transactions between users and ride providers.
         \end{itemize}
+        \item \textbf{Mode of decentralisation}: Blockchain based
     \end{itemize}
 
     \item \textbf{Crypto Exchange}:
@@ -90,19 +95,20 @@ In the following we will provide an overview of these components:
             \item Allows users and ride providers to transact in fiat currency for their real-world needs.
             \item Facilitates the conversion between fiat and cryptocurrency, ensuring that all platform transactions remain crypto-based for added security and transparency.
         \end{itemize}
+        \item \textbf{Mode of decentralisation}: Independent of individual providers / Blockchain based
     \end{itemize}
 \end{enumerate}
 
 Each of the components is decentralised, ether in the sense that the component is designed so that an individual or a group is able to run and host it them self, to interact with the network, or the component runs decentralised on the blockchain. After providing a small overview over the important components of the GETACAR Platform we will use the following Sections of this Chapter to dive deeper into the concepts and architecture behind each component. 
 
-\subsection{User Frontend}
+\subsection{User Frontend}\label{subsec:UserFrontend}
 In the context of creating a decentralized ride pooling platform , the user interface plays an important role to ensure a seamless experience for both customers and ride providers. Therefore the GETACAR frontend also draws inspiration from established platforms like Uber and Lyft. To build a comprehensive ride booking frontend, three distinct views are needed:
 
 The primary point of interaction for users is the booking view. This view allows users to easily input their desired pickup and dropoff locations through a search bar. Once the locations are set, this view previews the planned route on a map. This allows the users to have a visual representation of their upcoming trip. Alongside the map, users are presented some additional details such as the expected arrival time at the trip destination and the total distance of the ride. A prominently placed button allows users to commit to the route and request their ride. This initiates the matching service to find a fitting match for the customer.
 
 Once a match is found, the frontend switches to the on-ride view, guiding the customer through the ride experience. The view first presents important information about the matched ride provider. These information including the vehicle type, the ride provider rating, the number of passengers already in the vehicle, the expected pickup time and the maximum price that the ride will cost. Two distinct buttons allow users to either accept the ride offer or decline it. The customer has a fixed amount of time to accept the offer before it gets automatically declined. 
 
-Accepting the offer results in the customer depositing the maximum ride cost. After that the view  transitions the customer to the next phase of the on-ride flow, where the customer receives real-time status updates about the ride providers current status. This includes "Vehicle is on its way," "Arrived at Pickup Location," and "Arrived at Dropoff Location". Once inside the vehicle, users can confirm they're ready to start the journey and, upon reaching the destination, confirm the ride's successful completion. After completing the ride the customer will get payed back any additional money they deposited that exceeded the actual ride cost. At any point between ride confirmation and completion, the customer has the option to abort the ride. In that case the money automatically gets deposited to the ride provider. If the reason for the aborted ride lies with the ride provider the customer can contact the GETACAR foundation to initiate a complain. Aborting rides because of the misconduct of ride providers is considered an edge case, especially when considering that most ride providers are expected to be autonomous vehicles.  After the ride, customers have the opportunity to rate the ride provider and potential customers, which is a crucial part of the platform's trust mechanisms.
+Accepting the offer results in the customer depositing the maximum ride cost. After that, the view  transitions the customer to the next phase of the on-ride flow, where the customer receives real-time status updates about the ride providers current status. This includes ''Vehicle is on its way'', ''Arrived at Pickup Location'' and ''Arrived at Dropoff Location''. Once inside the vehicle, users can confirm they're ready to start the journey and, upon reaching the destination, confirm the ride's successful completion. After completing the ride the customer will get payed back any additional money they deposited that exceeded the actual ride cost. At any point between ride confirmation and completion, the customer has the option to abort the ride. In that case the money automatically gets deposited to the ride provider. If the reason for the aborted ride lies with the ride provider the customer can contact the GETACAR foundation to initiate a complain. Aborting rides because of the misconduct of ride providers is considered an edge case, especially when considering that most ride providers are expected to be autonomous vehicles.  After the ride, customers can rate the ride provider and potential customers, which is a crucial part of the platform's trust mechanisms.
 
 \begin{figure}[h]
     \centering
@@ -111,31 +117,24 @@ Accepting the offer results in the customer depositing the maximum ride cost. Af
     \label{fig:directSVG}
 \end{figure}
 
-A settings section allows customers to manage their account and customize their ride experience. A customer can view details about their account, including their rating. They can also adjust their ride preferences, by specifying a minimum rating for ride providers. This ensures they are only matched with ride providers that meet their standards. On a similar note, customers can adjust the minimum rating required for passengers to share a ride with them. This setting allows the customer to ensure a comfortable ride environment. This section also allows users to manage account settings. This includes payment methods, the ride history, and other privacy preferences. In conclusion, the frontend design aims to provide an intuitive experience for customer through focus on user needs. The design of the GETACAR frontend will contribute to the platform's success and user adoption.
+A settings section allows customers to manage their account and customize their ride experience. A customer can view details about their account, including their rating. They can also adjust their ride preferences by specifying a minimum rating for ride providers. This ensures they are only matched with ride providers that meet their standards. On a similar note, customers can adjust the minimum rating required for passengers to share a ride with them. This setting allows the customer to ensure a comfortable ride environment. This section also allows users to manage account settings. This includes payment methods, the ride history, and other privacy preferences. In conclusion, the frontend design aims to provide an intuitive experience for customer through focus on user needs. The design of the GETACAR frontend will contribute to the platform's success and user adoption.
 
 To ensure transparency the source code of the frontend is open source. This allows everyone who is interested in it to take a look at the structure of this component in detail and even allows people to make personal adjustments to the application and to compile the frontend themselves.
 
-\subsection{Ride Provider Frontend}
+\subsection{Ride Provider Frontend}\label{subsec:RideProviderFrontend}
 The design and functionality of the Ride Provider Frontend largely depends on the nature of the ride provider, be it a human pilot or an autonomous vehicle. To ensue a wide adaption by ride providers the GETACAR Platform aims to cater to both types of providers.
 
-For human ride providers GETACAR provides a frontend simular of the customer frontend. This interface presents a view that allows ride providers to scroll through open ride requests. This view allows them to check ride details, and place bids on ride requests. When an auction for a ride request results with the provider winning the ride opportunity, and the customer confirming the ride, the frontend informs the ride provider that they have indeed won the auction and provides the exact pickup and dropoff location of the customer.
+For human ride providers, GETACAR provides a frontend simular of the customer frontend. This interface presents a view that allows ride providers to scroll through open ride requests. This view allows them to check ride details, and place bids on ride requests. When an auction for a ride request results with the provider winning the ride opportunity, and the customer confirming the ride, the frontend informs the ride provider that they have indeed won the auction and provides the exact pickup and dropoff location of the customer.
 
 After this confirmation, a second view becomes visible that allows the ride provider to manage the actual ride process. This flow mirrors the customer's journey. The provider confirms their commitment to the customer to take on the ride request and confirms their drive to the pickup location. When reaching the pickup point, the ride provider informs the customer of their arrival. The customer can then board the vehicle and initiate the ride. The ride provider then starts of the travel to the dropoff location. After reaching the destination, the ride provider confirms the arrival via the frontend. This  concludes the ride from their perspective. Once the user leaves the vehicle and confirms the ride's end, the provider is able to claim the actual ride cost. This cost deducted from the maximum ride cost deposit made by the user at the ride's start. 
 Just like the user, the provider retains the option to abort the ride at any point between the ride's confirmation and the confirmation of arrival at the pickup location.
-<CHANGE GRAPHIC AND ADJUST TEXT TO MENTION graphics>
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\linewidth]{data/3.svg}
-    \caption{Ride Booking Flow}
-    \label{fig:directSVG}
-\end{figure}
 
-Just like the customer frontend, the Ride Provider frontend also includes a view offering general information and settings, mirroring the customer frontend.
+Like the customer frontend, the Ride Provider frontend also includes a view offering general information and settings, mirroring the customer frontend.
 
-It is worth noting that all the functionalities are present even if the ride provider is an autonomous vehicle. The distinguishing factor here is the absence of a visual user interface for the autonomous vehicles. Instead, the computer that controls the autonomous vehicle is able to interact directly with the endpoints of the platform.
+It is worth noting that all the functionalities are present, even if the ride provider is an autonomous vehicle. The distinguishing factor here is the absence of a visual user interface for autonomous vehicles. Instead, the computer that controls the autonomous vehicle can interact directly with the endpoints of the platform.
 
-\subsection{Authentication Service}
+\subsection{Authentication Service}\label{subsec:AuthService}
 
 The linchpin of security and user anonymity on the platform is the authentication service. Any user, be it a customer, ride provider, or a hoster of a matching service, must first register with an authentication service to interact with the platform. This service stands as the sole entity privy to user details such as Name, Age, Address, and the associated Rating. It also oversees the registration of new autonomous vehicles and human ride providers, storing details like the Number plate, VIN Number, the responsible entity (company or individual) for the vehicle, and the vehicle's associated rating.
 
@@ -153,11 +152,11 @@ The architecture also facilitates rating tracking by the authentication service.
 
 Beyond user authentication and rating computation, the service also validates rating information about other users. For example, a ride provider can verify a user's claimed rating by forwarding the rating and the user's pseudonym to the matching service. 
 
-In exceptional circumstances, the authentication service can unveil a user's identity, such as when a ride provider seeks to lodge an insurance claim due to intentional vehicle damage by a customer or when a passenger wishes to report harassment to law enforcement. While revealing a user's identity should be a rare occurrence, it's an indispensable feature to genuinely bolster platform security.
+In exceptional circumstances, the authentication service can unveil a user's identity, such as when a ride provider seeks to lodge an insurance claim due to intentional vehicle damage by a customer or when a passenger wishes to report harassment to law enforcement. While revealing a user's identity should be rare, it's an indispensable feature to bolster platform security.
 
 Given the immense power vested in the authentication service, it's imperative to prevent it from morphing into a centralized control point. Thus, the design permits anyone to host their authentication service. First-time platform registrants can choose their preferred authentication service. All accredited authentication services communicate amongst themselves, ensuring a user doesn't covertly spawn identities across multiple services. This inter-service exchange transpires without revealing the users managed by each service to one another. To guarantee that only trustworthy entities can host authentication services, each service undergoes verification by the GETACAR Platform Conglomerate.
 
-\subsection{Matching Service}
+\subsection{Matching Service}\label{subsec:MatchingService}
 The primary responsibility of the Matching Service is to align ride requests from users with suitable ride providers. Traditional centralized services, such as Uber and Lyft, employ algorithmic matching systems. These algorithms consider various factors like proximity, availability, and user preferences to quickly assign a driver to a user's request. While efficient, this centralized approach often lacks transparency, and the decision-making process is entirely controlled by the platform, potentially leading to biases or unfair advantages for certain drivers or riders.
 
 Recognizing these challenges, GETACAR has adopted an auction-based ride matching system. This approach offers several advantages. Firstly, it introduces a competitive environment where ride providers can bid for rides, ensuring that users get the most cost-effective offers. Secondly, it promotes transparency by making the selection method known to everyone. Lastly, it empowers ride providers by giving them the autonomy to choose rides based on their preferences and profitability.
@@ -183,7 +182,11 @@ Following the auction's closure, the matching service identifies the winning bid
 
 Should the customer endorse the winning bid, they generate a ride contract that encompasses the agreed-upon sum from the bid. The triumphant bidder is then notified of their successful bid and furnished with the ride contract's address, marking the commencement of their service obligation.
 
-<Diffi Halmann Key Exchnage>
+Lastly the matching service will be used to establish a secure connection to share sensitive information on-chain. Therefore the matching service initiates a Diffie-Hellman Key Exchange.
+
+The Diffie-Hellman Key Exchange, introduced by Whitfield Diffie and Martin Hellman in 1976, is a cryptographic protocol that allows two parties to independently generate a shared secret key over an insecure communication channel. The protocol is based on the mathematical properties of modular arithmetic and discrete logarithm problems. Specifically, given a prime number \( p \) and a base \( g \) (where \( g \) is a primitive root modulo \( p \)), each party selects a private key and computes a public key. The public keys are then exchanged, and each party uses the other's public key along with their own private key to compute the shared secret. The security of the protocol relies on the difficulty of the discrete logarithm problem: while it is computationally easy to generate the public key from the private key, the reverse operation is considered infeasible with current technology when large prime numbers are used.
+
+This secure connection will allow customer and ride provider to share detailed location data and other bits of personal data via blockchain without exposing them to external parties.
 
 Having elucidated the core concept of the matching service, it's pivotal to delve into its decentralization mechanism. One conceivable method to ensure decentralization is to execute the matching process on-chain. Running the matching service on-chain offers transparency, immutability, and a trustless environment, ensuring that all transactions are verifiable and irreversible.
 
@@ -203,9 +206,9 @@ To circumvent these challenges, the platform adopts an approach analogous to the
 Our proposition is a grid-based system wherein each matching service oversees specific grid fields. To thwart a single service from accumulating comprehensive long-term data within a grid, we mandate that each grid be managed by at least two distinct matching services. Every user frontend embeds a list of all authenticated matching services and their corresponding grid jurisdictions. Users can then consult an on-chain service to discern the appropriate matching service from the available options within their grid. This on-chain service guarantees an even distribution of requests within a grid square by monitoring the amount of requests for each service. Furthermore, it furnishes a rating for every matching service, derived by dividing the total number of requests processed by the service by the number of rides successfully completed through it.
 
 
-\subsection{Ride Contract Service}
+\subsection{Ride Contract Service}\label{subsec:RideContractService}
 
-Within this blockchain, various events and statuses related to the ride-sharing process are recorded. Initially, the ride provider accepts the ride, and a "Ride-provider accepted" status is written to the blockchain. Following this, the ride provider starts driving to the pickup location, and once they arrive, a "Ride-provider arrived at pickup location" status is documented. Meanwhile, the user indicates they are ready to start the ride, prompting a "User ready to start ride" status to be written to the blockchain. The ride provider then commences the ride, leading to a "Ride-provider started ride" status. Upon the ride's conclusion, when the ride provider arrives at the drop-off location, a "Ride-provider arrives at dropoff location" status is recorded. The user then marks the ride as complete, resulting in a "User marked ride complete" status on the blockchain.
+Within this blockchain, various events and statuses related to the ride-sharing process are recorded. Initially, the ride provider accepts the ride, and a ''Ride-provider accepted'' status is written to the blockchain. Following this, the ride provider starts driving to the pickup location, and once they arrive, a ''Ride-provider arrived at pickup location'' status is documented. Meanwhile, the user indicates they are ready to start the ride, prompting a ''User ready to start ride'' status to be written to the blockchain. The ride provider then commences the ride, leading to a ''Ride-provider started ride'' status. Upon the ride's conclusion, when the ride provider arrives at the drop-off location, a ''Ride-provider arrives at dropoff location'' status is recorded. The user then marks the ride as complete, resulting in a ''User marked ride complete'' status on the blockchain.
 
 \begin{figure}[h]
     \centering
@@ -218,10 +221,14 @@ On the user's side, they read the event from the blockchain indicating the ride 
 
 For the ride provider, after accepting the ride, they drive to the pickup location and send a status to the blockchain. Upon arrival, they read an event from the blockchain that the user is ready and begin driving to the drop-off location. They then send a status to the blockchain about their journey to the drop-off. Once they reach the destination, they send another status to the blockchain. Finally, they read the event from the blockchain where the user marks the ride as complete.
 
+Each event that gets posted to the blockchain also contains a custom message that can be determined by the entity posting the event. These messages will be encrpyted by the key that was exchanged between customer and ride provider via the Diffie-Hellman Key Exchange. These Messages can contain a number of different information depending on the status of the ride. A typical message send by the ride provider as part of the initial ``Ride-provider accepted'' event would be a tracking link that allows the user to track the vehicle. 
+
+The contract also contains a number of additional functions in regards to trust and privacy that will be described in detail in \ref{subsec:RatingTrustMechanisms} and \ref{subsec:DepositTrust}
+
 This decentralized ride-sharing platform ensures transparency and trustworthiness by recording every significant event on the blockchain, with both the user and the ride provider actively interacting with it, ensuring a smooth and verifiable ride process.
 
 
-\subsection{Crypto Exchange}
+\subsection{Crypto Exchange}\label{subsec:CryptoExchange}
 
 The Crypto Exchange plays an instrumental role in bridging the gap between traditional fiat currencies and cryptocurrencies, ensuring that all transactions within the platform remain rooted in the crypto realm. When a user books a ride, the frontend instantiates a new wallet. To fund this wallet for the impending ride, the user remits payment to a crypto exchange, which then credits the wallet with the requisite cryptocurrency amount. Post-ride, ride providers have the option to convert the cryptocurrency they've accrued into fiat currency via the crypto exchange.
 

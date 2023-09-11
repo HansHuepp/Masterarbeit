@@ -1,3 +1,19 @@
+Smart contracts make up the backbone of the GETACAR ride pooling platform. They allow for the secure and transparent ride ordering flow that is the standout feature of the platform. Therefore we will start with the construction of these smart contracts for the prototype. 
+
+Before writing the contracts it is necessary do decide on a programming language. This decision is crucial because it will also effect the compatibility of the smart contracts with the available blockchain platforms. 
+
+Looking at the smart contract programming languages used by the research papers and the adaption of smart contract programming languages by blockchains the decision is clear: Solitidy is a broadly adapted smart contract programming language that is not only utilised by the Ethereum blockchain, but also other popular blockchains like the Binance Smart Chain, Polkadot, Tron and Avalanche. 
+
+Solidity is a high-level programming language originally tailored for Ethereum blockchain's smart contracts. Influenced by JavaScript, Python, and C++, its syntax allows developers to craft self-executing contracts where terms are coded directly. These contracts are compiled to bytecode for the Ethereum Virtual Machine (EVM). Given blockchain's immutable nature and financial implications, Solidity emphasizes security and exception handling. 
+
+Selecting this smart contract programming language for the development of the GETACAR prototype ensures easy adaption 
+by future developers. Additionally the high adaption rate of Solidity ensures a future proof reference implantation in the fast evolving crypto landscape, compared to languages that are proprietorially used by smaller blockchains. 
+
+\subsection{Contract Factory}
+
+\subsection{Ride Contract}
+
+
 The Solidity smart contract under consideration represents a decentralized ride-sharing system. Within this system, two parties interact: a customer, denoted as \texttt{party1}, and a ride provider, denoted as \texttt{party2}. The contract is initialized with the address of \texttt{party1}, setting the initial state of the ride. The contract also contains a \texttt{Passenger} struct which represents a passenger with attributes such as an ID, seating position, start time, and rating. 
 
 The ride provider, \texttt{party2}, has the ability to add passengers to the ride using the \texttt{addPassenger} function, which can be particularly useful in carpooling scenarios. Additionally, the customer, \texttt{party1}, can rate a passenger using the \texttt{addPassengerRating} function. For the ride provider to participate, they must sign the contract using the \texttt{signContract} function. Upon signing, they are required to deposit an amount equal to 10\% of the contract's balance, with any excess amount being refunded.
@@ -13,7 +29,8 @@ In essence, this smart contract offers a transparent and trustworthy framework f
 \lstset{
   basicstyle=\ttfamily,
   breaklines=true,
-  numbers=left
+  numbers=left,
+  firstnumber=5
 }
 
 \begin{lstlisting}
