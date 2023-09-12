@@ -6,72 +6,27 @@ Looking at the smart contract programming languages used by the research papers 
 
 Solidity is a high-level programming language originally tailored for Ethereum blockchain's smart contracts. Influenced by JavaScript, Python, and C++, its syntax allows developers to craft self-executing contracts where terms are coded directly. These contracts are compiled to bytecode for the Ethereum Virtual Machine (EVM). Given blockchain's immutable nature and financial implications, Solidity emphasizes security and exception handling. 
 
-Selecting this smart contract programming language for the development of the GETACAR prototype ensures easy adaption 
-by future developers. Additionally the high adaption rate of Solidity ensures a future proof reference implantation in the fast evolving crypto landscape, compared to languages that are proprietorially used by smaller blockchains. 
+Selecting this smart contract programming language for the development of the GETACAR prototype ensures easy adaption by future developers. Additionally the high adaption rate of Solidity ensures a future proof reference implantation in the fast evolving crypto landscape, compared to languages that are proprietorially used by smaller blockchains. For the creation of the prototype the smart contracts are deployed on the Ethereum Blockchain and utilise ETH as their underlying currency fro Gas Fees and payments.
 
 \subsection{Contract Factory}
+There are two design approaches to utilise a smart contract to manage all critical ride events. Firstly it is possible to create a single smart contract that can be used by all customers and ride providers to log their rides. The advantage of this approach are lower gas fees because no new contract is generated for every trip. The downside of this approach is, that it drastically increases the complexity of the contract to ensure that all trips stay separated inside the contract. It also increases the impact of security loopholes in the contract, because it cloud possibly allow users to influence the rides of other users. 
 
-\subsection{Ride Contract}
+The second approach would utilise the concept a contract factory. A contract factory allows the generation of smart contracts based on a predefined table through a second smart contract, the so called contract factory. The main disadvantages of a contract factory are increased gas prices because the deployment of a new smart contract is generally more expensive then the interaction with an existing one. But the contract factory approach also provides a number of upsides. It allows for each ride contract to be capsuled into its own smart contract which improves security and decreases the complexity of the ride contract itself. 
 
+Because data privacy and security are most important to the design of the GETACAR Platform it is decided to flow the contract factory approach.
 
-The Solidity smart contract under consideration represents a decentralized ride-sharing system. Within this system, two parties interact: a customer, denoted as \texttt{party1}, and a ride provider, denoted as \texttt{party2}. The contract is initialized with the address of \texttt{party1}, setting the initial state of the ride. The contract also contains a \texttt{Passenger} struct which represents a passenger with attributes such as an ID, seating position, start time, and rating. 
+The contract factory that is designed to generate ride contracts looks as follows:
 
-The ride provider, \texttt{party2}, has the ability to add passengers to the ride using the \texttt{addPassenger} function, which can be particularly useful in carpooling scenarios. Additionally, the customer, \texttt{party1}, can rate a passenger using the \texttt{addPassengerRating} function. For the ride provider to participate, they must sign the contract using the \texttt{signContract} function. Upon signing, they are required to deposit an amount equal to 10\% of the contract's balance, with any excess amount being refunded.
-
-As the ride progresses, various functions track its status. The \texttt{setRideProviderAcceptedStatus} function allows the ride provider to accept the ride request. Once accepted, the ride provider can indicate their arrival at the pickup location with the \texttt{setRideProviderArrivedAtPickupLocation} function. The user then indicates their readiness using the \texttt{setUserReadyToStartRide} function, prompting the ride provider to start the ride using the \texttt{setRideProviderStartedRide} function. Upon reaching the destination, the ride provider uses the \texttt{setRideProviderArrivedAtDropoffLocation} function, and the user can mark the ride as complete with the \texttt{setUserMarkedRideComplete} function.
-
-In the event of unforeseen circumstances, both parties have the ability to cancel the ride. The user can employ the \texttt{setUserCanceldRide} function, which, if the contract is active, transfers the deposited amount to the ride provider. Otherwise, the user is refunded. Conversely, the ride provider can use the \texttt{setRideProviderCanceldRide} function, resulting in a refund to the user.
-
-Post-ride, both parties have the opportunity to rate each other. The ride provider can rate the user using the \texttt{setUserRating} function, and the user can rate the ride with the \texttt{setRideRating} function. Finally, the \texttt{claimETH} function allows the ride provider to claim the deposited ETH after the user marks the ride as complete. A hardcoded address receives 10\% of the balance, with the remainder being distributed between the user and the ride provider.
-
-In essence, this smart contract offers a transparent and trustworthy framework for decentralized ride-sharing, eliminating the need for intermediaries and fostering direct interactions between the user and the ride provider.
+At the center of the contract exists the createContract() function that takes the amount of ETH (that represents the maximum ride cost) as a deposit. The deposit holder will be the newly created ride contract which will only return the deposit if the right circumstances are meet. createContract() also executes some additional code that helps authentication services track newly created contracts. Each contact gets assigned with a contract number determined by the contract counter and is mapped to a timestamp that represents its creation date. Additionally the contract gets registered to the matching service smart contract. This function will be explained in detail at XXX.
 
 \lstset{
-  basicstyle=\ttfamily,
+  basicstyle=\footnotesize\ttfamily,
   breaklines=true,
   numbers=left,
-  firstnumber=5
+  firstnumber=43
 }
 
 \begin{lstlisting}
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-
-import "./contract.sol";
-import "./matching.sol";
-
-contract ContractFactory {
-
-    MatchingService private matchingServiceInstance;
-    address[] public registeredContracts;
-
-    uint256 public contractCounter = 0;  // Counter to keep track of contract IDs
-
-    // Mapping from contract ID to contract address
-    mapping(uint256 => address) public contractsByID;
-
-    // Mapping from contract ID to contract timestamp
-    mapping(uint256 => uint256) public timestampByID;
-
-
-    constructor(address _matchingServiceAddress) {
-        matchingServiceInstance = MatchingService(_matchingServiceAddress);
-
-        // Set this contract as the factory address in the MatchingService contract
-        matchingServiceInstance.setFactoryAddress(address(this));
-    }
-
-    mapping(address => Contract[]) public userContracts;
-    event ContractCreated(address indexed user, Contract newContract, uint256 contractID);  // Added contractID to the event
-
-    function registerNewContract(address _contractAddress) external {
-        // Call the registerContract() function on the MatchingService contract
-        matchingServiceInstance.registerContract(_contractAddress);
-
-        // Optionally, store the registered contract's address in this factory for record-keeping
-        registeredContracts.push(_contractAddress);
-    }
-
     function createContract(uint256 _amount) public payable {
         require(msg.value == _amount, "Sent value does not match the specified amount.");
         Contract newContract = new Contract{value: _amount}(msg.sender);
@@ -89,6 +44,18 @@ contract ContractFactory {
 
         emit ContractCreated(msg.sender, newContract, contractCounter);
     }
+\end{lstlisting}
+
+The contact factory also contains a number of helper functions that allow authentication services to better track newly created contracts as mentioned above.
+
+\lstset{
+  basicstyle=\footnotesize\ttfamily,
+  breaklines=true,
+  numbers=left,
+  firstnumber=57
+}
+
+\begin{lstlisting}
 
     function getContractsByUser(address user) public view returns (Contract[] memory) {
         return userContracts[user];
@@ -102,33 +69,27 @@ contract ContractFactory {
     function getContractTimestampByID(uint256 contractID) public view returns (uint256) {
         return timestampByID[contractID];
     }
-}
+
 \end{lstlisting}
 
 
 
+
+\subsection{Ride Contract}
+Now that we have shown how to a ride contract is created through the ride contract factory it is important to look at the ride contract itself.
+
+The Solidity smart contract under consideration allows the ride provider and the customer to interact with each other and tracks these interactions as decibed in XXX.
+
+The contract starts with the initiation of the variables that are used to track the status of the ride through a constructor. The constructor also sets the wallet address of the customer who initiated the contract through the contract factory as party1. The address that is mapped to party one represnts the customer inside the contract.
+
+\lstset{
+  basicstyle=\footnotesize\ttfamily,
+  breaklines=true,
+  numbers=left,
+  firstnumber=78
+}
+
 \begin{lstlisting}
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-
-contract Contract {
-    address public party1;
-    address public party2;
-    bool public isActive;
-    bool public rideProviderAcceptedStatus;
-    bool public rideProviderArrivedAtPickupLocation;
-    bool public userReadyToStartRide;
-    bool public rideProviderStartedRide;
-    bool public rideProviderArrivedAtDropoffLocation;
-    bool public userMarkedRideComplete;
-    bool public userCanceldRide;
-    bool public rideProviderCanceldRide;
-
-    uint public userRating;
-    uint public rideRating;
-    bool public isUserRatingSet;
-    bool public isRideRatingSet;
-
     constructor(address _party1) payable {
         party1 = _party1;
         rideProviderAcceptedStatus = false;
@@ -141,39 +102,18 @@ contract Contract {
         rideProviderCanceldRide = false;
 
     }
+\end{lstlisting}
 
-    struct Passenger {
-        string passengerID;
-        uint seatingPosition;
-        string startTime;
-        uint rating;
-    }
+After the contract is created by the customer, the address of the contract is shared via the matching service with the ride provider. The ride provider then uses the signContract() function to co-sign the contract as party2 and thereby activates the ride contract. As described in XXX the ride provider also has to deposit 10\% of predefined  maximum ride cost into the contract as part of the deposit trust mechanism.
 
-    Passenger[] public passengers;
+\lstset{
+  basicstyle=\footnotesize\ttfamily,
+  breaklines=true,
+  numbers=left,
+  firstnumber=67
+}
 
-    function addPassenger(string memory _passengerID, uint _seatingPosition, string memory _startTime) public {
-        require(isActive, "Contract is not active.");
-        require(msg.sender == party2, "Only Party2 can add passengers.");
-
-        Passenger memory newPassenger = Passenger({
-            passengerID: _passengerID,
-            seatingPosition: _seatingPosition,
-            startTime: _startTime,
-            rating: 0
-        });
-
-        passengers.push(newPassenger);
-    }
-
-    function addPassengerRating(uint _passengerIndex, uint _rating) public {
-        require(isActive, "Contract is not active.");
-        require(msg.sender == party1, "Only Party1 can rate passengers.");
-        require(_rating >= 0 && _rating <= 5, "Rating must be between 0 and 5.");
-        require(_passengerIndex < passengers.length, "Passenger not found.");
-
-        passengers[_passengerIndex].rating = _rating;
-    }
-
+\begin{lstlisting}
     function signContract() public payable {
         require(party2 == address(0), "Party2 has already signed the contract.");
         require(!isActive, "Contract is already active.");
@@ -191,10 +131,17 @@ contract Contract {
             payable(msg.sender).transfer(msg.value - tenPercent);
         }
     }
+\end{lstlisting}
 
-    event UpdatePosted(address indexed author, string message, string functionName);
+Now that both parties have signed the contract the actual ride flow can start, as decided in XXX with the ''Ride Provider accepts ride'' event. All event functions are structured similarly. Therefore we will use the setRideProviderAcceptedStatus() function as an example to showcase how each event is represented by a function inside the smart contract. The function takes a message as an input that will later be written onto the chain permanently. This message is used by customer and the ride provider to exchange encrypted information on the blockchain as decided in XXX. The function also contains a number of checks utilising the require() function to make sure that it is only used as intended. Among others, these checks include the requirement to only be called by the right entity (depending on the event this can be the customer or the ride provider). Additionally a check is applied to ensure that the events are called in the ride order as designed in the ride flow. At last three more checks make sure that the contract is active, not canceled and a ride provider has accepted the contract. If all checks are successfully it can be ensured that the function is used as intended and the event is written onto the chain as a secure and auditable prof that it accrued. This is done though calling the UpdatePosted() function.
 
-
+\lstset{
+  basicstyle=\footnotesize\ttfamily,
+  breaklines=true,
+  numbers=left,
+  firstnumber=165
+}
+\begin{lstlisting}
     function setRideProviderAcceptedStatus(string memory _message) public {
         require(isActive, "Contract is not active.");
         require(msg.sender == party2, "Only Party2 can set the ride provider accepted status.");
@@ -206,72 +153,24 @@ contract Contract {
         rideProviderAcceptedStatus = true;
         emit UpdatePosted(msg.sender, _message, "rideProviderAcceptedStatus");
     }
+\end{lstlisting}
 
-    function setRideProviderArrivedAtPickupLocation(string memory _message) public {
-        require(isActive, "Contract is not active.");
-        require(msg.sender == party2, "Only Party2 can set the ride provider arrived status.");
-        require(rideProviderAcceptedStatus, "Ride Provider Accepted Status must be set before setting arrived status.");
-        require(!rideProviderArrivedAtPickupLocation, "Ride Provider Arrived Status can only be set once.");
+The UpdatePosted() function works as follows: It gets called by an event function and takes the wallet of the entity calling the function, the message and the name of the event function and emits it as an event onto the chain. These events are permanent and can not be changed.
 
-        require(!rideProviderCanceldRide, "Ride Provider Canceld Ride Status can only be set once.");
-        require(!userCanceldRide, "User Canceld Ride Status can only be set once.");
-        
-        rideProviderArrivedAtPickupLocation = true;
-        emit UpdatePosted(msg.sender, _message, "rideProviderArrivedAtPickupLocation");
-    }
+\lstset{
+  basicstyle=\footnotesize\ttfamily,
+  breaklines=true,
+  numbers=left,
+  firstnumber=165
+}
+\begin{lstlisting}
+ event UpdatePosted(address indexed author, string message, string functionName);
+\end{lstlisting}
 
-    function setUserReadyToStartRide(string memory _message) public {
-        require(isActive, "Contract is not active.");
-        require(msg.sender == party1, "Only Party1 can set the user ready to start ride status.");
-        require(rideProviderArrivedAtPickupLocation, "Ride Provider Arrived Status must be set before setting user ready to start ride status.");
-        require(!userReadyToStartRide, "User Ready To Start Ride Status can only be set once.");
+Now that the functions that enable the general ride flow are shown, it is important to take a look at edge-cases that are handled on-chain. As described in XXX, both customer and ride provider have the ability to cancel the ride and if one of the parties cancels the ride the other party gets automatically deposited the money managed by the ride contract. The ride contract provides these features through a setUserCanceldRide() and as setRideProviderCanceldRide() function. In the flowing we will describe their functionality using the setUserCanceldRide() function as an example. If the customer calls the function to cancel their ride two if clauses check if the contract is active and therefore a ride provider has already signed the contract. If this is the case all money inside the contract gets deposited to the ride provider. If for some reason no ride provider is signing the contract the customer gets their money back. This ensures that the customer does not gets their deposit stuck inside a ride contract if a ride provider decides not sign a contract. Additionally the customer has the possibility to emit a message onto the chain that contains information on why the ride was canceled.
+Lastly the contract gets marked with the status userCanceldRide = true.
 
-        require(!rideProviderCanceldRide, "Ride Provider Canceld Ride Status can only be set once.");
-        require(!userCanceldRide, "User Canceld Ride Status can only be set once.");
-
-        userReadyToStartRide = true;
-        emit UpdatePosted(msg.sender, _message, "userReadyToStartRide");
-    }
-
-    function setRideProviderStartedRide(string memory _message) public {
-        require(isActive, "Contract is not active.");
-        require(msg.sender == party2, "Only Party2 can set the ride provider started ride status.");
-        require(userReadyToStartRide, "User Ready To Start Ride Status must be set before setting ride provider started ride status.");
-        require(!rideProviderStartedRide, "Ride Provider Started Ride Status can only be set once.");
-
-        require(!rideProviderCanceldRide, "Ride Provider Canceld Ride Status can only be set once.");
-        require(!userCanceldRide, "User Canceld Ride Status can only be set once.");
-
-        rideProviderStartedRide = true;
-        emit UpdatePosted(msg.sender, _message, "rideProviderStartedRide");
-    }
-
-    function setRideProviderArrivedAtDropoffLocation(string memory _message) public {
-        require(isActive, "Contract is not active.");
-        require(msg.sender == party2, "Only Party2 can set the ride provider arrived at dropoff location status.");
-        require(rideProviderStartedRide, "Ride Provider Started Ride Status must be set before setting ride provider arrived at dropoff location status.");
-        require(!rideProviderArrivedAtDropoffLocation, "Ride Provider Arrived At Dropoff Location Status can only be set once.");
-
-        require(!rideProviderCanceldRide, "Ride Provider Canceld Ride Status can only be set once.");
-        require(!userCanceldRide, "User Canceld Ride Status can only be set once.");
-
-        rideProviderArrivedAtDropoffLocation = true;
-        emit UpdatePosted(msg.sender, _message, "rideProviderArrivedAtDropoffLocation");
-    }
-
-    function setUserMarkedRideComplete(string memory _message) public {
-        require(isActive, "Contract is not active.");
-        require(msg.sender == party1, "Only Party1 can set the user marked ride complete status.");
-        require(rideProviderArrivedAtDropoffLocation, "Ride Provider Arrived At Dropoff Location Status must be set before setting user marked ride complete status.");
-        require(!userMarkedRideComplete, "User Marked Ride Complete Status can only be set once.");
-
-        require(!rideProviderCanceldRide, "Ride Provider Canceld Ride Status can only be set once.");
-        require(!userCanceldRide, "User Canceld Ride Status can only be set once.");
-
-        userMarkedRideComplete = true;
-        emit UpdatePosted(msg.sender, _message, "userMarkedRideComplete");
-    }
-
+\begin{lstlisting}
     function setUserCanceldRide(string memory _message) public {
         require(msg.sender == party1, "Only Party1 can set the user canceld ride status.");
         
@@ -293,32 +192,19 @@ contract Contract {
         
         emit UpdatePosted(msg.sender, _message, "userCanceldRide");
     }
+\end{lstlisting}
 
-    function setRideProviderCanceldRide(string memory _message) public {
-        require(isActive, "Contract is not active.");
-        require(msg.sender == party2, "Only Party2 can set the ride provider canceld ride status.");
-        
-        require(!rideProviderCanceldRide, "Ride Provider Canceld Ride Status can only be set once.");
-        require(!userCanceldRide, "User Canceld Ride Status can only be set once.");
+As described in XXX, the rating is also managed via the smart contract. Both customer and ride provider can post their rating through similar functions. The customer can use the setRideRating() function for this process that takes the selected rating as input.
+The function ensures, besides other checks, that the rating is in the predefined range of allowed ratings. 
 
-        rideProviderCanceldRide = true;
-
-        uint256 balance = address(this).balance;
-        payable(party1).transfer(balance);
-        
-        emit UpdatePosted(msg.sender, _message, "rideProviderCanceldRide");
-    }
-
-    function setUserRating(uint _rating) public {
-        require(msg.sender == party2, "Only Party2 can set the user rating.");
-        require(!isUserRatingSet, "User rating can only be set once.");
-        require(isActive, "Contract is not active.");
-        require(_rating >= 0 && _rating <= 5, "Rating must be between 0 and 5.");
-        userRating = _rating;
-        isUserRatingSet = true;
-    }
-
-    function setRideRating(uint _rating) public {
+\lstset{
+  basicstyle=\footnotesize\ttfamily,
+  breaklines=true,
+  numbers=left,
+  firstnumber=375
+}
+\begin{lstlisting}
+  function setRideRating(uint _rating) public {
         require(msg.sender == party1, "Only Party1 can set the ride rating.");
         require(!isRideRatingSet, "Ride rating can only be set once.");
         require(_rating >= 0 && _rating <= 5, "Rating must be between 0 and 5.");
@@ -326,15 +212,48 @@ contract Contract {
         rideRating = _rating;
         isRideRatingSet = true;
     }
+\end{lstlisting}
 
+It is also possible for the customer to rate passengers. Therefore following function is used by the ride providers to add passengers to the ride contract. This will allow customers to rate their passengers. For privacy reasons the customer will only see the pseudonyms known to the ride provider for the passengers. The user can then rate the passengers based on their seating position inside the vehicle and the starting time of their ride. Through this system it is possible for customers sharing a vehicle to rate each other without the need to share personal information like a name or a profile picture. 
 
+\lstset{
+  basicstyle=\footnotesize\ttfamily,
+  breaklines=true,
+  numbers=left,
+  firstnumber=375
+}
+\begin{lstlisting}
+    function addPassenger(string memory _passengerID, uint _seatingPosition, string memory _startTime) public {
+        require(isActive, "Contract is not active.");
+        require(msg.sender == party2, "Only Party2 can add passengers.");
+
+        Passenger memory newPassenger = Passenger({
+            passengerID: _passengerID,
+            seatingPosition: _seatingPosition,
+            startTime: _startTime,
+            rating: 5
+        });
+
+        passengers.push(newPassenger);
+    }
+\end{lstlisting}
+
+The claimETH() function is used by the ride provider to get the applicable amount of money to cover the ride cost from the smart contract. The function can only be triggered once the customer has marked the ride as successfully completed. After all checks are successfully completed the contact sends 10\% of the total amount of money on hold inside the contract to a predefined address managed by the GETACAR foundation as described in XXX. Afterwards the remaining money gets deducted by the amount of money that is claimed by the ride provider to cover the ride cost. This amount is then transfered to the wallet of the ride provider. The remaining deposit left inside the smart contract then gets send back to the wallet of the customer. 
+
+\lstset{
+  basicstyle=\footnotesize\ttfamily,
+  breaklines=true,
+  numbers=left,
+  firstnumber=375
+}
+\begin{lstlisting}
     function claimETH(uint256 amount) public {
         require(isActive, "Contract is not active.");
         require(msg.sender == party2, "Only Party2 can claim the deposited ETH.");
         require(userMarkedRideComplete, "User must mark the ride complete before claiming the deposited ETH.");
         require(amount <= address(this).balance, "Requested amount exceeds the contract balance.");
         
-        address payable hardcodedAddress = payable(0xE39a3085CB78341547F30a1C6bD12977d51aa967);  // replace with the actual hardcoded address
+        address payable hardcodedAddress = payable(0xE39a3085CB78341547F30a1C6bD12977d51aa967);  // Address of the GETACAR Foundation
 
         uint256 balance = address(this).balance;
         uint256 tenPercent = balance / 10;
@@ -348,69 +267,40 @@ contract Contract {
         payable(party1).transfer(payback);
         payable(party2).transfer(remainder);
     }
-
-}
 \end{lstlisting}
 
+Conclusion XXX
 
 
+\subsection{Matching Contract}
+
+The Matching Contract provides the fully on-Chain rating and load balancing for the off-chain matching services as described in XXX. At its core the function provided by the Matching contract is simple: A customer can provide an array of matching services and a minimum rating and the smart contract returns the matching service out of this array that complies with the rating requirements and has the lowest number of handled matches so far. This allows for a load balancing between the matching services so that no service can collect too much data.
+
+All matching services that are available to the GETACAR platform are registered inside the Matching contract with a struct that contains the name of the service, the number of matches that where handled by the matching service (that resulted in completed rides) and the number of requests that where managed by the service. To ensure that the request counter is accurate, the contract counts a request every time a specific matching service gets suggested by the Matching Contract, as the design assumes that the customer will follow the suggestion and and post their ride request to the suggested matching service. For example: A customer provides an array containing the names of matching service A, B and C without defining a minimum rating. The matching contract determines that matching service A has had the lowest amount of requests out of the three so far and therefor suggests to use matching service A to the user. This suggestion is counted as a request and the request counter of matching service A is increased by one.
+
+\lstset{
+  basicstyle=\footnotesize\ttfamily,
+  breaklines=true,
+  numbers=left,
+  firstnumber=375
+}
 \begin{lstlisting}
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-
-contract MatchingService {
-
     struct MatchingServiceObject {
         string name;
         uint256 matches;
         uint256 requests;
     }
+\end{lstlisting}
 
-    MatchingServiceObject[5] public services;
+The actual recommendation function looks as follows: 
 
-    address public FACTORY_ADDRESS;
-    bool public isFactoryAddressSet = false;
-
-    mapping(address => bool) public registeredContracts;
-    address[] public registeredContractsList; // Added this line
-
-    // Declare the event
-    event LowestMatchService(string serviceName, uint256 serviceRating);
-
-    modifier onlyFactory() {
-        require(msg.sender == FACTORY_ADDRESS, "Only the factory can call this");
-        _;
-    }
-
-    modifier onlyRegisteredContracts() {
-        require(registeredContracts[msg.sender], "Only registered contracts can call this");
-        _;
-    }
-
-    constructor() {
-        services[0] = MatchingServiceObject("ms1", 10, 15);
-        services[1] = MatchingServiceObject("ms2", 15, 20);
-        services[2] = MatchingServiceObject("ms3", 20, 30);
-        services[3] = MatchingServiceObject("ms4", 5, 10);
-        services[4] = MatchingServiceObject("ms5", 8, 12);
-    }
-
-    function setFactoryAddress(address _factoryAddress) external {
-        require(!isFactoryAddressSet, "Factory address is already set");
-        FACTORY_ADDRESS = _factoryAddress;
-        isFactoryAddressSet = true;
-    }
-
-    function registerContract(address contractAddress) external onlyFactory {
-        require(!registeredContracts[contractAddress], "Contract is already registered"); // Additional check to prevent duplicate addresses
-        registeredContracts[contractAddress] = true;
-        registeredContractsList.push(contractAddress); // Added this line
-    }
-
-    function getAllRegisteredContracts() external view returns (address[] memory) {
-        return registeredContractsList;
-    }
-
+\lstset{
+  basicstyle=\footnotesize\ttfamily,
+  breaklines=true,
+  numbers=left,
+  firstnumber=375
+}
+\begin{lstlisting}
     function getMatchingService(string[] memory names) public {
         uint256 lowestMatches = type(uint256).max;
 
@@ -432,7 +322,18 @@ contract MatchingService {
         // Emit the event with the result
         emit LowestMatchService(lowestMatchServiceName, lowestMatchServiceRating);
     }
+\end{lstlisting}
 
+
+After explaining the request counter it is important to take a look at how the match counter works as it is equally necessary for calculate the rating of the matching service. What makes the calculation of this value more complicated is the fact that the contract needs to verify that only rides are counted that where officially handled by the GETACAR platform. If this is not the case it would open up doors for rating manipulations through external parties. In order to prevent that the addMatch() function is not called by a user that has successfully completed a ride but can only be called by the ride contracts themselves. The function utilises a for loop that checks a list that contains all contracts that are created by the official contract factory. If the contract that calls the function is on the list, the value of the utilised matching service is increased by one.
+
+\lstset{
+  basicstyle=\footnotesize\ttfamily,
+  breaklines=true,
+  numbers=left,
+  firstnumber=375
+}
+\begin{lstlisting}
     function addMatch(string memory serviceName) external onlyRegisteredContracts {
         for (uint i = 0; i < services.length; i++) {
             if (keccak256(bytes(services[i].name)) == keccak256(bytes(serviceName))) {
@@ -440,5 +341,31 @@ contract MatchingService {
             }
         }
     }
-}
 \end{lstlisting}
+
+To enforce that only the contract factory can add ride contract addresses to the list of verified addresses a onlyFactory() modifier is implemented. Similarly a onlyRegisteredContracts() modifier is used to ensure that only contracts from the list of verified contracts can add successful matches to the rating services.
+
+\lstset{
+  basicstyle=\footnotesize\ttfamily,
+  breaklines=true,
+  numbers=left,
+  firstnumber=375
+}
+\begin{lstlisting}
+    modifier onlyFactory() {
+        require(msg.sender == FACTORY_ADDRESS, "Only the factory can call this");
+        _;
+    }
+
+    modifier onlyRegisteredContracts() {
+        require(registeredContracts[msg.sender], "Only registered contracts can call this");
+        _;
+    }
+\end{lstlisting}
+
+
+
+
+
+
+
