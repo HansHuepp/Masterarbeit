@@ -6,24 +6,63 @@ Looking at the smart contract programming languages used by the research papers 
 
 Solidity is a high-level programming language originally tailored for Ethereum blockchain's smart contracts. Influenced by JavaScript, Python, and C++, its syntax allows developers to craft self-executing contracts where terms are coded directly. These contracts are compiled to bytecode for the Ethereum Virtual Machine (EVM). Given blockchain's immutable nature and financial implications, Solidity emphasizes security and exception handling. 
 
-Selecting this smart contract programming language for the development of the GETACAR prototype ensures easy adaption by future developers. Additionally the high adaption rate of Solidity ensures a future proof reference implantation in the fast evolving crypto landscape, compared to languages that are proprietorially used by smaller blockchains. For the creation of the prototype the smart contracts are deployed on the Ethereum Blockchain and utilise ETH as their underlying currency fro Gas Fees and payments.
+Selecting this smart contract programming language for the development of the GETACAR prototype ensures easy adaption by future developers. Additionally the high adaption rate of Solidity ensures a future proof reference implantation in the fast evolving crypto landscape, compared to languages that are proprietorially used by smaller blockchains. For the creation of the prototype the smart contracts are deployed on the Ethereum Blockchain and utilise ETH as their underlying currency for Gas Fees and payments.
 
 \subsection{Contract Factory}
 There are two design approaches to utilise a smart contract to manage all critical ride events. Firstly it is possible to create a single smart contract that can be used by all customers and ride providers to log their rides. The advantage of this approach are lower gas fees because no new contract is generated for every trip. The downside of this approach is, that it drastically increases the complexity of the contract to ensure that all trips stay separated inside the contract. It also increases the impact of security loopholes in the contract, because it cloud possibly allow users to influence the rides of other users. 
 
-The second approach would utilise the concept a contract factory. A contract factory allows the generation of smart contracts based on a predefined table through a second smart contract, the so called contract factory. The main disadvantages of a contract factory are increased gas prices because the deployment of a new smart contract is generally more expensive then the interaction with an existing one. But the contract factory approach also provides a number of upsides. It allows for each ride contract to be capsuled into its own smart contract which improves security and decreases the complexity of the ride contract itself. 
+The second approach would utilise the concept a contract factory. A contract factory allows the generation of smart contracts based on a predefined template through a second smart contract, the so called contract factory. The main disadvantages of a contract factory are increased gas prices because the deployment of a new smart contract is generally more expensive then the interaction with an existing one. But the contract factory approach also provides a number of upsides. It allows for each ride contract to be capsuled into its own smart contract which improves security and decreases the complexity of the ride contract itself. 
 
-Because data privacy and security are most important to the design of the GETACAR Platform it is decided to flow the contract factory approach.
+Because data privacy and security are most important to the design of the GETACAR Platform it is decided to follow the contract factory approach.
 
 The contract factory that is designed to generate ride contracts looks as follows:
 
-At the center of the contract exists the createContract() function that takes the amount of ETH (that represents the maximum ride cost) as a deposit. The deposit holder will be the newly created ride contract which will only return the deposit if the right circumstances are meet. createContract() also executes some additional code that helps authentication services track newly created contracts. Each contact gets assigned with a contract number determined by the contract counter and is mapped to a timestamp that represents its creation date. Additionally the contract gets registered to the matching service smart contract. This function will be explained in detail at XXX.
+At the center of the contract factory exists the createContract() function that creates a new ride contract that takes the amount of ETH (that represents the maximum ride cost) as a deposit. The deposit holder will be the newly created ride contract which will only return the deposit if the right circumstances are meet. createContract() also executes some additional code that helps authentication services track newly created contracts. Each contact gets assigned with a contract number determined by the contract counter and is mapped to a timestamp that represents its creation date. Additionally the contract gets registered to the matching service smart contract. This function will be explained in detail at XXX.
+
+
+\definecolor{verylightgray}{rgb}{.97,.97,.97}
+
+\lstdefinelanguage{Solidity}{
+	keywords=[1]{anonymous, assembly, assert, balance, break, call, callcode, case, catch, class, constant, continue, constructor, contract, debugger, default, delegatecall, delete, do, else, emit, event, experimental, export, external, false, finally, for, function, gas, if, implements, import, in, indexed, instanceof, interface, internal, is, length, library, log0, log1, log2, log3, log4, memory, modifier, new, payable, pragma, private, protected, public, pure, push, require, return, returns, revert, selfdestruct, send, solidity, storage, struct, suicide, super, switch, then, this, throw, transfer, true, try, typeof, using, value, view, while, with, addmod, ecrecover, keccak256, mulmod, ripemd160, sha256, sha3}, % generic keywords including crypto operations
+	keywordstyle=[1]\color{blue}\bfseries,
+	keywords=[2]{address, bool, byte, bytes, bytes1, bytes2, bytes3, bytes4, bytes5, bytes6, bytes7, bytes8, bytes9, bytes10, bytes11, bytes12, bytes13, bytes14, bytes15, bytes16, bytes17, bytes18, bytes19, bytes20, bytes21, bytes22, bytes23, bytes24, bytes25, bytes26, bytes27, bytes28, bytes29, bytes30, bytes31, bytes32, enum, int, int8, int16, int24, int32, int40, int48, int56, int64, int72, int80, int88, int96, int104, int112, int120, int128, int136, int144, int152, int160, int168, int176, int184, int192, int200, int208, int216, int224, int232, int240, int248, int256, mapping, string, uint, uint8, uint16, uint24, uint32, uint40, uint48, uint56, uint64, uint72, uint80, uint88, uint96, uint104, uint112, uint120, uint128, uint136, uint144, uint152, uint160, uint168, uint176, uint184, uint192, uint200, uint208, uint216, uint224, uint232, uint240, uint248, uint256, var, void, ether, finney, szabo, wei, days, hours, minutes, seconds, weeks, years},	% types; money and time units
+	keywordstyle=[2]\color{teal}\bfseries,
+	keywords=[3]{block, blockhash, coinbase, difficulty, gaslimit, number, timestamp, msg, data, gas, sender, sig, value, now, tx, gasprice, origin},	% environment variables
+	keywordstyle=[3]\color{violet}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=true,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{gray}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+
+\lstset{
+	language=Solidity,
+	backgroundcolor=\color{verylightgray},
+	extendedchars=true,
+	basicstyle=\footnotesize\ttfamily,
+	showstringspaces=false,
+	showspaces=false,
+	numbers=left,
+	numberstyle=\footnotesize,
+	numbersep=9pt,
+	tabsize=2,
+	breaklines=true,
+	showtabs=false,
+	captionpos=b
+}
+
+
+
 
 \lstset{
   basicstyle=\footnotesize\ttfamily,
   breaklines=true,
   numbers=left,
-  firstnumber=43
+  firstnumber=43,
 }
 
 \begin{lstlisting}
@@ -45,8 +84,7 @@ At the center of the contract exists the createContract() function that takes th
         emit ContractCreated(msg.sender, newContract, contractCounter);
     }
 \end{lstlisting}
-
-The contact factory also contains a number of helper functions that allow authentication services to better track newly created contracts as mentioned above.
+The helper functions that are contained in the contract factory that allow authentication services to better track newly created contracts look as follows.
 
 \lstset{
   basicstyle=\footnotesize\ttfamily,
@@ -276,7 +314,7 @@ Conclusion XXX
 
 The Matching Contract provides the fully on-Chain rating and load balancing for the off-chain matching services as described in XXX. At its core the function provided by the Matching contract is simple: A customer can provide an array of matching services and a minimum rating and the smart contract returns the matching service out of this array that complies with the rating requirements and has the lowest number of handled matches so far. This allows for a load balancing between the matching services so that no service can collect too much data.
 
-All matching services that are available to the GETACAR platform are registered inside the Matching contract with a struct that contains the name of the service, the number of matches that where handled by the matching service (that resulted in completed rides) and the number of requests that where managed by the service. To ensure that the request counter is accurate, the contract counts a request every time a specific matching service gets suggested by the Matching Contract, as the design assumes that the customer will follow the suggestion and and post their ride request to the suggested matching service. For example: A customer provides an array containing the names of matching service A, B and C without defining a minimum rating. The matching contract determines that matching service A has had the lowest amount of requests out of the three so far and therefor suggests to use matching service A to the user. This suggestion is counted as a request and the request counter of matching service A is increased by one.
+All matching services that are available to the GETACAR platform are registered inside the Matching contract with a struct that contains the name of the service, the number of matches that were handled by the matching service (that resulted in completed rides) and the number of requests that where managed by the service. To ensure that the request counter is accurate, the contract counts a request every time a specific matching service gets suggested by the Matching Contract, as the design assumes that the customer will follow the suggestion and and post their ride request to the suggested matching service. For example: A customer provides an array containing the names of matching service A, B and C without defining a minimum rating. The matching contract determines that matching service A has had the lowest amount of requests out of the three so far and therefor suggests to use matching service A to the user. This suggestion is counted as a request and the request counter of matching service A is increased by one.
 
 \lstset{
   basicstyle=\footnotesize\ttfamily,
@@ -325,7 +363,7 @@ The actual recommendation function looks as follows:
 \end{lstlisting}
 
 
-After explaining the request counter it is important to take a look at how the match counter works as it is equally necessary for calculate the rating of the matching service. What makes the calculation of this value more complicated is the fact that the contract needs to verify that only rides are counted that where officially handled by the GETACAR platform. If this is not the case it would open up doors for rating manipulations through external parties. In order to prevent that the addMatch() function is not called by a user that has successfully completed a ride but can only be called by the ride contracts themselves. The function utilises a for loop that checks a list that contains all contracts that are created by the official contract factory. If the contract that calls the function is on the list, the value of the utilised matching service is increased by one.
+After explaining the request counter, it is important to take a look at how the match counter works, as it is equally necessary for calculating the rating of the matching service. What makes the calculation of this value more complicated is the fact that the contract needs to verify that only rides are counted that were officially handled by the GETACAR platform. If this is not the case, it would open up doors for rating manipulations through external parties. To prevent that, the addMatch() function is not called by a user who has successfully completed a ride but can only be called by the ride contracts themselves. The function utilises a for loop that checks a list that contains all contracts that are created by the official contract factory. If the contract that calls the function is on the list, the value of the utilised matching service is increased by one.
 
 \lstset{
   basicstyle=\footnotesize\ttfamily,
@@ -343,7 +381,7 @@ After explaining the request counter it is important to take a look at how the m
     }
 \end{lstlisting}
 
-To enforce that only the contract factory can add ride contract addresses to the list of verified addresses a onlyFactory() modifier is implemented. Similarly a onlyRegisteredContracts() modifier is used to ensure that only contracts from the list of verified contracts can add successful matches to the rating services.
+To enforce that only the contract factory can add ride contract addresses to the list of verified addresses a onlyFactory() modifier is implemented. Similarly, a onlyRegisteredContracts() modifier ensures that only contracts from the list of verified contracts can add successful matches to the rating services.
 
 \lstset{
   basicstyle=\footnotesize\ttfamily,
@@ -364,7 +402,7 @@ To enforce that only the contract factory can add ride contract addresses to the
 \end{lstlisting}
 
 
-
+<XXX Logic from contract factory and contract>
 
 
 
