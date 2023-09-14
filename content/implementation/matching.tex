@@ -29,7 +29,7 @@ The Matching Service adds the following data points to the ride request and writ
 \end{itemize}
 
 Once the complete ride request is available to the database it can be read by ride providers. Ride providers can use the GET /rideRequests endpoint to receive a JSON object containing all ride requests with open auctions. The ride provider can search this dataset and once they found a fitting ride request, bid on it.
-To bid on a ride request the ride provider can utilise the POST /bid endpoint. A bid request contains the following data points:
+To bid on a ride request, the ride provider can utilise the POST /bid endpoint. A bid request contains the following data points:
 
 \begin{itemize}
     \item \textbf{rideRequestId:} The id of the ride request that this bid is for
@@ -51,10 +51,45 @@ Before a bid can be posted to the database the Matching Service compares the tim
 
 With ride requests and associated bids being written to the database, the next step for the matching service is handling the running auction. Each auction is posted with the status ''open''. A function managed by the Matching Service continuously crawls the database for ride requests where the auction is older than 30 seconds. If such an auction is found, the auction status changes from 'open' to 'determining-winner'. A second function then takes the ride request and analyses all bids connected with the request to determine the winning bid based on the principles of the second price auction. The winning bid is then written into the ride request itself, this also changes the auction status to 'waiting-for-signature'. 
 
-The customer is able to check the status of their auction through the GET /rideRequest/:rideRequestId endpoint, by providing the identifier of their ride request inside the URL. This endpoint returns the status of the auction and in case a winning bid was found the winning bid itself. Based on the winning bid the customer can then decide if they want to take the ride or not. If the customer decides to take the ride they follow the ride flow and create a ride contract through the contract factory that contains the maximum ride cost as a deposit. They then need to use the GET setContractAddress/:rideRequestId/:contractAddress endpoint to update their ride request with the address of the contact on the blockchain. As the creation of the contract is understood as the inital signing of the ride contract the status of the auction changes from 'waiting-for-signature' to 'closed'. 
+The customer is able to check the status of their auction through the GET /rideRequest/:rideRequestId endpoint, by providing the identifier of their ride request inside the URL. This endpoint returns the status of the auction and in case a winning bid was found the winning bid itself. Based on the winning bid the customer can then decide if they want to take the ride or not. If the customer decides to take the ride they follow the ride flow and create a ride contract through the contract factory that contains the maximum ride cost as a deposit. They then need to use the GET setContractAddress/:rideRequestId/:contractAddress endpoint to update their ride request with the address of the contact on the blockchain. As the creation of the contract is understood as the initial signing of the ride contract the status of the auction changes from 'waiting-for-signature' to 'closed'. 
 
 The GET /rideRequest/:rideRequestId endpoint also enables the ride provider to track the status of the auction. Through the endpoint the auction winner is able to receive the address of the ride contract and is therefore able to co-sign the contract as ride provider.
 
 \subsection{Grid System}
--cloaking 
--grid verteilung der matching services 
+As described in XXX, the design of the Matching Service includes a map grid that is utilised to assign matching services to specific jurisdiction zones and to cloak the exact pickup and dropoff locations of customers. There are many possible ways to create a map grid that would allow for this use case. The GETACAR prototype implementation uses H3, a hexagonal hierarchical geospatial indexing system that provides a predefined grid for the platform to use. The advantage of H3 is, that it provides a number of grid resolutions, as each gird is made up from hexagons and pentagons that them self are made up from smaller hexagons and pentagons. An algorithm allows to easily check if a hexagon of a smaller resolution is contained within a hexagon of a higher resolution. This approach would allow GETACAR to utilise dynamic resolutions for the  jurisdiction zones and the location cloaking with smaller resolutions used for crowded areas with high traffic like cities and higher resolutions that cover larger, less crowded  areas with less traffic. The prototype uses fixed resolutions with Res 9 for the location cloaking and Res 6 for the  jurisdiction zones of the matching services. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{data/11.png}
+    \caption{H3 Grid Visualisation}
+    \label{fig:H3Visualisation}
+\end{figure}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|r|r|r|}
+\hline
+\textbf{Res} & \textbf{Average Hexagon Area (km$^2$)} & \textbf{Pentagon Area (km$^2$)} & \textbf{Ratio (P/H)} \\
+\hline
+0 & 4,357,449.416078381 & 2,562,182.162955496 & 0.5880 \\
+1 & 609,788.441794133 & 328,434.586246469 & 0.5386 \\
+2 & 86,801.780398997 & 44,930.898497879 & 0.5176 \\
+3 & 12,393.434655088 & 6,315.472267516 & 0.5096 \\
+4 & 1,770.347654491 & 896.582383141 & 0.5064 \\
+5 & 252.903858182 & 127.785583023 & 0.5053 \\
+6 & 36.129062164 & 18.238749548 & 0.5048 \\
+7 & 5.161293360 & 2.604669397 & 0.5047 \\
+8 & 0.737327598 & 0.372048038 & 0.5046 \\
+9 & 0.105332513 & 0.053147195 & 0.5046 \\
+10 & 0.015047502 & 0.007592318 & 0.5046 \\
+11 & 0.002149643 & 0.001084609 & 0.5046 \\
+12 & 0.000307092 & 0.000154944 & 0.5046 \\
+13 & 0.000043870 & 0.000022135 & 0.5046 \\
+14 & 0.000006267 & 0.000003162 & 0.5046 \\
+15 & 0.000000895 & 0.000000452 & 0.5046 \\
+\hline
+\end{tabular}
+\caption{H3 Grid Resolution}
+\label{tab:your_label_here}
+\end{table}
+
