@@ -3,9 +3,9 @@ While the smart contracts represent the backbone of GETACAR, it is the frontend 
 \subsection{Customer Frontend Flow}
 The customer frontend prototype is build using Angular and the web3 package to interact with the ethereum blockchain and crypto wallets. While the market-ready implementation of a decentralised ride pooling platform would probably utilise native smartphone apps, the Angular web implementation allows for a fast, platform independent development to showcase the most important features of the customer ride pooling frontend. 
 
-The customer frontend follows the three view design approach described in XXX, offering a booking view, a on-ride view and a settings view. 
+The customer frontend follows the three view design approach described in \ref{subsec:UserFrontend}, offering a booking view, a on-ride view and a settings view. 
 
-The process of ordering a ride follows the customer flow described in XXX by opening the app and entering destination and pickup location (the ride settings that allow to customise the ride type are described at XXX). The customer frontend provides a map that can preview the trip. Additionally the frontend provides  a compass needle button as part of the pickup location input field. Pressing this button allows the customer to select their current location as their pickup location, shown in \ref{fig:MapScreen}.
+The process of ordering a ride follows the customer flow seen in \ref{fig:RideBookingFlow} by opening the app and entering destination and pickup location. The customer frontend provides a map that can preview the trip. Additionally the frontend provides  a compass needle button as part of the pickup location input field. Pressing this button allows the customer to select their current location as their pickup location, shown in \ref{fig:MapScreen}.
 
 \begin{figure}[H]
     \centering
@@ -99,7 +99,7 @@ Once the ride provider has arrived at the pickup location and posted this update
 
 After the ride provider has received the update from the customer that they are ready, the ride provider starts the ride to the destination. This is also represented via a status screen in the customer frontend as shown in \ref{fig:DrivingScreen}. When arriving at the dropoff location the ride provider posts this information onto the ride contract. The customer frontend notices this new event on the blockchain and updates the status of the frontend, as seen in \ref{fig:DestinationScreen}. On this screen the customer has the possibility to confirm the ride completion and thereby end the ride process.
 
-It is important to note that each status screen also provides a ''Cancel Ride'' button at all time that allows the customer to aboard the ride process as described in XXX.
+It is important to note that each status screen also provides a ''Cancel Ride'' button at all time that allows the customer to aboard the ride process.
 
 \begin{figure}[H]
     \centering
@@ -120,7 +120,7 @@ It is important to note that each status screen also provides a ''Cancel Ride'' 
     
 \end{figure}
 
-Once the ride has ended the customer is provided with a ''Ride Completed'' screen that allows the customer to rate the ride provider itself and their passengers, seen in \ref{fig:RateRideProviderScreen}. As described in XXX, the problem with rating passengers is that no personal information should be exchanged through the platform about the passengers. This makes it complicated to ensure that the customer knows who is who when rating multiple passengers. To solve this problem the ride provider shares the seating position and the start time of each passenger with the customer. The seating position is then visualised by the frontend, as seen in \ref{fig:RatePassengerScreen}. In this example passenger that is getting rated was sitting on seat number one, which is the seat on the front row on the left. 
+Once the ride has ended the customer is provided with a ''Ride Completed'' screen that allows the customer to rate the ride provider itself and their passengers, seen in \ref{fig:RateRideProviderScreen}. As described in \ref{subsec:RatingTrustMechanisms}, the problem with rating passengers is that no personal information should be exchanged through the platform about the passengers. This makes it complicated to ensure that the customer knows who is who when rating multiple passengers. To solve this problem the ride provider shares the seating position and the start time of each passenger with the customer. The seating position is then visualised by the frontend, as seen in \ref{fig:RatePassengerScreen}. In this example passenger that is getting rated was sitting on seat number one, which is the seat on the front row on the left. 
 
 
 
@@ -143,7 +143,7 @@ Once the ride has ended the customer is provided with a ''Ride Completed'' scree
     
 \end{figure}
 
-Last but not least the prototype frontend  also contains the settings view as seen in XXX, that can be opened by pressing the wallet icon in the top right corner of the UI. Here the customer has a number of sliders available to adjust ride booking preferences like the minimum ride provider rating and the maximum amount of passengers that they want to share the ride with at once. This view also shows the rating of the customer them self as well as some additional information like the wallet id that is used to connect to the platform and the account balance of the wallet. These information are only implemented for the prototype as the market ready implementation of the frontend would manage multiple wallets at once. One for each ride. And the wallets would be managed by the frontend in the background as the customer does not has to manage all the wallets by them self and each wallet will only be charged with the amount of money needed for one ride through a crypto exchange.
+Last but not least the prototype frontend  also contains the settings view as seen in \ref{fig:SettingsScreen}, that can be opened by pressing the wallet icon in the top right corner of the UI. Here the customer has a number of sliders available to adjust ride booking preferences like the minimum ride provider rating and the maximum amount of passengers that they want to share the ride with at once. This view also shows the rating of the customer them self as well as some additional information like the wallet id that is used to connect to the platform and the account balance of the wallet. These information are only implemented for the prototype as the market ready implementation of the frontend would manage multiple wallets at once. One for each ride. And the wallets would be managed by the frontend in the background as the customer does not has to manage all the wallets by them self and each wallet will only be charged with the amount of money needed for one ride through a crypto exchange.
 
 \begin{figure}[H]
     \centering

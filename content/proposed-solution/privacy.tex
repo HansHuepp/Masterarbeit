@@ -54,9 +54,9 @@ Billing address & $\checkmark$$\bullet$ & $\times$ & $\times$ & $\checkmark$$\bu
 \hline
 Pickup and drop-off locations & $\checkmark$$\bullet$ & $\checkmark$$\bullet$ &  ($\times$) & $\times$ & $\times$ & $\times$ \\
 \hline
-Date and time of rides & $\checkmark$$\bullet$ & $\checkmark$$\bullet$ & $\checkmark$ & $\times$ & $\checkmark$ & $\times$ \\
+Date and time of rides & $\checkmark$$\bullet$ & $\checkmark$$\bullet$ & ($\times$) & $\times$ & $\checkmark$ & $\times$ \\
 \hline
-Ride preferences & $\checkmark$$\bullet$ & $\checkmark$$\bullet$ & $\checkmark$ & $\times$ & $\times$ & $\times$ \\
+Ride preferences & $\checkmark$$\bullet$ & $\checkmark$$\bullet$ & ($\times$) & $\times$ & $\times$ & $\times$ \\
 \hline
 Ride history & $\checkmark$$\bullet$ & $\times$ & $\times$ & $\times$ & $\times$ & $\times$ \\
 \hline
@@ -174,24 +174,24 @@ All contracts are monitored by the authentication service. If a rating is posted
 \end{figure}
 
 
-To ensure that users do not lie about their rating the authentication services work as verification service for the ratings they manage through a request that contains the non verified rating and the pseudonym connected with it. This by itself creates a small risk that users are able to find connected pseudonyms by analysing ratings posted onto the blockchain. To counter this, all ratings provided by the authentication service (including the rating presented to a user as their own rating) are rounded to 0.3 steps (e.g. 5, 4.7, 4.3, 4, ... ). 
+To ensure that users do not lie about their ratings, the authentication services work as a verification service for the ratings they manage through a request that contains the non-verified rating and the pseudonym connected with it. This by itself creates a small risk that users are able to find connected pseudonyms by analysing ratings posted onto the blockchain. To counter this, all ratings provided by the authentication service (including the rating presented to a user as their own rating) are rounded to 0.3 steps (e.g. 5, 4.7, 4.3, 4, ... ). 
 
 
-To put it in a nutshell, the combination of on chain ratings combined with off chain rating accumulation allows for more complex and accurate rating systems while still utilising the transparency and auditing abilities of a blockchain based rating system which ensures a secure and trustworthy environment on the platform.
+To put it in a nutshell, the combination of on-chain ratings combined with off-chain rating accumulation allows for more complex and accurate rating systems while still utilising the transparency and auditing abilities of a blockchain-based rating system which ensures a secure and trustworthy environment on the platform.
 
-Additionally the completely blockchain based rating system is in place for the matching services as described in \ref{subsec:MatchingService}, allowing customers to ensure that they are utilising a well performing matching service without risking to expose personal information by utalising the same instance of the matching service too often.
+Additionally, the completely blockchain-based rating system is in place for the matching services as described in \ref{subsec:MatchingService}, allowing customers to ensure that they are utilising a well-performing matching service without risking exposing personal information by utilising the same instance of the matching service too often.
 
 \subsection{Deposit Trust Mechanisms}\label{subsec:DepositTrust}
-While the rating system provides a solid foundation for ensuring trust on the platform man research papers utilise money deposits by the customer and ride provider to ensure that the cost of the ride will be payed and to counter malicious activities on the platform. In the following we will focus on how to implement such deposit functions into the platform with the help of smart contracts. It is not part of this research to determine what the exact amounts of deposited money should be to ensure a trust between customer and ride provider. This should be part of future research.
+While the rating system provides a solid foundation for ensuring trust in the platform, many research papers utilise money deposits by the customer and ride provider to ensure that the cost of the ride will be paid and to counter malicious activities on the platform. In the following, we will focus on how to implement such deposit functions into the platform with the help of smart contracts. It is not part of this research to determine what the exact amounts of deposited money should be to ensure trust between customer and ride provider. This should be part of future research.
 
-The implementation of the deposit based trust mechanism in the GETACAR looks as follows:
-After the customer reviewed and accepted the winning bid form a ride provider they create a ride contract on the blockchain as described in \ref{subsec:RideContractService}. This contract is loaded with a deposit by the customer that is equal to the maximum ride cost set by the ride provider in their bid. This ensures that the ride provider has indeed enough money to pay for the ride. It also ensures that the customer can not be overplayed by the ride provider as the maximum ride cost is limited by the deposit in the contract. 
+The implementation of the deposit-based trust mechanism in GETACAR looks as follows:
+After the customer reviews and accepts the winning bid from a ride provider, they create a ride contract on the blockchain as described in \ref{subsec:RideContractService}. This contract is loaded with a deposit by the customer that is equal to the maximum ride cost set by the ride provider in their bid. This ensures that the ride provider has enough money to pay for the ride. It also ensures that the customer can not be overplayed by the ride provider as the maximum ride cost is limited by the deposit in the contract. 
 
-To ensure that the ride provider has honest intents on completing the ride, they have to deposit 10\% of the maximum ride cost into the contract themselves to be able to be allowed to handle the ride. This deposit will be transferred back to the ride provider after completing the ride. 
+To ensure that the ride provider has honest intent on completing the ride, they have to deposit 10\% of the maximum ride cost into the contract themselves to be able to be allowed to handle the ride. This deposit will be transferred back to the ride provider after completing the ride. 
 
-After the ride is marked as completed by both the customer and the ride provider the ride provider can now claim the amount of money from the ride contract that they determined as the actual ride price. The rest gets transferred back to the customer.
+After the ride is marked as completed by both the customer and the ride provider, the ride provider can now claim the amount of money from the ride contract that they determined as the actual ride price. The rest gets transferred back to the customer.
 
-By managing all the transactions through a smart contract we can ensure that no trusted third party is needed as well as no trust between customer and ride provider is needed to ensure that the all transactions are handled properly.
+By managing all the transactions through a smart contract, we can ensure that no trusted third party is needed as well, and no trust between the customer and ride provider is needed to ensure that all transactions are handled properly.
 
 \subsection{Conclusion}
-Based on the current state of the scientific literature and best practices from the industry we designed the GETACAR ride-pooling platform. This chapter has shown how each of the components of the GETACAR platform works and how components interact with each other. The design was also assessed on how it handles data privacy and we explained how trust mechanisms are implemented into the platform. Now that we successfully designed the platform it is important to show that the design successfully transports into reality. 
+Based on the current state of the scientific literature and best practices from the industry, we designed the GETACAR ride-pooling platform. This chapter has shown how each of the components of the GETACAR platform works and how components interact with each other. The design was also assessed on how it handles data privacy, and we explained how trust mechanisms are implemented into the platform. Now that we have successfully designed the platform, it is important to show that the design successfully transports into reality. 

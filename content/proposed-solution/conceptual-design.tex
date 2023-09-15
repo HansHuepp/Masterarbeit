@@ -99,7 +99,7 @@ In the following, we will provide an overview of these components:
     \end{itemize}
 \end{enumerate}
 
-Each of the components is decentralised, ether in the sense that the component is designed so that an individual or a group is able to run and host it them self, to interact with the network, or the component runs decentralised on the blockchain. After providing a small overview over the important components of the GETACAR Platform we will use the following Sections of this Chapter to dive deeper into the concepts and architecture behind each component. 
+Each of the components is decentralised, either in the sense that the component is designed so that an individual or a group is able to run and host it themself, to interact with the network, or the component runs decentralised on the blockchain. After providing a small overview over the important components of the GETACAR Platform we will use the following Sections of this Chapter to dive deeper into the concepts and architecture behind each component. 
 
 \begin{figure}[h]
     \centering
@@ -109,7 +109,7 @@ Each of the components is decentralised, ether in the sense that the component i
 \end{figure}
 
 \subsection{User Frontend}\label{subsec:UserFrontend}
-In the context of creating a decentralized ride pooling platform , the user interface plays an important role to ensure a seamless experience for both customers and ride providers. Therefore the GETACAR frontend also draws inspiration from established platforms like Uber and Lyft. To build a comprehensive ride booking frontend, three distinct views are needed:
+In the context of creating a decentralized ride-pooling platform, the user interface plays an important role in ensuring a seamless experience for both customers and ride providers. Therefore the GETACAR frontend also draws inspiration from established platforms like Uber and Lyft. To build a comprehensive ride booking frontend, three distinct views are needed:
 
 The primary point of interaction for users is the booking view. This view allows users to easily input their desired pickup and dropoff locations through a search bar. Once the locations are set, this view previews the planned route on a map. This allows the users to have a visual representation of their upcoming trip. Alongside the map, users are presented some additional details such as the expected arrival time at the trip destination and the total distance of the ride. A prominently placed button allows users to commit to the route and request their ride. This initiates the matching service to find a fitting match for the customer.
 
@@ -129,11 +129,11 @@ A settings section allows customers to manage their account and customize their 
 To ensure transparency the source code of the frontend is open source. This allows everyone who is interested in it to take a look at the structure of this component in detail and even allows people to make personal adjustments to the application and to compile the frontend themselves.
 
 \subsection{Ride Provider Frontend}\label{subsec:RideProviderFrontend}
-The design and functionality of the Ride Provider Frontend largely depends on the nature of the ride provider, be it a human pilot or an autonomous vehicle. To ensue a wide adaption by ride providers the GETACAR Platform aims to cater to both types of providers.
+The design and functionality of the Ride Provider Frontend largely depend on the nature of the ride provider, be it a human pilot or an autonomous vehicle. To ensure a wide adoption by ride providers, the GETACAR Platform aims to cater to both types of providers.
 
-For human ride providers, GETACAR provides a frontend simular of the customer frontend. This interface presents a view that allows ride providers to scroll through open ride requests. This view allows them to check ride details, and place bids on ride requests. When an auction for a ride request results with the provider winning the ride opportunity, and the customer confirming the ride, the frontend informs the ride provider that they have indeed won the auction and provides the exact pickup and dropoff location of the customer.
+For human ride providers, GETACAR provides a frontend similar of the customer frontend. This interface presents a view that allows ride providers to scroll through open ride requests. This view allows them to check ride details and place bids on ride requests. When an auction for a ride request results with the provider winning the ride opportunity, and the customer confirming the ride, the frontend informs the ride provider that they have indeed won the auction and provides the exact pickup and dropoff location of the customer.
 
-After this confirmation, a second view becomes visible that allows the ride provider to manage the actual ride process. This flow mirrors the customer's journey. The provider confirms their commitment to the customer to take on the ride request and confirms their drive to the pickup location. When reaching the pickup point, the ride provider informs the customer of their arrival. The customer can then board the vehicle and initiate the ride. The ride provider then starts of the travel to the dropoff location. After reaching the destination, the ride provider confirms the arrival via the frontend. This  concludes the ride from their perspective. Once the user leaves the vehicle and confirms the ride's end, the provider is able to claim the actual ride cost. This cost deducted from the maximum ride cost deposit made by the user at the ride's start. 
+After this confirmation, a second view becomes visible that allows the ride provider to manage the actual ride process. This flow mirrors the customer's journey. The provider confirms their commitment to the customer to take on the ride request and confirms their drive to the pickup location. When reaching the pickup point, the ride provider informs the customer of their arrival. The customer can then board the vehicle and initiate the ride. The ride provider then starts of the travel to the dropoff location. After reaching the destination, the ride provider confirms the arrival via the frontend. This  concludes the ride from their perspective. Once the user leaves the vehicle and confirms the ride's end, the provider is able to claim the actual ride cost. This cost is deducted from the maximum ride cost deposit made by the user at the ride's start. 
 Just like the user, the provider retains the option to abort the ride at any point between the ride's confirmation and the confirmation of arrival at the pickup location.
 
 
@@ -220,8 +220,8 @@ Within this blockchain, various events and statuses related to the ride-sharing 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\linewidth]{data/1.svg}
-    \caption{Swim lane Diagram User, Platform and Ride Provider}
-    \label{fig:directSVG}
+    \caption{Swim lane Diagram Customer, Platform and Ride Provider}
+    \label{fig:SwimLaneCustomer}
 \end{figure}
 
 On the user's side, they read the event from the blockchain indicating the ride provider has accepted the ride. Once the ride provider reaches the pickup location, the user reads another event from the blockchain and gets in the car. They then send a status to the blockchain indicating their readiness to start the ride. After the journey, the user reads an event from the blockchain that the ride provider has reached the drop-off location and subsequently exits the car. They then send a final status to the blockchain, marking the ride as complete.
