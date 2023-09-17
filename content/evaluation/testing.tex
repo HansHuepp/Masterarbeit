@@ -1,3 +1,9 @@
+After assessing  the research objectives and the security measures of the GETACAR platform it is important to also document the results of prototype implementation. 
+The prototype shows that the design of the frontends the matching service and the smart contracts successfully translates into a working implementation. 
+
+
+
+
 \begin{table}[h]
 \centering
 \begin{tabular}{|l|c|}
@@ -23,7 +29,37 @@ Rating one Passenger & 577.86 \\
 \caption{Gas consumption for the Ride Customer transactions}
 \end{table}
 
-Test123
+
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|}
+\hline
+\textbf{Transaction} & \textbf{Gas Cost} \\
+\hline
+Co-Signing Ride Contract & 734.18 \\
+\hline
+Adding first passenger  & 47915.23 \\
+\hline
+Adding second passenger & 391.55 \\
+\hline
+Posting the ''Arrived at pickup location'' Event & 683.45 \\
+\hline
+Posting the ''Ride-provider started ride'' Event & 683.45 \\
+\hline
+Posting the ''Ride-provider arrived at dropoff location'' Event & 683.45 \\
+\hline
+Rating Ride Custimer & 802.55 \\
+\hline
+Claiming Deposit & 683.45 \\
+\hline
+\hline
+\textbf{Sum}  & \textbf{51104.82} \\
+\hline
+\end{tabular}
+\caption{Gas consumption for the Ride Provider transactions}
+\end{table}
+
 
 \begin{table}
 \centering
