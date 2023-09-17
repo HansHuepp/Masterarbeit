@@ -65,6 +65,7 @@ At the centre of the contract factory exists the createContract() function that 
   firstnumber=39,
 }
 
+\begin{Listing}
 \begin{lstlisting}
     function createContract(uint256 _amount) public payable {
         require(msg.value == _amount, "Sent value does not match the specified amount.");
@@ -84,6 +85,12 @@ At the centre of the contract factory exists the createContract() function that 
         emit ContractCreated(msg.sender, newContract, contractCounter);
     }
 \end{lstlisting}
+  \caption{ContractFactory.sol: createContract() Function}
+  \label{lst:setRideRating}
+\end{Listing}
+
+
+
 The helper functions that are contained in the contract factory that allows authentication services to better track newly created contracts look as follows.
 
 \lstset{
@@ -93,6 +100,7 @@ The helper functions that are contained in the contract factory that allows auth
   firstnumber=57
 }
 
+\begin{Listing}
 \begin{lstlisting}
 
     function getContractsByUser(address user) public view returns (Contract[] memory) {
@@ -109,6 +117,10 @@ The helper functions that are contained in the contract factory that allows auth
     }
 
 \end{lstlisting}
+  \caption{ContractFactory.sol: Authentication Service Helper-Functions}
+  \label{lst:helperFunctions}
+\end{Listing}
+
 
 
 
@@ -127,6 +139,7 @@ The contract starts with the initiation of the variables that are used to track 
   firstnumber=30
 }
 
+\begin{Listing}
 \begin{lstlisting}
     constructor(address _party1) payable {
         party1 = _party1;
@@ -141,6 +154,9 @@ The contract starts with the initiation of the variables that are used to track 
 
     }
 \end{lstlisting}
+  \caption{Contract.sol: Constructor}
+  \label{lst:constructor}
+\end{Listing}
 
 After the contract is created by the customer, the address of the contract is shared via the matching service with the ride provider. The ride provider then uses the signContract() function to co-sign the contract as party2 and thereby activates the ride contract. As described in XXX the ride provider also has to deposit 10\% of predefined  maximum ride cost into the contract as part of the deposit trust mechanism.
 
@@ -151,6 +167,7 @@ After the contract is created by the customer, the address of the contract is sh
   firstnumber=76
 }
 
+\begin{Listing}
 \begin{lstlisting}
     function signContract() public payable {
         require(party2 == address(0), "Party2 has already signed the contract.");
@@ -170,6 +187,9 @@ After the contract is created by the customer, the address of the contract is sh
         }
     }
 \end{lstlisting}
+  \caption{Contract.sol: signContract() Function}
+  \label{lst:signContract}
+\end{Listing}
 
 Now that both parties have signed the contract the actual ride flow can start, as decided in XXX with the ''Ride Provider accepts ride'' event. All event functions are structured similarly. Therefore we will use the setRideProviderAcceptedStatus() function as an example to showcase how each event is represented by a function inside the smart contract. The function takes a message as an input that will later be written onto the chain permanently. This message is used by customer and the ride provider to exchange encrypted information on the blockchain as decided in XXX. The function also contains a number of checks utilising the require() function to make sure that it is only used as intended. Among others, these checks include the requirement to only be called by the right entity (depending on the event this can be the customer or the ride provider). Additionally a check is applied to ensure that the events are called in the ride order as designed in the ride flow. At last three more checks make sure that the contract is active, not canceled and a ride provider has accepted the contract. If all checks are successfully it can be ensured that the function is used as intended and the event is written onto the chain as a secure and auditable prof that it accrued. This is done though calling the UpdatePosted() function.
 
@@ -179,6 +199,7 @@ Now that both parties have signed the contract the actual ride flow can start, a
   numbers=left,
   firstnumber=97
 }
+\begin{Listing}
 \begin{lstlisting}
     function setRideProviderAcceptedStatus(string memory _message) public {
         require(isActive, "Contract is not active.");
@@ -192,6 +213,9 @@ Now that both parties have signed the contract the actual ride flow can start, a
         emit UpdatePosted(msg.sender, _message, "rideProviderAcceptedStatus");
     }
 \end{lstlisting}
+  \caption{Contract.sol: setRideProviderAcceptedStatus() Function}
+  \label{lst:signContract}
+\end{Listing}
 
 The UpdatePosted() function works as follows: It gets called by an event function and takes the wallet of the entity calling the function, the message and the name of the event function and emits it as an event onto the chain. These events are permanent and can not be changed.
 
@@ -201,9 +225,14 @@ The UpdatePosted() function works as follows: It gets called by an event functio
   numbers=left,
   firstnumber=94
 }
+
+\begin{Listing}
 \begin{lstlisting}
  event UpdatePosted(address indexed author, string message, string functionName);
 \end{lstlisting}
+  \caption{Contract.sol: updatePosted() Event}
+  \label{lst:updatePosted}
+\end{Listing}
 
 Now that the functions that enable the general ride flow are shown, it is important to take a look at edge-cases that are handled on-chain. As described in XXX, both customer and ride provider have the ability to cancel the ride and if one of the parties cancels the ride the other party gets automatically deposited the money managed by the ride contract. The ride contract provides these features through a setUserCanceldRide() and as setRideProviderCanceldRide() function. In the flowing we will describe their functionality using the setUserCanceldRide() function as an example. If the customer calls the function to cancel their ride two if clauses check if the contract is active and therefore a ride provider has already signed the contract. If this is the case all money inside the contract gets deposited to the ride provider. If for some reason no ride provider is signing the contract the customer gets their money back. This ensures that the customer does not gets their deposit stuck inside a ride contract if a ride provider decides not sign a contract. Additionally the customer has the possibility to emit a message onto the chain that contains information on why the ride was canceled.
 Lastly the contract gets marked with the status userCanceldRide = true.
@@ -214,6 +243,8 @@ Lastly the contract gets marked with the status userCanceldRide = true.
   numbers=left,
   firstnumber=176
 }
+
+\begin{Listing}
 \begin{lstlisting}
     function setUserCanceldRide(string memory _message) public {
         require(msg.sender == party1, "Only Party1 can set the user cancelled ride status.");
@@ -237,6 +268,9 @@ Lastly the contract gets marked with the status userCanceldRide = true.
         emit UpdatePosted(msg.sender, _message, "userCanceldRide");
     }
 \end{lstlisting}
+  \caption{Contract.sol: setUserCanceldRide() Function}
+  \label{lst:setUserCanceldRide}
+\end{Listing}
 
 As described in XXX, the rating is also managed via the smart contract. Both customers and ride provider can post their ratings through similar functions. The customer can use the setRideRating() function for this process which takes the selected rating as input.
 The function ensures, besides other checks, that the rating is in the predefined range of allowed ratings. 
@@ -247,6 +281,7 @@ The function ensures, besides other checks, that the rating is in the predefined
   numbers=left,
   firstnumber=222
 }
+\begin{Listing}
 \begin{lstlisting}
   function setRideRating(uint _rating) public {
         require(msg.sender == party1, "Only Party1 can set the ride rating.");
@@ -257,6 +292,9 @@ The function ensures, besides other checks, that the rating is in the predefined
         isRideRatingSet = true;
     }
 \end{lstlisting}
+  \caption{Contract.sol: setRideRating() Function}
+  \label{lst:setRideRating}
+\end{Listing}
 
 It is also possible for the customer to rate passengers. Therefore the following function is used by the ride providers to add passengers to the ride contract. This will allow customers to rate their passengers. For privacy reasons, the customer will only see the pseudonyms known to the ride provider for the passengers. The user can then rate the passengers based on their seating position inside the vehicle and the starting time of their ride. Through this system, it is possible for customers sharing a vehicle to rate each other without the need to share personal information like a name or a profile picture. 
 
@@ -266,6 +304,8 @@ It is also possible for the customer to rate passengers. Therefore the following
   numbers=left,
   firstnumber=53
 }
+
+\begin{Listing}
 \begin{lstlisting}
     function addPassenger(string memory _passengerID, uint _seatingPosition, string memory _startTime) public {
         require(isActive, "Contract is not active.");
@@ -281,6 +321,10 @@ It is also possible for the customer to rate passengers. Therefore the following
         passengers.push(newPassenger);
     }
 \end{lstlisting}
+  \caption{Contract.sol: addPassenger() Function}
+  \label{lst:setUserCanceldRide}
+\end{Listing}
+
 
 The claimETH() function is used by the ride provider to get the applicable amount of money to cover the ride cost from the smart contract. The function can only be triggered once the customer has marked the ride as successfully completed. After all checks are successfully completed the contact sends 10\% of the total amount of money on hold inside the contract to a predefined address managed by the GETACAR foundation as described in XXX. Afterwards, the remaining money gets deducted from the amount of money that is claimed by the ride provider to cover the ride cost. This amount is then transferred to the wallet of the ride provider. The remaining deposit left inside the smart contract then gets sent back to the wallet of the customer. 
 
@@ -290,6 +334,8 @@ The claimETH() function is used by the ride provider to get the applicable amoun
   numbers=left,
   firstnumber=232
 }
+
+\begin{Listing}
 \begin{lstlisting}
     function claimETH(uint256 amount) public {
         require(isActive, "Contract is not active.");
@@ -312,6 +358,9 @@ The claimETH() function is used by the ride provider to get the applicable amoun
         payable(party2).transfer(remainder);
     }
 \end{lstlisting}
+  \caption{Contract.sol: claimETH() Function}
+  \label{lst:claimETH}
+\end{Listing}
 
 
 \subsection{Matching Contract}
@@ -326,6 +375,8 @@ All matching services that are available to the GETACAR platform are registered 
   numbers=left,
   firstnumber=6
 }
+
+\begin{Listing}
 \begin{lstlisting}
     struct MatchingServiceObject {
         string name;
@@ -333,6 +384,10 @@ All matching services that are available to the GETACAR platform are registered 
         uint256 requests;
     }
 \end{lstlisting}
+  \caption{Matching.sol: MatchingServiceObject Struct}
+  \label{lst:MatchingServiceObject}
+\end{Listing}
+
 
 The actual recommendation function looks as follows: 
 
@@ -342,6 +397,8 @@ The actual recommendation function looks as follows:
   numbers=left,
   firstnumber=59
 }
+
+\begin{Listing}
 \begin{lstlisting}
     function getMatchingService(string[] memory names) public {
         uint256 lowestMatches = type(uint256).max;
@@ -365,7 +422,9 @@ The actual recommendation function looks as follows:
         emit LowestMatchService(lowestMatchServiceName, lowestMatchServiceRating);
     }
 \end{lstlisting}
-
+  \caption{Matching.sol: getMatchingService Function}
+  \label{lst:getMatchingService}
+\end{Listing}
 
 After explaining the request counter, it is important to take a look at how the match counter works, as it is equally necessary for calculating the rating of the matching service. What makes the calculation of this value more complicated is the fact that the contract needs to verify that only rides are counted that were officially handled by the GETACAR platform. If this is not the case, it would open up doors for rating manipulations through external parties. To prevent that, the addMatch() function is not called by a user who has successfully completed a ride but can only be called by the ride contracts themselves. The function utilises a for loop that checks a list that contains all contracts that are created by the official contract factory. If the contract that calls the function is on the list, the value of the utilised matching service is increased by one.
 
@@ -375,6 +434,8 @@ After explaining the request counter, it is important to take a look at how the 
   numbers=left,
   firstnumber=81
 }
+
+\begin{Listing}
 \begin{lstlisting}
     function addMatch(string memory serviceName) external onlyRegisteredContracts {
         for (uint i = 0; i < services.length; i++) {
@@ -384,6 +445,9 @@ After explaining the request counter, it is important to take a look at how the 
         }
     }
 \end{lstlisting}
+  \caption{Matching.sol: addMatch() Function}
+  \label{lst:addMatch}
+\end{Listing}
 
 To enforce that only the contract factory can add ride contract addresses to the list of verified addresses an onlyFactory() modifier is implemented. Similarly, a onlyRegisteredContracts() modifier ensures that only contracts from the list of verified contracts can add successful matches to the rating services.
 
@@ -393,6 +457,8 @@ To enforce that only the contract factory can add ride contract addresses to the
   numbers=left,
   firstnumber=24
 }
+
+\begin{Listing}
 \begin{lstlisting}
     modifier onlyFactory() {
         require(msg.sender == FACTORY_ADDRESS, "Only the factory can call this");
@@ -404,6 +470,9 @@ To enforce that only the contract factory can add ride contract addresses to the
         _;
     }
 \end{lstlisting}
+  \caption{Matching.sol: onlyFactory() and onlyRegisteredContracts() Modifier}
+  \label{lst:modifier}
+\end{Listing}
 
 
 <XXX Logic from contract factory and contract>
