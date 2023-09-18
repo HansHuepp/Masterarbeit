@@ -1,4 +1,4 @@
-Smart contracts make up the backbone of the GETACAR ride-pooling platform. They allow for the secure and transparent ride ordering flow that is the standout feature of the platform. Therefore we will start with the construction of these smart contracts for the prototype. 
+Smart contracts make up the backbone of the GETACAR ride-pooling platform. They allow for the secure and transparent ride ordering flow that is the standout feature of the platform. Therefore, we will start with the construction of these smart contracts for the prototype. 
 
 Before writing the contracts it is necessary to decide on a programming language. This decision is crucial because it will also affect the compatibility of the smart contracts with the available blockchain platforms. 
 
@@ -18,7 +18,7 @@ Because data privacy and security are most important to the design of the GETACA
 
 The contract factory that is designed to generate ride contracts looks as follows:
 
-At the centre of the contract factory exists the createContract() function that creates a new ride contract that takes the amount of ETH (that represents the maximum ride cost) as a deposit. The deposit holder will be the newly created ride contract which will only return the deposit if the right circumstances are met. createContract() also executes some additional code that helps authentication services track newly created contracts. Each contact gets assigned a contract number determined by the contract counter and is mapped to a timestamp that represents its creation date. Additionally, the contract gets registered to the matching service smart contract.
+At the centre of the contract factory exists the createContract() function that creates a new ride contract that takes the amount of ETH (that represents the maximum ride cost) as a deposit, as seen in \ref{lst:createContract}. The deposit holder will be the newly created ride contract which will only return the deposit if the right circumstances are met. createContract() also executes some additional code that helps authentication services track newly created contracts. Each contact gets assigned a contract number determined by the contract counter and is mapped to a timestamp that represents its creation date. Additionally, the contract gets registered to the matching service smart contract.
 
 
 \definecolor{verylightgray}{rgb}{.97,.97,.97}
@@ -87,12 +87,12 @@ At the centre of the contract factory exists the createContract() function that 
     }
 \end{lstlisting}
   \caption{ContractFactory.sol: createContract() Function}
-  \label{lst:setRideRating}
+  \label{lst:createContract}
 \end{Listing}
 
 
 
-The helper functions that are contained in the contract factory that allows authentication services to better track newly created contracts look as follows.
+The helper functions that are contained in the contract factory that allows authentication services to better track newly created contracts look as follows. The helper functions are shown in \ref{lst:helperFunctions}.
 
 \lstset{
   basicstyle=\footnotesize\ttfamily,
@@ -129,9 +129,9 @@ The helper functions that are contained in the contract factory that allows auth
 \subsection{Ride Contract}
 Now that we have shown how a ride contract is created through the ride contract factory it is important to look at the ride contract itself.
 
-The Solidity smart contract under consideration allows the ride provider and the customer to interact with each other and tracks these interactions as described in \ref{fig:}.
+The Solidity smart contract under consideration allows the ride provider and the customer to interact with each other and tracks these interactions as described in \ref{fig:RideBookingFlow}.
 
-The contract starts with the initiation of the variables that are used to track the status of the ride through a constructor. The constructor also sets the wallet address of the customer who initiated the contract through the contract factory as ''party1''. The address that is mapped to party one represents the customer inside the contract.
+The contract starts with the initiation of the variables that are used to track the status of the ride through a constructor, seen in \ref{lst:constructor}. The constructor also sets the wallet address of the customer who initiated the contract through the contract factory as ''party1''. The address that is mapped to party one represents the customer inside the contract.
 
 \lstset{
   basicstyle=\footnotesize\ttfamily,
@@ -159,7 +159,7 @@ The contract starts with the initiation of the variables that are used to track 
   \label{lst:constructor}
 \end{Listing}
 
-After the contract is created by the customer, the address of the contract is shared via the matching service with the ride provider. The ride provider then uses the signContract() function to co-sign the contract as party2 and thereby activates the ride contract. As described in XXX the ride provider also has to deposit 10\% of predefined  maximum ride cost into the contract as part of the deposit trust mechanism.
+After the contract is created by the customer, the address of the contract is shared via the matching service with the ride provider. The ride provider then uses the signContract() function to co-sign the contract as party2 and thereby activates the ride contract, seen in \ref{lst:signContract}. As described in XXX the ride provider also has to deposit 10\% of predefined  maximum ride cost into the contract as part of the deposit trust mechanism.
 
 \lstset{
   basicstyle=\footnotesize\ttfamily,
@@ -192,7 +192,7 @@ After the contract is created by the customer, the address of the contract is sh
   \label{lst:signContract}
 \end{Listing}
 
-Now that both parties have signed the contract the actual ride flow can start, as decided in XXX with the ''Ride Provider accepts ride'' event. All event functions are structured similarly. Therefore we will use the setRideProviderAcceptedStatus() function as an example to showcase how each event is represented by a function inside the smart contract. The function takes a message as an input that will later be written onto the chain permanently. This message is used by customer and the ride provider to exchange encrypted information on the blockchain as decided in XXX. The function also contains a number of checks utilising the require() function to make sure that it is only used as intended. Among others, these checks include the requirement to only be called by the right entity (depending on the event this can be the customer or the ride provider). Additionally a check is applied to ensure that the events are called in the ride order as designed in the ride flow. At last three more checks make sure that the contract is active, not canceled and a ride provider has accepted the contract. If all checks are successfully it can be ensured that the function is used as intended and the event is written onto the chain as a secure and auditable prof that it accrued. This is done though calling the UpdatePosted() function.
+Now that both parties have signed the contract the actual ride flow can start, as decided in XXX with the ''Ride Provider accepts ride'' event. All event functions are structured similarly. Therefore we will use the setRideProviderAcceptedStatus() function, seen in \ref{lst:setRideProviderAcceptedStatus} as an example to showcase how each event is represented by a function inside the smart contract. The function takes a message as an input that will later be written onto the chain permanently. This message is used by customer and the ride provider to exchange encrypted information on the blockchain as decided in XXX. The function also contains a number of checks utilising the require() function to make sure that it is only used as intended. Among others, these checks include the requirement to only be called by the right entity (depending on the event this can be the customer or the ride provider). Additionally a check is applied to ensure that the events are called in the ride order as designed in the ride flow. At last three more checks make sure that the contract is active, not canceled and a ride provider has accepted the contract. If all checks are successfully it can be ensured that the function is used as intended and the event is written onto the chain as a secure and auditable prof that it accrued. This is done though calling the UpdatePosted() function.
 
 \lstset{
   basicstyle=\footnotesize\ttfamily,
@@ -215,7 +215,7 @@ Now that both parties have signed the contract the actual ride flow can start, a
     }
 \end{lstlisting}
   \caption{Contract.sol: setRideProviderAcceptedStatus() Function}
-  \label{lst:signContract}
+  \label{lst:setRideProviderAcceptedStatus}
 \end{Listing}
 
 The UpdatePosted() function works as follows: It gets called by an event function and takes the wallet of the entity calling the function, the message and the name of the event function and emits it as an event onto the chain. These events are permanent and can not be changed.
@@ -327,7 +327,7 @@ It is also possible for the customer to rate passengers. Therefore the following
 \end{Listing}
 
 
-The claimETH() function is used by the ride provider to get the applicable amount of money to cover the ride cost from the smart contract. The function can only be triggered once the customer has marked the ride as successfully completed. After all checks are successfully completed the contact sends 10\% of the total amount of money on hold inside the contract to a predefined address managed by the GETACAR foundation as described in XXX. Afterwards, the remaining money gets deducted from the amount of money that is claimed by the ride provider to cover the ride cost. This amount is then transferred to the wallet of the ride provider. The remaining deposit left inside the smart contract then gets sent back to the wallet of the customer. 
+The \texttt{claimETH()} function is used by the ride provider to get the applicable amount of money to cover the ride cost from the smart contract. The function can only be triggered once the customer has marked the ride as successfully completed. After all checks are successfully completed the contact sends 10\% of the total amount of money on hold inside the contract to a predefined address managed by the GETACAR foundation as described in XXX. Afterwards, the remaining money gets deducted from the amount of money that is claimed by the ride provider to cover the ride cost. This amount is then transferred to the wallet of the ride provider. The remaining deposit left inside the smart contract then gets sent back to the wallet of the customer. 
 
 \lstset{
   basicstyle=\footnotesize\ttfamily,

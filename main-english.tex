@@ -78,13 +78,16 @@
 
 %Kurzfassung / abstract
 %auch im Stil vom Inhaltsverzeichnis
-\ifdeutsch
-  \section*{Kurzfassung}
-\else
-  \section*{Abstract}
-\fi
 
-<Short summary of the thesis>
+  \section*{Abstract}
+The widespread adoption of autonomous vehicles is expected to lead to an overall increase in traffic. Ride-pooling can counter this downside of an otherwise promising technology, but the majority of current ride-pooling platforms utilise centralised designs that allow companies to collect vast amounts of user data. To solve this problem, we propose the decentralised ride-pooling platform GETACAR that focuses on privacy-preservation. GETACAR utilises blockchain technology to allow for the transparent and immutable tracking of ride processes without exposing personal information to other participants or the platform itself. To realise the platform, we develop its design, define its interactions and create a prototypical implementation. GETACAR is comprised of several components, including a customer and ride provider frontend allowing humans and autonomous vehicles to interact with GETACAR. We introduce an off-chain matching service to find the best possible match between customers and ride providers via a Vickrey auction.  GETACAR also connects with crypto exchanges that allow the platform to use crypto currencies for internal transactions while users can still handle payments via fiat currencies.
+An authentication service verifies all parties wishing to participate on the platform, ensuring accountability and impeding the use of multiple identities.  To ensure safety across the platforms, a robust rating system is in place that allows all parties to rate each other. In addition, a number of privacy mechanisms are in place to minimise the exposure of personal information, including location cloaking, pseudonyms, and frequently changing wallets. A prototype validates the GETACAR platform design by showcasing the platform's key features, including a fully realised user frontend, the matching service, and smart contracts running on the Ethereum blockchain. All these components are connected and working together allowing for a customer to request a ride with multiple ride providers bidding on the ride. The implemented matching service determines the winner, and smart contracts manage the overall ride, including the rating process. Both the design of the platform and the prototype showcase the potential of blockchain technology to create next-generation ride-pooling platforms that ensure transparency while preserving privacy.
+
+\cleardoublepage
+
+  \section*{Kurzfassung}
+Es zu erwartet, dass Verbreitung autonomer Fahrzeuge zu einem allgemeinen Anstieg des Verkehrsaufkommens führen wird. Ride-Pooling kann diesem Nachteil einer ansonsten vielversprechenden Technologie entgegenwirken, aber aktuelle Ride-Pooling-Plattformen nutzen zentralisierte Designs, die es Unternehmen ermöglichen, große Mengen an Benutzerdaten zu sammeln. Um dieses Problem zu lösen, setzt die dezentrale Ride-Pooling-Plattform GETACAR auf den Schutz der Privatsphäre. GETACAR nutzt die Blockchain-Technologie, um eine transparente und nicht manipulierbare Verfolgung von Fahrten zu ermöglichen. Die Plattform besteht aus einem Kunden- und Fahranbieter-Frontend, das es Menschen und autonomen Fahrzeugen ermöglicht, mit GETACAR zu interagieren. Es wird ein Off-Chain Matching-Service eingeführt, um über eine Vickrey Auktion die Kunden bestmöglich mit passenden Fahranbietern zusammenzubringen. Die Plattform ist mit einem Authentifizierungsdienst ausgestattet, der Pseudonyme generiert und Krypto-Wallets verifizieren kann, um sicherzustellen, dass Benutzeridentitäten nicht auf der Plattform preisgegeben werden. GETACAR ist mit Krypto-Börsen verbunden, die es der Plattform ermöglichen, Kryptowährungen für interne Transaktionen zu verwenden, während Benutzer weiterhin Zahlungen über Fiat-Währungen abwickeln können. Um die Sicherheit auf allen Plattformen zu gewährleisten, gibt es ein robustes Bewertungssystem, das es allen Parteien ermöglicht, sich gegenseitig zu bewerten. Ein Prototyp validiert das GETACAR-Plattformdesign, indem er die wichtigsten Funktionen der Plattform präsentiert, darunter ein vollständig realisiertes Benutzer-Frontend, den Matching-Service und Smart Contracts, die auf der Ethereum Blockchain laufen. Alle diese Komponenten sind miteinander verbunden und arbeiten miteinander, sodass ein Kunde eine Fahrt bei mehreren Fahranbietern anfordern kann und diese auf die Fahrt bieten können. Der implementierte Matching-Service ermittelt den Gewinner und Smart Contracts verwalten die gesamte Fahrt, einschließlich des Bewertungsprozesses. Sowohl das Design der Plattform als auch der Prototyp verdeutlichen das Potenzial der Blockchain-Technologie zur Schaffung von Ride-Pooling-Plattformen der nächsten Generation, die Transparenz gewährleisten und gleichzeitig die Privatsphäre wahren.
+
 
 \cleardoublepage
 
@@ -251,7 +254,7 @@
 
 \chapter{Conclusion \& Outlook}
 \input{content/conclusion/intro}
-\section{Identified Limitations}
+\section{Limitations}
 \input{content/conclusion/limitations}
 \section{Outlook}
 \input{content/conclusion/outlook}

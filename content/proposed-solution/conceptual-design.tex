@@ -3,9 +3,9 @@ For ride-pooling platforms, the user experience is most important. From a custom
 The reason behind this design decision is evident. Platforms like Uber and Lyft have invested significant resources to optimize user flow. Over the years, they have collected invaluable insights and established best practices that have proven effective. It would be counterproductive to reinvent the wheel when these robust models exist. Instead, by basing the user flow on these best practices, GETACAR aims to provide an experience that is not only familiar to users but also efficient and intuitive. 
 One of the primary objectives of GETACAR is to provide an offer that rivals (if not surpasses) current centralized solutions. GETACAR aims to get users to transition from these centralized platforms to decentralized counterparts by emulating the user flow of these established platforms. GETACAR offers two main advantages: a user experience that mirrors what users are already accustomed to, combined with the added benefits of enhanced privacy, transparency, and competitive pricing. Competitive pricing is achieved by offering reduced platform fees, which translates to better end-user prices. 
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\linewidth, height=0.75\textheight, keepaspectratio]{data/ride-flow.svg}
+    \includegraphics[width=0.95\linewidth, height=0.80\textheight, keepaspectratio]{data/ride-flow.svg}
     \caption{Ride Booking Flow}
     \label{fig:RideBookingFlow}
 \end{figure}
@@ -191,13 +191,11 @@ Should the customer endorse the winning bid, they generate a ride contract that 
 
 Lastly the matching service will be used to establish a secure connection to share sensitive information on-chain. Therefore the matching service initiates a Diffie-Hellman Key Exchange.
 
-The Diffie-Hellman Key Exchange, introduced by Whitfield Diffie and Martin Hellman in 1976, is a cryptographic protocol that allows two parties to independently generate a shared secret key over an insecure communication channel. The protocol is based on the mathematical properties of modular arithmetic and discrete logarithm problems. Specifically, given a prime number \( p \) and a base \( g \) (where \( g \) is a primitive root modulo \( p \)), each party selects a private key and computes a public key. The public keys are then exchanged, and each party uses the other's public key along with their own private key to compute the shared secret. The security of the protocol relies on the difficulty of the discrete logarithm problem: while it is computationally easy to generate the public key from the private key, the reverse operation is considered infeasible with current technology when large prime numbers are used.
-
 This secure connection will allow customer and ride provider to share detailed location data and other bits of personal data via blockchain without exposing them to external parties.
 
 Having elucidated the core concept of the matching service, it's pivotal to delve into its decentralization mechanism. One conceivable method to ensure decentralization is to execute the matching process on-chain. Running the matching service on-chain offers transparency, immutability, and a trustless environment, ensuring that all transactions are verifiable and irreversible.
 
-However, this on-chain approach isn't devoid of challenges. Even with the use of pseudonyms and location approximations, all ride requests and bids would be publicly accessible on the blockchain. This transparency, while advantageous in some contexts, could inadvertently expose patterns, preferences, and behaviors of users, potentially compromising their privacy and anonymity. Moreover, executing the intricate, optimal matching flow on the blockchain, especially at a large scale, demands significant computational resources. This would inevitably escalate the platform's overall costs, subsequently inflating ride prices and diminishing the profits for ride providers.
+However, this on-chain approach is not devoid of challenges. Even with the use of pseudonyms and location approximations, all ride requests and bids would be publicly accessible on the blockchain. This transparency, while advantageous in some contexts, could inadvertently expose patterns, preferences, and behaviors of users, potentially compromising their privacy and anonymity. Moreover, executing the intricate, optimal matching flow on the blockchain, especially at a large scale, demands significant computational resources. This would inevitably escalate the platform's overall costs, subsequently inflating ride prices and diminishing the profits for ride providers.
 
 To circumvent these challenges, the platform adopts an approach analogous to the authentication service. Individuals or organizations can host their independent matching service, which, post-registration, undergoes verification by the authentication service. A pertinent query then arises: How can we ensure an equitable distribution of matches among these service providers, preventing any single service from amassing excessive data?
 

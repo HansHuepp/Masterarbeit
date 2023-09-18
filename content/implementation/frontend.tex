@@ -154,7 +154,7 @@ Last but not least the prototype frontend  also contains the settings view as se
 
 
 \subsection{Customer Frontend Logic}
-Now that the user flow of the customer frontend is shown it is important to take a short look at the code logic behind the UI. While most of the logic behind the frontend is standard angular code, the utilisation of the web3 package is notable, as it allows the frontend to directly interact with smart contracts. To demonstrate this interaction the setUserReadyToStartRide() function is chosen as an example. This function gets triggered when a customer presses the ''Start Driving'' button shown in \ref{fig:VehicleArrivedScreen}. First the function checks if a wallet is connected with the frontend. The prototype utilises the external wallet provider MetaMask to manage multiple wallets. After the check was successful the function initiates a new, local instance of the contract. Once this is done successfully the method calls the setUserReadyToStartRide() function inside the ride contract with an encrypted userReadyToStartRideMessage as input, first to calculate the excepted Gas fee and after the transaction is confirmed through Meta Mask by the user, a second time to actually trigger the setUserReadyToStartRide() function inside the ride contract.
+Now that the user flow of the customer frontend is shown it is important to take a short look at the code logic behind the UI. While most of the logic behind the frontend is standard angular code, the utilisation of the web3 package is notable, as it allows the frontend to directly interact with smart contracts. To demonstrate this interaction the setUserReadyToStartRide() function is chosen as an example. This function gets triggered when a customer presses the ''Start Driving'' button shown in \ref{fig:VehicleArrivedScreen}. First the function checks if a wallet is connected with the frontend. The prototype utilises the external wallet provider MetaMask to manage multiple wallets. After the check was successful the function initiates a new, local instance of the contract. Once this is done successfully the method calls the setUserReadyToStartRide() function inside the ride contract with an encrypted userReadyToStartRideMessage as input, first to calculate the excepted Gas fee and after the transaction is confirmed through Meta Mask by the user, a second time to actually trigger the setUserReadyToStartRide() function inside the ride contract, as seen in \ref{lst:setUserReadyToStartRide}.
 
 \definecolor{verylightgray}{rgb}{.97,.97,.97}
 
@@ -229,7 +229,7 @@ Now that the user flow of the customer frontend is shown it is important to take
   }
 \end{lstlisting}
   \caption{booking.component.ts:   async setUserReadyToStartRide() Function}
-  \label{lst:claimETH}
+  \label{lst:setUserReadyToStartRide}
 \end{Listing}
 
 All functions that are contained within the customer frontend follow this basic flow to interact with the ride contract on the blockchain.
