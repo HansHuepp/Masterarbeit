@@ -144,7 +144,7 @@ As discussed in \ref{subsec:UserFrontend} the platform allows customers to rate 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\linewidth]{data/6.svg}
-    \caption{Customer and Ride Provider rate each other on Blockchain}
+    \caption{UML Sequence Diagram: Customer and Ride Provider rate each other on Blockchain}
     \label{fig:directSVG}
 \end{figure}
 
@@ -152,7 +152,7 @@ As discussed in \ref{subsec:UserFrontend} the platform allows customers to rate 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\linewidth]{data/8.svg}
-    \caption{Ride Provider adds Passengers to Ride Contract and Customer rates them}
+    \caption{UML Sequence Diagram: Ride Provider adds Passengers to Ride Contract and Customer rates them}
     \label{fig:directSVG}
 \end{figure}
 
@@ -162,19 +162,19 @@ The authentication service monitors all contracts. If a rating is posted on the 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\linewidth]{data/7.svg}
-    \caption{Get Rating from Authentication Service as Ride Provider}
+    \caption{UML Sequence Diagram: Get Rating from Authentication Service as Ride Provider}
     \label{fig:directSVG}
 \end{figure}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\linewidth]{data/9.svg}
-    \caption{Get Rating from Authentication Service as Customer}
+    \caption{UML Sequence Diagram: Get Rating from Authentication Service as Customer}
     \label{fig:directSVG}
 \end{figure}
 
 
-To ensure that users do not lie about their ratings, the authentication services work as a verification service for the ratings they manage through a request that contains the non-verified rating and the pseudonym connected with it. This by itself creates a small risk that users can find connected pseudonyms by analysing ratings posted on the Blockchain. To counter this, all ratings the authentication service provides (including the rating presented to a user as their own rating) are rounded to 0.3 steps (e.g. 5, 4.7, 4.3, 4, ... ). 
+To ensure that users do not lie about their ratings, the authentication services work as a verification service for the ratings they manage through a request that contains the non-verified rating and the pseudonym connected with it. This by itself creates a small risk that users can find connected pseudonyms by analysing ratings posted on the Blockchain. To counter this, all ratings the authentication service provides (including the rating presented to a user as their own rating) are rounded to 0.3 steps (e.g. possible ratings are 5, 4.7, 4.3, 4, ... ). 
 
 
 To put it in a nutshell, the combination of on-chain ratings combined with off-chain rating accumulation allows for more complex and accurate rating systems while still utilising the transparency and auditing abilities of a blockchain-based rating system which ensures a secure and trustworthy environment on the platform.

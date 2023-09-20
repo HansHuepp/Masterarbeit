@@ -4,7 +4,7 @@ Before writing the contracts it is necessary to decide on a programming language
 
 Looking at the smart contract programming languages used by the research papers and the adaption of smart contract programming languages by blockchains the decision is clear: Solitidy is a broadly adapted smart contract programming language that is not only utilised by the Ethereum blockchain but also other popular blockchains like the Binance Smart Chain, Polkadot, Tron and Avalanche. 
 
-Solidity is a high-level programming language originally tailored for Ethereum blockchain's smart contracts. Influenced by JavaScript, Python, and C++, its syntax allows developers to craft self-executing contracts where terms are coded directly. These contracts are compiled to bytecode for the Ethereum Virtual Machine (EVM). Given blockchain's immutable nature and financial implications, Solidity emphasizes security and exception handling. 
+Solidity is a high-level programming language originally tailored for Ethereum blockchain's smart contracts. Influenced by JavaScript, Python, and C++, its syntax allows developers to craft self-executing contracts where terms are coded directly. These contracts are compiled to bytecode for the Ethereum Virtual Machine (EVM). Given blockchain's immutable nature and financial implications, Solidity emphasises security and exception handling. 
 
 Selecting this smart contract programming language for the development of the GETACAR prototype ensures easy adaption by future developers. Additionally, the high adaption rate of Solidity ensures a future-proof reference implantation in the fast-evolving crypto landscape, compared to languages that are proprietorially used by smaller blockchains. For the creation of the prototype the smart contracts are deployed on the Ethereum Blockchain and utilise ETH as their underlying currency for Gas Fees and payments.
 
@@ -91,7 +91,7 @@ At the centre of the contract factory exists the createContract() function that 
 
 
 
-The helper functions that are contained in the contract factory that allows authentication services to better track newly created contracts look as follows. The helper functions are shown in \ref{lst:helperFunctions}.
+The helper functions that are contained in the contract factory to help authentication services to better track newly created contracts can be seen in \ref{lst:helperFunctions}.
 
 \lstset{
   basicstyle=\footnotesize\ttfamily,
@@ -191,7 +191,7 @@ After the contract is created by the customer, the address of the contract is sh
   \label{lst:signContract}
 \end{Listing}
 
-Now that both parties have signed the contract the actual ride flow can start, as decided in XXX with the ''Ride Provider accepts ride'' event. All event functions are structured similarly. Therefore we will use the setRideProviderAcceptedStatus() function, seen in \ref{lst:setRideProviderAcceptedStatus} as an example to showcase how each event is represented by a function inside the smart contract. The function takes a message as an input that will later be written onto the chain permanently. This message is used by customer and the ride provider to exchange encrypted information on the blockchain as decided in XXX. The function also contains a number of checks utilising the require() function to make sure that it is only used as intended. Among others, these checks include the requirement to only be called by the right entity (depending on the event this can be the customer or the ride provider). Additionally a check is applied to ensure that the events are called in the ride order as designed in the ride flow. At last three more checks make sure that the contract is active, not canceled and a ride provider has accepted the contract. If all checks are successfully it can be ensured that the function is used as intended and the event is written onto the chain as a secure and auditable prof that it accrued. This is done though calling the UpdatePosted() function.
+Now that both parties have signed the contract the actual ride flow can start, as decided in XXX with the ''Ride Provider accepts ride'' event. All event functions are structured similarly. Therefore we will use the setRideProviderAcceptedStatus() function, seen in \ref{lst:setRideProviderAcceptedStatus} as an example to showcase how each event is represented by a function inside the smart contract. The function takes a message as an input that will later be written onto the chain permanently. This message is used by customer and the ride provider to exchange encrypted information on the blockchain as decided in XXX. The function also contains a number of checks utilising the require() function to make sure that it is only used as intended. Among others, these checks include the requirement to only be called by the right entity (depending on the event this can be the customer or the ride provider). Additionally a check is applied to ensure that the events are called in the ride order as designed in the ride flow. At last three more checks make sure that the contract is active, not cancelled and a ride provider has accepted the contract. If all checks are successfully it can be ensured that the function is used as intended and the event is written onto the chain as a secure and auditable prof that it accrued. This is done though calling the UpdatePosted() function.
 
 \lstset{
   basicstyle=\footnotesize\ttfamily,
@@ -234,7 +234,7 @@ The UpdatePosted() function works as follows: It gets called by an event functio
   \label{lst:updatePosted}
 \end{Listing}
 
-Now that the functions that enable the general ride flow are shown, it is important to take a look at edge-cases that are handled on-chain. As described in XXX, both customer and ride provider have the ability to cancel the ride and if one of the parties cancels the ride the other party gets automatically deposited the money managed by the ride contract. The ride contract provides these features through a setUserCanceldRide() and as setRideProviderCanceldRide() function. In the flowing we will describe their functionality using the setUserCanceldRide() function as an example. If the customer calls the function to cancel their ride two if clauses check if the contract is active and therefore a ride provider has already signed the contract. If this is the case all money inside the contract gets deposited to the ride provider. If for some reason no ride provider is signing the contract the customer gets their money back. This ensures that the customer does not gets their deposit stuck inside a ride contract if a ride provider decides not sign a contract. Additionally the customer has the possibility to emit a message onto the chain that contains information on why the ride was canceled.
+Now that the functions that enable the general ride flow are shown, it is important to take a look at edge-cases that are handled on-chain. As described in \ref{fig:RideBookingFlow}, both customer and ride provider have the ability to cancel the ride and if one of the parties cancels the ride the other party gets automatically deposited the money managed by the ride contract. The ride contract provides these features through a setUserCanceldRide() and as setRideProviderCanceldRide() function. In the flowing we will describe their functionality using the setUserCanceldRide() function as an example. If the customer calls the function to cancel their ride two if clauses check if the contract is active and therefore a ride provider has already signed the contract. If this is the case all money inside the contract gets deposited to the ride provider. If for some reason no ride provider is signing the contract the customer gets their money back. This ensures that the customer does not gets their deposit stuck inside a ride contract if a ride provider decides not sign a contract. Additionally the customer has the possibility to emit a message onto the chain that contains information on why the ride was cancelled.
 Lastly the contract gets marked with the status userCanceldRide = true.
 
 \lstset{
@@ -272,7 +272,7 @@ Lastly the contract gets marked with the status userCanceldRide = true.
   \label{lst:setUserCanceldRide}
 \end{Listing}
 
-As described in XXX, the rating is also managed via the smart contract. Both customers and ride provider can post their ratings through similar functions. The customer can use the setRideRating() function for this process which takes the selected rating as input.
+As described in \ref{subsec:RatingTrustMechanisms}, the rating is also managed via the smart contract. Both customers and ride provider can post their ratings through similar functions. The customer can use the setRideRating() function for this process which takes the selected rating as input.
 The function ensures, besides other checks, that the rating is in the predefined range of allowed ratings. 
 
 \lstset{
@@ -326,7 +326,7 @@ It is also possible for the customer to rate passengers. Therefore the following
 \end{Listing}
 
 
-The \texttt{claimETH()} function is used by the ride provider to get the applicable amount of money to cover the ride cost from the smart contract. The function can only be triggered once the customer has marked the ride as successfully completed. After all checks are successfully completed the contact sends 10\% of the total amount of money on hold inside the contract to a predefined address managed by the GETACAR foundation as described in XXX. Afterwards, the remaining money gets deducted from the amount of money that is claimed by the ride provider to cover the ride cost. This amount is then transferred to the wallet of the ride provider. The remaining deposit left inside the smart contract then gets sent back to the wallet of the customer. 
+The \texttt{claimETH()} function is used by the ride provider to get the applicable amount of money to cover the ride cost from the smart contract. The function can only be triggered once the customer has marked the ride as successfully completed. After all checks are successfully completed the contact sends 10\% of the total amount of money on hold inside the contract to a predefined address managed by the GETACAR foundation. Afterwards, the remaining money gets deducted from the amount of money that is claimed by the ride provider to cover the ride cost. This amount is then transferred to the wallet of the ride provider. The remaining deposit left inside the smart contract then gets sent back to the wallet of the customer. 
 
 \lstset{
   basicstyle=\footnotesize\ttfamily,
@@ -475,7 +475,7 @@ To enforce that only the contract factory can add ride contract addresses to the
 \end{Listing}
 
 
-<XXX Logic from contract factory and contract>
+
 
 
 
