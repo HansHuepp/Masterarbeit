@@ -5,7 +5,7 @@ One of the primary objectives of GETACAR is to provide an offer that rivals (if 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\linewidth, height=0.80\textheight, keepaspectratio]{data/ride-flow.svg}
+    \includegraphics[width=0.99\linewidth, height=0.85\textheight, keepaspectratio]{data/ride-flow.svg}
     \caption{Ride Booking Flow}
     \label{fig:RideBookingFlow}
 \end{figure}
@@ -104,7 +104,7 @@ Each of the components is decentralised, either in the sense that the component 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\linewidth]{data/10.svg}
-    \caption{Component Diagram GETACAR}
+    \caption{UML Component Diagram: GETACAR}
     \label{fig:directSVG}
 \end{figure}
 
@@ -120,7 +120,7 @@ Accepting the offer results in the customer depositing the maximum ride cost. Af
 \begin{figure}[h]
     \centering
     \includegraphics[width=\linewidth]{data/3.svg}
-    \caption{Ride Booking Flow}
+    \caption{UML Activity Diagram: Ride Booking Flow}
     \label{fig:directSVG}
 \end{figure}
 
@@ -166,12 +166,12 @@ Given the immense power vested in the authentication service, it's imperative to
 \subsection{Matching Service}\label{subsec:MatchingService}
 The primary responsibility of the Matching Service is to align ride requests from users with suitable ride providers. Traditional centralized services, such as Uber and Lyft, employ algorithmic matching systems. These algorithms consider various factors like proximity, availability, and user preferences to quickly assign a driver to a user's request. While efficient, this centralized approach often lacks transparency, and the decision-making process is entirely controlled by the platform, potentially leading to biases or unfair advantages for certain drivers or riders.
 
-Recognizing these challenges, GETACAR has adopted an auction-based ride matching system. This approach offers several advantages. Firstly, it introduces a competitive environment where ride providers can bid for rides, ensuring that users get the most cost-effective offers. Secondly, it promotes transparency by making the selection method known to everyone. Lastly, it empowers ride providers by giving them the autonomy to choose rides based on their preferences and profitability.
+Recognizing these challenges, GETACAR has adopted an auction-based ride-matching system. This approach offers several advantages. Firstly, it introduces a competitive environment where ride providers can bid for rides, ensuring that users get the most cost-effective offers. Secondly, it promotes transparency by making the selection method known to everyone. Lastly, it empowers ride providers by giving them the autonomy to choose rides based on their preferences and profitability.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\linewidth]{data/5.svg}
-    \caption{User, Ride Provider Matching Service Flow}
+    \caption{BPMN 2.0 Activity Diagram: Customer, Ride Provider Matching Service Flow}
     \label{fig:directSVG}
 \end{figure}
 
@@ -202,7 +202,7 @@ To circumvent these challenges, the platform adopts an approach analogous to the
 \begin{figure}[h]
     \centering
     \includegraphics[width=\linewidth]{data/4.svg}
-    \caption{User and Matching Service Contract Interaction}
+    \caption{BPMN 2.0 Activity Diagram: User and Matching Service Contract Interaction}
     \label{fig:directSVG}
 \end{figure}
 
@@ -218,7 +218,7 @@ Within this blockchain, various events and statuses related to the ride-sharing 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\linewidth]{data/1.svg}
-    \caption{Swim lane Diagram Customer, Platform and Ride Provider}
+    \caption{BPMN 2.0 Swimlane Diagram: Customer, Platform and Ride Provider}
     \label{fig:SwimLaneCustomer}
 \end{figure}
 
