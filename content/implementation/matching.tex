@@ -1,4 +1,4 @@
-After showcasing the implementation of the smart contracts and the customer and ride provider frontend, the last component that is part of the prototype implementation of the GETACAR platform is the Matching Service. The matching service is written in Node.js and the bids are stored inside MongoDB as a NoSQL database. The design decision of utilising a NoSQL database in connection with the matching service was made for several reasons. NoSQL databases provide high performance and simplify the storage of the ride requests and ride bids that are stored as simple JSON objects. Lastly, there is also no need for complex SQL functions inside the matching service that would promote the usage of an SQL database.
+After showcasing the implementation of the smart contracts and the customer and ride provider frontend, the last component that is part of the prototype implementation of the GETACAR platform is the Matching Service. The matching service is written in Node.js\footnote{https://nodejs.org/en} and the bids are stored inside MongoDB\footnote{https://www.mongodb.com} as a NoSQL database. The design decision of utilising a NoSQL database in connection with the matching service was made for several reasons. NoSQL databases provide high performance and simplify the storage of the ride requests and ride bids that are stored as simple JSON objects. Lastly, there is also no need for complex SQL functions inside the matching service that would promote the usage of an SQL database.
 
 
 \subsection{Endpoints and Data}
@@ -26,6 +26,8 @@ The Matching Service adds the following data points to the ride request and writ
     \item \textbf{auctionStatus:} The status of the auction. The auction can have one of four different statuses: 'open', 'determining-winner', 'waiting-for-signature' or 'closed'. 
     \item \textbf{auctionWinner:} The winner of the auction. If the winner was not determined yet, this field is empty.
     \item \textbf{winningBid:} The unique identifier of the winning bid. If the winner was not determined yet, this field is empty.
+    \item \textbf{p:} The prime number used for Diffie-Hellman key exchange.
+    \item \textbf{g:} The base used for Diffie-Hellman key exchange.
 \end{itemize}
 
 Once the complete ride request is available in the database, it can be read by ride providers. Ride providers can use the GET /rideRequests endpoint to receive a JSON object containing all ride requests with open auctions. The ride provider can search this dataset and, once they find a fitting ride request, bid on it.
@@ -51,17 +53,17 @@ Before a bid can be posted to the database, the Matching Service compares the ti
 
 With ride requests and associated bids being written to the database, the next step for the matching service is handling the running auction. Each auction is posted with the status ''open''. A function managed by the Matching Service continuously crawls the database for ride requests where the auction is older than 30 seconds. If such an auction is found, the auction status changes from 'open' to 'determining-winner'. A second function then takes the ride request and analyses all bids connected with the request to determine the winning bid based on the principles of the second price auction. The winning bid is then written into the ride request itself, changing the auction status to 'waiting-for-signature'. 
 
-The customer is able to check the status of their auction through the GET /rideRequest/:rideRequestId endpoint by providing the identifier of their ride request inside the URL. This endpoint returns the status of the auction, and in case a winning bid was found, it additionally returns the winning bid itself. Based on the winning bid the customer can then decide if they want to take the ride or not. If the customer decides to take the ride, they follow the ride flow and create a ride contract through the contract factory that contains the maximum ride cost as a deposit. They then need to use the GET setContractAddress/:rideRequestId/:contractAddress endpoint to update their ride request with the contact's address on the blockchain. As the creation of the contract is understood as the initial signing of the ride contract, the status of the auction changes from 'waiting-for-signature' to 'closed'. 
+The customer is able to check the status of their auction through the GET /rideRequest/:rideRequestId endpoint by providing the identifier of their ride request inside the URL. This endpoint returns the status of the auction, and in case a winning bid is found, it additionally returns the winning bid itself. Based on the winning bid, the customer can then decide if they want to take the ride or not. If the customer decides to take the ride, they follow the ride flow and create a ride contract through the contract factory that contains the maximum ride cost as a deposit. They then need to use the GET setContractAddress/:rideRequestId/:contractAddress endpoint to update their ride request with the contact's address on the blockchain. As the creation of the contract is understood as the initial signing of the ride contract, the status of the auction changes from 'waiting-for-signature' to 'closed'. 
 
 The GET /rideRequest/:rideRequestId endpoint also enables the ride provider to track the status of the auction. Through the endpoint, the auction winner is able to receive the address of the ride contract and is, therefore, able to co-sign the contract as a ride provider.
 
 \subsection{Grid System}
-As described in \ref{subsec:MatchingService}, the design of the Matching Service includes a map grid that is utilised to assign matching services to specific jurisdiction zones and to cloak the exact pickup and dropoff locations of customers. There are many possible ways to create a map grid that would allow for this use case. The GETACAR prototype implementation uses H3, a hexagonal hierarchical geospatial indexing system that provides a predefined grid for the platform to use. The advantage of H3 is that it provides a number of grid resolutions, as each grid is made up of hexagons and pentagons that them self are made up of smaller hexagons and pentagons. An algorithm allows one to easily check if a hexagon/ pentagon of a smaller resolution is contained within a hexagon/ pentagon of a higher resolution. This approach would allow GETACAR to utilise dynamic resolutions for the  jurisdiction zones and the location cloaking with higher resolutions used for crowded areas with high traffic, like cities and lower resolutions that cover larger, less crowded  areas with less traffic. The prototype uses fixed resolutions with Res 9 for the location cloaking and Res 6 for the  jurisdiction zones of the matching services. 
+As described in \ref{subsec:MatchingService}, the design of the Matching Service includes a map grid that is utilised to assign matching services to specific jurisdiction zones and to cloak the exact pickup and dropoff locations of customers. There are many possible ways to create a map grid that would allow for this use case. The GETACAR prototype implementation uses H3\footnote{https://h3geo.org}, a hexagonal hierarchical geospatial indexing system that provides a predefined grid for the platform to use. The advantage of H3 is that it provides a number of grid resolutions, as each grid is made up of hexagons and pentagons that themself are made up of smaller hexagons and pentagons. An algorithm allows one to easily check if a hexagon/ pentagon of a smaller resolution is contained within a hexagon/ pentagon of a higher resolution. This approach would allow GETACAR to utilise dynamic resolutions for the  jurisdiction zones and the location cloaking with higher resolutions used for crowded areas with high traffic, like cities and lower resolutions that cover larger, less crowded  areas with less traffic. The prototype uses fixed resolutions with Res 9 for the location cloaking and Res 6 for the  jurisdiction zones of the matching services. 
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\linewidth]{data/11.png}
-    \caption{H3 Grid Visualisation}
+    \caption{H3 Grid Visualisation ~\cite{H3Geo.}}
     \label{fig:H3Visualisation}
 \end{figure}
 
@@ -89,7 +91,7 @@ As described in \ref{subsec:MatchingService}, the design of the Matching Service
 15 & 0.000000895 & 0.000000452 & 0.5046 \\
 \hline
 \end{tabular}
-\caption{H3 Grid Resolution}
-\label{tab:your_label_here}
+\caption{H3 Grid Resolution ~\cite{H3Geo.}}
+\label{tab:resolutions}
 \end{table}
 

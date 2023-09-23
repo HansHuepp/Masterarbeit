@@ -86,7 +86,7 @@ An authentication service verifies all parties wishing to participate on the pla
 \cleardoublepage
 
   \section*{Kurzfassung}
-Es zu erwartet, dass Verbreitung autonomer Fahrzeuge zu einem allgemeinen Anstieg des Verkehrsaufkommens führen wird. Ride-Pooling kann diesem Nachteil einer ansonsten vielversprechenden Technologie entgegenwirken, aber aktuelle Ride-Pooling-Plattformen nutzen zentralisierte Designs, die es Unternehmen ermöglichen, große Mengen an Benutzerdaten zu sammeln. Um dieses Problem zu lösen, setzt die dezentrale Ride-Pooling-Plattform GETACAR auf den Schutz der Privatsphäre. GETACAR nutzt die Blockchain-Technologie, um eine transparente und nicht manipulierbare Verfolgung von Fahrten zu ermöglichen. Die Plattform besteht aus einem Kunden- und Fahranbieter-Frontend, das es Menschen und autonomen Fahrzeugen ermöglicht, mit GETACAR zu interagieren. Es wird ein Off-Chain Matching-Service eingeführt, um über eine Vickrey Auktion die Kunden bestmöglich mit passenden Fahranbietern zusammenzubringen. Die Plattform ist mit einem Authentifizierungsdienst ausgestattet, der Pseudonyme generiert und Krypto-Wallets verifizieren kann, um sicherzustellen, dass Benutzeridentitäten nicht auf der Plattform preisgegeben werden. GETACAR ist mit Krypto-Börsen verbunden, die es der Plattform ermöglichen, Kryptowährungen für interne Transaktionen zu verwenden, während Benutzer weiterhin Zahlungen über Fiat-Währungen abwickeln können. Um die Sicherheit auf allen Plattformen zu gewährleisten, gibt es ein robustes Bewertungssystem, das es allen Parteien ermöglicht, sich gegenseitig zu bewerten. Ein Prototyp validiert das GETACAR-Plattformdesign, indem er die wichtigsten Funktionen der Plattform präsentiert, darunter ein vollständig realisiertes Benutzer-Frontend, den Matching-Service und Smart Contracts, die auf der Ethereum Blockchain laufen. Alle diese Komponenten sind miteinander verbunden und arbeiten miteinander, sodass ein Kunde eine Fahrt bei mehreren Fahranbietern anfordern kann und diese auf die Fahrt bieten können. Der implementierte Matching-Service ermittelt den Gewinner und Smart Contracts verwalten die gesamte Fahrt, einschließlich des Bewertungsprozesses. Sowohl das Design der Plattform als auch der Prototyp verdeutlichen das Potenzial der Blockchain-Technologie zur Schaffung von Ride-Pooling-Plattformen der nächsten Generation, die Transparenz gewährleisten und gleichzeitig die Privatsphäre wahren.
+Es ist zu erwarten, dass die Verbreitung autonomer Fahrzeuge zu einem allgemeinen Anstieg des Verkehrsaufkommens führen wird. Ride-Pooling kann diesem Nachteil einer ansonsten vielversprechenden Technologie entgegenwirken, aber aktuelle Ride-Pooling-Plattformen nutzen zentralisierte Designs, die es Unternehmen ermöglichen, große Mengen an Benutzerdaten zu sammeln. Um dieses Problem zu lösen, setzt die dezentrale Ride-Pooling-Plattform GETACAR auf den Schutz der Privatsphäre. GETACAR nutzt die Blockchain-Technologie, um eine transparente und nicht manipulierbare Verfolgung von Fahrten zu ermöglichen. Die Plattform besteht aus einem Kunden- und Fahranbieter-Frontend, das es Menschen und autonomen Fahrzeugen ermöglicht, mit GETACAR zu interagieren. Es wird ein Off-Chain Matching-Service eingeführt, um über eine Vickrey Auktion die Kunden bestmöglich mit passenden Fahranbietern zusammenzubringen. Die Plattform ist mit einem Authentifizierungsdienst ausgestattet, der Pseudonyme generiert und Krypto-Wallets verifizieren kann, um sicherzustellen, dass Benutzeridentitäten nicht auf der Plattform preisgegeben werden. GETACAR ist mit Krypto-Börsen verbunden, die es der Plattform ermöglichen, Kryptowährungen für interne Transaktionen zu verwenden, während Benutzer weiterhin Zahlungen über Fiat-Währungen abwickeln können. Um die Sicherheit auf allen Plattformen zu gewährleisten, gibt es ein robustes Bewertungssystem, das es allen Parteien ermöglicht, sich gegenseitig zu bewerten. Ein Prototyp validiert das GETACAR-Plattformdesign, indem er die wichtigsten Funktionen der Plattform präsentiert, darunter ein vollständig realisiertes Benutzer-Frontend, den Matching-Service und Smart Contracts, die auf der Ethereum Blockchain laufen. Alle diese Komponenten sind miteinander verbunden und arbeiten miteinander, sodass ein Kunde eine Fahrt bei mehreren Fahranbietern anfordern kann und diese auf die Fahrt bieten können. Der implementierte Matching-Service ermittelt den Gewinner und Smart Contracts verwalten die gesamte Fahrt, einschließlich des Bewertungsprozesses. Sowohl das Design der Plattform als auch der Prototyp verdeutlichen das Potenzial der Blockchain-Technologie zur Schaffung von Ride-Pooling-Plattformen der nächsten Generation, die Transparenz gewährleisten und gleichzeitig die Privatsphäre wahren.
 
 
 \cleardoublepage
@@ -137,11 +137,7 @@ Es zu erwartet, dass Verbreitung autonomer Fahrzeuge zu einem allgemeinen Anstie
 
 %mittels \newfloat wurde die Algorithmus-Gleitumgebung definiert.
 %Mit folgendem Befehl werden alle floats dieses Typs ausgegeben
-\ifdeutsch
-  \listof{Algorithmus}{Verzeichnis der Algorithmen}
-\else
-  \listof{Algorithmus}{List of Algorithms}
-\fi
+
 %\listofalgorithms %Ist nur für Algorithmen, die mittels \begin{algorithm} umschlossen werden, nötig
 
 % Abkürzungsverzeichnis
@@ -222,19 +218,19 @@ Es zu erwartet, dass Verbreitung autonomer Fahrzeuge zu einem allgemeinen Anstie
 \input{content/background-information/autonomous-driving-and-ride-pooling}
 \section{Blockchain Technology and Smart Contracts}
 \input{content/background-information/blockchain-technology-and-smart-contracts}
-\section{Decentralized Platforms and Data Privacy}
+\section{Decentralised Platforms and Data Privacy}
 \input{content/background-information/decentralized-platforms-and-data-privacy}
 \section{Current Solutions and Shortcomings}
 \input{content/background-information/current-solutions-and-shortcomings}
 
 \chapter{Proposed Solution}\label{chap:ProposedSolution}
 \input{content/proposed-solution/intro}
-\section{Conceptual Design of the Decentralized Platform}\label{sec:DesignOfThePlatform}
+\section{Conceptual Design of the Decentralised Platform}\label{sec:DesignOfThePlatform}
 \input{content/proposed-solution/conceptual-design}
 \section{Privacy Measures and Trust Mechanism Design}\label{sec:PrivacyAndTrustMechanism}
 \input{content/proposed-solution/privacy}
 
-\chapter{Implementation of the Decentralized Platform}\label{chap:PrototypeImplementation}
+\chapter{Implementation of the Decentralised Platform}\label{chap:PrototypeImplementation}
 \input{content/implementation/intro}
 \section{Smart Contracts}\label{sec:SmartContracts}
 \input{content/implementation/smartcontract}
