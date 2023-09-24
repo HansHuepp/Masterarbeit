@@ -185,7 +185,7 @@ Following the auction's closure, the matching service identifies the winning bid
 
 Should the customer confirm the winning bid, they generate a ride contract containing the agreed-upon sum from the bid. The winning bidder is then notified of their successful bid and receives the ride contract's address, marking the commencement of their service obligation.
 
-Lastly the matching service will be used to establish a secure connection to share sensitive information on-chain. Therefore, the matching service initiates a Diffie-Hellman Key Exchange by sharing the necessary prime number, base and submitted customer and ride provider public keys between the two parties. Based on this information customer and ride provider can compute a shared secret for encrypted interactions on the blockchain.
+Lastly, the matching service will be used to establish a secure connection to share sensitive information on-chain. Therefore, the matching service initiates a Diffie-Hellman Key Exchange by sharing the necessary prime number, base and submitted customer and ride provider public keys between the two parties. Based on this information, the customer and ride provider can compute a shared secret for encrypted interactions on the blockchain.
 
 This secure connection will allow customers and ride providers to share detailed location data and other bits of personal data via blockchain without exposing the information to the ledger.
 
@@ -195,11 +195,11 @@ However, this on-chain approach is not without challenges. Even with the use of 
 
 To circumvent these challenges, the platform adopts an approach similar to the authentication service. Individuals or organisations can host their independent matching service, which, post-registration, undergoes verification by the GETACAR foundation. 
 
-To ensure an equal distribution of ride requests between the matching services and to prevent matching services from collecting excessive amounts of personal data, a grid-based distribution system is proposed. The grid-based system assigns each service specific grid fields as their jurisdiction zones.
+To ensure an equal distribution of ride requests between the matching services and to prevent matching services from collecting excessive amounts of personal data, a grid-based distribution system is proposed. The grid-based system assigns each service-specific grid field as their jurisdiction zone.
 
 To stop a single service from collecting long-term data within a grid, we mandate that each grid be managed by at least two distinct matching services. The GETACAR Foundation also has the possibility to rearrange the grid jurisdiction zones in time intervals for additional security.
 
-For a customer the process of finding the right matching service looks as flows: Every customer frontend contains a list of all verified matching services and their corresponding grid jurisdictions. The customer is then able to determine the matching services responsible for their current grid square.  Customers can then provide the list of possible matching services to an on-chain service and receive the best matching service from the available options within their grid. This on-chain service guarantees an even distribution of requests within a grid square by monitoring the amount of requests for each service and the amount of successfully completed rides through the matching service. This allows for a load balancing between the matching services, so that no service can collect to much data. Furthermore, it allows for the creation a rating for every matching service, derived by dividing the total number of requests processed by the service by the number of rides successfully completed through it. The complete flow can be seen in figure \ref{fig:getBestMatchingService}.
+For a customer, the process of finding the right matching service looks as follows: Every customer frontend contains a list of all verified matching services and their corresponding grid jurisdictions. The customer is then able to determine the matching services responsible for their current grid square.  Customers can then provide the list of possible matching services to an on-chain service and receive the best matching service from the available options within their grid. This on-chain service guarantees an even distribution of requests within a grid square by monitoring the number of requests for each service and the amount of successfully completed rides through the matching service. This allows for a load balancing between the matching services so that no service can collect too much data. Furthermore, it allows for the creation of a rating for every matching service, derived by dividing the total number of requests processed by the service by the number of rides successfully completed through it. The complete flow can be seen in figure \ref{fig:getBestMatchingService}.
 
 \begin{figure}[h]
     \centering
@@ -221,11 +221,11 @@ Within the blockchain, various events and statuses related to the ride-pooling p
 \end{figure}
 
 
-Each event that gets posted to the blockchain also contains a custom message that can be determined by the entity posting the event. These messages will be encrypted by the key that was exchanged between customer and ride provider via the Diffie-Hellman Key Exchange. These Messages can contain a number of different information depending on the status of the ride. A typical message send by the ride provider as part of the initial ``Ride-provider accepted'' event would be a tracking link that allows the customer to track the vehicle. 
+Each event that gets posted to the blockchain also contains a custom message that can be determined by the entity posting the event. These messages will be encrypted by the key that was exchanged between customer and ride provider via the Diffie-Hellman Key Exchange. These Messages can contain a number of different information depending on the status of the ride. A typical message sent by the ride provider as part of the initial ``Ride-provider accepted'' event would be a tracking link that allows the customer to track the vehicle. 
 
 The contract also contains a number of additional functions in regards to trust and privacy that are described in detail in \ref{subsec:RatingTrustMechanisms} and \ref{subsec:DepositTrust}.
 
-This decentralised ride-sharing platform ensures transparency and trustworthiness by recording every significant event on the blockchain, with both the customer and the ride provider actively interacting with it, ensuring a smooth and verifiable ride process.
+This decentralised ride-pooling platform ensures transparency and trustworthiness by recording every significant event on the blockchain, with both the customer and the ride provider actively interacting with it, ensuring a smooth and verifiable ride process.
 
 
 \subsection{Crypto Exchange}\label{subsec:CryptoExchange}
