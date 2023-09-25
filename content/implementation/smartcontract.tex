@@ -330,7 +330,7 @@ It is also possible for the customer to rate passengers. Therefore the \texttt{a
 \end{Listing}
 
 
-The \texttt{claimETH()} function is used by the ride provider to get the applicable amount of money to cover the ride cost from the smart contract, as seen in figure \ref{fig:claimETH}. The function can only be triggered once the customer has marked the ride as successfully completed. After all, checks are successfully completed, the contact sends 10\% of the total amount of money on hold inside the contract to a predefined address managed by the GETACAR foundation. Afterwards, the remaining money gets deducted from the amount of money that is claimed by the ride provider to cover the ride cost. This amount is then transferred to the wallet of the ride provider. The remaining deposit left inside the smart contract then gets sent back to the wallet of the customer. 
+The \texttt{claimETH()} function is used by the ride provider to get the applicable amount of money to cover the ride cost from the smart contract, as seen in figure \ref{lst:claimETH}. The function can only be triggered once the customer has marked the ride as successfully completed. After all, checks are successfully completed, the contact sends 10\% of the total amount of money on hold inside the contract to a predefined address managed by the GETACAR foundation. Afterwards, the remaining money gets deducted from the amount of money that is claimed by the ride provider to cover the ride cost. This amount is then transferred to the wallet of the ride provider. The remaining deposit left inside the smart contract then gets sent back to the wallet of the customer. 
 
 \lstset{
   basicstyle=\footnotesize\ttfamily,
