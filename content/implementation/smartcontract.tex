@@ -1,21 +1,29 @@
 Smart contracts make up the backbone of the GETACAR ride-pooling platform. They allow for the secure and transparent ride ordering flow that is the standout feature of the platform. Therefore, we will start with the construction of these smart contracts for the prototype. 
 
-Before writing the contracts it is necessary to decide on a programming language. This decision is crucial because it will also affect the compatibility of the smart contracts with the available blockchain platforms. 
+Before writing the contracts, it is necessary to decide on a programming language. This decision is crucial because it will also affect the compatibility of the smart contracts with the available blockchain platforms. 
 
-Looking at the smart contract programming languages used by the research papers and the adaption of smart contract programming languages by blockchains the decision is clear: Solitidy is a broadly adapted smart contract programming language that is not only utilised by the Ethereum blockchain but also other popular blockchains like the Binance Smart Chain, Polkadot, Tron and Avalanche. 
+Looking at the smart contract programming languages used by the research papers and the adaption of smart contract programming languages by blockchains, the decision is clear: Solitidy\footnote{https://soliditylang.org} is a broadly adapted smart contract programming language that is not only utilised by the Ethereum blockchain\footnote{https://ethereum.org/en/} but also other popular blockchains like the BNB Chain\footnote{https://www.bnbchain.org/en/smartChain}, Tron\footnote{https://tron.network} and Avalanche\footnote{https://www.avax.network}. Besides being widely adopted it is also utilised in a number of papers from the identified scientific literature to build decentralised ride-pooling platforms ~\cite{Baza.2021} ~\cite{Mahmoud.2022} ~\cite{Baza.52520205282020}.
 
-Solidity is a high-level programming language originally tailored for the Ethereum blockchain's smart contracts. Influenced by JavaScript, Python, and C++, its syntax allows developers to craft self-executing contracts where terms are coded directly. These contracts are compiled to bytecode for the Ethereum Virtual Machine (EVM). Given blockchain's immutable nature and financial implications, Solidity emphasises security and exception handling. 
+Solidity is a high-level programming language originally tailored for the Ethereum blockchain's smart contracts. Influenced by JavaScript, Python, and C++, its syntax allows developers to craft self-executing contracts where terms are coded directly. These contracts are compiled to bytecode for the Ethereum Virtual Machine (EVM). Given blockchain's immutable nature and financial implications, Solidity emphasises security and exception handling ~\cite{Solidity.}. 
 
-Selecting this smart contract programming language for the development of the GETACAR prototype ensures easy adaption by future developers. Additionally, the high adaption rate of Solidity ensures a future-proof reference implantation in the fast-evolving crypto landscape, compared to languages that are proprietorially used by smaller blockchains. For the creation of the prototype the smart contracts are deployed on the Ethereum Blockchain and utilise ETH as their underlying currency for Gas Fees and payments.
+Selecting this smart contract programming language for the development of the GETACAR prototype ensures easy adaption by future developers. Additionally, the high adaption rate of Solidity ensures a future-proof reference implantation in the fast-evolving crypto landscape, compared to languages that are proprietorially used by smaller blockchains. For the creation of the prototype, the smart contracts are deployed on an Ethereum Blockchain Node and utilise ETH as their underlying currency for Gas Fees and payments. The complete smart contracts described in the following section can be found in the appendix of this paper.
 
 \subsection{Contract Factory}
-There are two design approaches to utilise a smart contract to manage all critical ride events. Firstly it is possible to create a single smart contract that can be used by all customers and ride providers to log their rides. The advantage of this approach is lower gas fees because no new contract is generated for every trip. The downside of this approach is, that it drastically increases the complexity of the contract to ensure that all trips stay separated inside the contract. It also increases the impact of security loopholes in the contract, because it could possibly allow users to influence the rides of other users. 
+There are two design approaches to utilise a smart contract to manage all critical ride events. Firstly, it is possible to create a single, smart contract that can be used by all customers and ride providers to log their rides. The advantage of this approach is lower gas fees because no new contract is generated for every trip. The downside of this approach is that it drastically increases the complexity of the contract to ensure that all trips stay separated inside the contract. It also increases the impact of security loopholes in the contract because it could possibly allow users to influence the rides of other users. 
 
-The second approach would utilise the concept of a contract factory. A contract factory allows the generation of smart contracts based on a predefined template through a second smart contract, the so-called contract factory. The main disadvantage of a contract factory is increased gas prices because the deployment of a new smart contract is generally more expensive than the interaction with an existing one. But the contract factory approach also provides a number of upsides. It allows for each ride contract to be capsuled into its own smart contract which improves security and decreases the complexity of the ride contract itself. 
+The second approach would utilise the concept of a contract factory. A contract factory allows the generation of smart contracts based on a predefined template through a second smart contract, the so-called contract factory. The main disadvantage of a contract factory is increased gas prices because the deployment of a new smart contract is generally more expensive than the interaction with an existing one. But the contract factory approach also provides a number of upsides. It allows for each ride contract to be capsuled into its own smart contract, which improves security and decreases the complexity of the ride contract itself. 
 
-Because data privacy and security are most important to the design of the GETACAR Platform it is decided to follow the contract factory approach. The contract factory that is designed to generate ride contracts looks as follows:
+Because data privacy and security are most important to the design of the GETACAR platform, it is decided to follow the contract factory approach. The contract factory that is designed to generate ride contracts looks as follows:
 
-At the centre of the contract factory exists the \texttt{createContract()} function that creates a new ride contract that takes the amount of ETH (that represents the maximum ride cost) as a deposit, as seen in \ref{lst:createContract}. The deposit holder will be the newly created ride contract which will only return the deposit if the right circumstances are met. \texttt{createContract()} also executes some additional code that helps authentication services track newly created contracts. Each contact gets assigned a contract number determined by the contract counter and is mapped to a timestamp that represents its creation date. Additionally, the contract gets registered to the matching service smart contract.
+At the centre of the contract factory exists the \texttt{createContract()} function that creates a new ride contract that takes the amount of ETH (that represents the maximum ride cost) as a deposit, as seen in listing \ref{lst:createContract}. The deposit holder will be the newly created ride contract, which will only return the deposit if the right circumstances are met. \texttt{createContract()} also executes some additional code that helps authentication services track newly created contracts. Each contact gets assigned a contract number determined by the contract counter and is mapped to a timestamp that represents its creation date. Additionally, the contract gets registered to the Matching Smart Contract. The interaction between the Ride Contract and other contracts can be seen in figure \ref{fig:smi}. The reason for the interactions with the Matching Contract will be explained at a later point.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{data/15.svg}
+    \caption{Interactions between Smart Contract}
+    \label{fig:smi}
+\end{figure}
+
 
 
 \definecolor{verylightgray}{rgb}{.97,.97,.97}
@@ -63,7 +71,7 @@ At the centre of the contract factory exists the \texttt{createContract()} funct
   firstnumber=39,
 }
 
-\begin{Listing}
+\begin{Listing}[H]
 \begin{lstlisting}
     function createContract(uint256 _amount) public payable {
         require(msg.value == _amount, "Sent value does not match the specified amount.");
@@ -89,7 +97,7 @@ At the centre of the contract factory exists the \texttt{createContract()} funct
 
 
 
-The helper functions that are contained in the contract factory to help authentication services to better track newly created contracts can be seen in \ref{lst:helperFunctions}.
+The helper functions that are contained in the contract factory to help authentication services to better track newly created contracts can be seen in listing \ref{lst:helperFunctions}.
 
 \lstset{
   basicstyle=\footnotesize\ttfamily,
@@ -98,7 +106,7 @@ The helper functions that are contained in the contract factory to help authenti
   firstnumber=57
 }
 
-\begin{Listing}
+\begin{Listing}[H]
 \begin{lstlisting}
 
     function getContractsByUser(address user) public view returns (Contract[] memory) {
@@ -124,11 +132,9 @@ The helper functions that are contained in the contract factory to help authenti
 
 
 \subsection{Ride Contract}
-Now that we have shown how a ride contract is created through the ride contract factory, it is important to look at the ride contract itself.
+Now that we have shown how a ride contract is created through the ride contract factory, it is important to look at the ride contract itself. The Solidity smart contract under consideration allows the ride provider and the customer to interact with each other and tracks these interactions as described in figure \ref{fig:RideBookingFlow}.
 
-The Solidity smart contract under consideration allows the ride provider and the customer to interact with each other and tracks these interactions as described in \ref{fig:RideBookingFlow}.
-
-The contract starts with the initiation of the variables that are used to track the status of the ride through a constructor, seen in \ref{lst:constructor}. The constructor also sets the wallet address of the customer who initiated the contract through the contract factory as ''party1''. The address that is mapped to party one represents the customer inside the contract.
+The contract starts with the initiation of the variables that are used to track the status of the ride through a constructor, seen in listing \ref{lst:constructor}. The constructor also sets the wallet address of the customer who initiated the contract through the contract factory as ''party1''. The address that is mapped to party one represents the customer inside the contract.
 
 \lstset{
   basicstyle=\footnotesize\ttfamily,
@@ -137,7 +143,7 @@ The contract starts with the initiation of the variables that are used to track 
   firstnumber=30
 }
 
-\begin{Listing}
+\begin{Listing}[H]
 \begin{lstlisting}
     constructor(address _party1) payable {
         party1 = _party1;
@@ -156,7 +162,7 @@ The contract starts with the initiation of the variables that are used to track 
   \label{lst:constructor}
 \end{Listing}
 
-After the contract is created by the customer, the address of the contract is shared via the matching service with the ride provider. The ride provider then uses the \texttt{signContract()} function to co-sign the contract as party2 and thereby activates the ride contract, seen in \ref{lst:signContract}. The ride provider also has to deposit 10\% of predefined  maximum ride cost into the contract as part of the deposit trust mechanism.
+After the contract is created by the customer, the address of the contract is shared via the matching service with the ride provider. The ride provider then uses the \texttt{signContract()} function to co-sign the contract as ''party2'' and thereby activates the ride contract, seen in listing \ref{lst:signContract}. The ride provider also has to deposit 10\% of the predefined  maximum ride cost into the contract as part of the deposit trust mechanism.
 
 \lstset{
   basicstyle=\footnotesize\ttfamily,
@@ -189,7 +195,7 @@ After the contract is created by the customer, the address of the contract is sh
   \label{lst:signContract}
 \end{Listing}
 
-Now that both parties have signed the contract the actual ride flow can start, as decided in figure \ref{fig:SwimLaneCustomer} with the ''Ride Provider accepts ride'' event. All event functions are structured similarly. Therefore we will use the \texttt{setRideProviderAcceptedStatus()} function, seen in \ref{lst:setRideProviderAcceptedStatus} as an example to showcase how each event is represented by a function inside the smart contract. The function takes a message as an input that will later be written onto the chain permanently. This message is used by the customer and the ride provider to exchange encrypted information on the blockchain as decided via the Diffie-Hellman Key Exchange. The function also contains a number of checks utilising the \texttt{require()} function to make sure that it is only used as intended. Among others, these checks include the requirement to only be called by the right entity (depending on the event this can be the customer or the ride provider). Additionally, a check is applied to ensure that the events are called in the ride order as designed in the ride flow. At last three more checks make sure that the contract is active, not cancelled and a ride provider has accepted the contract. If all checks are successful it can be ensured that the function is used as intended and the event is written onto the chain as secure and auditable proof that it accrued. This is done through calling the \texttt{UpdatePosted()} function.
+Now that both parties have signed the contract the actual ride flow can start, as decided in figure \ref{fig:SwimLaneCustomer} with the ''Ride Provider accepts ride'' event. All event functions are structured similarly. Therefore, we will use the \texttt{setRideProviderAcceptedStatus()} function, seen in listing \ref{lst:setRideProviderAcceptedStatus} as an example to showcase how each event is represented by a function inside the smart contract. The function takes a message as an input that will later be written onto the chain permanently. This message is used by the customer and the ride provider to exchange encrypted information on the blockchain as decided via the Diffie-Hellman Key Exchange. The function also contains a number of checks utilising the \texttt{require()} function to make sure that it is only used as intended. Among others, these checks include the requirement to only be called by the right entity (depending on the event, this can be the customer or the ride provider). Additionally, a check is applied to ensure that the events are called in the ride order as designed in the ride flow. At last, three more checks make sure that the contract is active, not cancelled, and a ride provider has accepted the contract. If all checks are successful, it can be ensured that the function is used as intended and the event is written onto the chain as secure and auditable proof that it accrued. This is done by calling the \texttt{UpdatePosted()} function.
 
 \lstset{
   basicstyle=\footnotesize\ttfamily,
@@ -215,7 +221,7 @@ Now that both parties have signed the contract the actual ride flow can start, a
   \label{lst:setRideProviderAcceptedStatus}
 \end{Listing}
 
-The \texttt{UpdatePosted()} function works as follows: It gets called by an event function and takes the wallet of the entity calling the function, the message and the name of the event function and emits it as an event onto the chain. These events are permanent and can not be changed.
+The \texttt{UpdatePosted()} function can be seen in listing \ref{lst:updatePosted} It gets called by an event function and takes the wallet of the entity calling the function, the message and the name of the event function and emits it as an event onto the chain. These events are permanent and can not be changed.
 
 \lstset{
   basicstyle=\footnotesize\ttfamily,
@@ -232,7 +238,7 @@ The \texttt{UpdatePosted()} function works as follows: It gets called by an even
   \label{lst:updatePosted}
 \end{Listing}
 
-Now that the functions that enable the general ride flow are shown, it is important to take a look at edge cases that are handled on-chain. As described in \ref{fig:RideBookingFlow}, both the customer and ride provider have the ability to cancel the ride and if one of the parties cancels the ride the other party gets automatically deposited the money managed by the ride contract. The ride contract provides these features through a \texttt{setUserCanceldRide()} and as \texttt{setRideProviderCanceldRide()} function. In the flowing, we will describe their functionality using the \texttt{setUserCanceldRide() }function as an example. If the customer calls the function to cancel their ride two if clauses check if the contract is active and therefore a ride provider has already signed the contract. If this is the case all money inside the contract gets deposited to the ride provider. If for some reason no ride provider is signing the contract the customer gets their money back. This ensures that the customer does not get their deposit stuck inside a ride contract if a ride provider decides not to sign a contract. Additionally, the customer has the possibility to emit a message onto the chain that contains information on why the ride was cancelled.
+Now that the functions that enable the general ride flow are shown, it is important to take a look at edge cases that are handled on-chain. As described in figure \ref{fig:RideBookingFlow}, both the customer and ride provider have the ability to cancel the ride and if one of the parties cancels the ride the other party gets automatically deposited the money managed by the ride contract. The ride contract provides these features through a \texttt{setUserCanceldRide()} and as \texttt{setRideProviderCanceldRide()} function. In the flowing, we will describe their functionality using the \texttt{setUserCanceldRide() }function as an example, seen in figure \ref{lst:setUserCanceldRide}. If the customer calls the function to cancel their ride, two if clauses check if the contract is active and, therefore a ride provider has already signed the contract. If this is the case, all money inside the contract gets deposited to the ride provider. If for some reason, no ride provider is signing the contract, the customer gets their money back. This ensures that the customer does not get their deposit stuck inside a ride contract if a ride provider decides not to sign a contract. Additionally, the customer has the possibility to emit a message onto the chain that contains information on why the ride was cancelled.
 Lastly, the contract gets marked with the status \texttt{userCanceldRide = true}.
 
 \lstset{
@@ -270,7 +276,7 @@ Lastly, the contract gets marked with the status \texttt{userCanceldRide = true}
   \label{lst:setUserCanceldRide}
 \end{Listing}
 
-As described in \ref{subsec:RatingTrustMechanisms}, the rating is also managed via the smart contract. Both customers and ride provider can post their ratings through similar functions. The customer can use the \texttt{setRideRating()} function for this process which takes the selected rating as input.
+As described in subsection \ref{subsec:RatingTrustMechanisms}, the rating is also managed via the smart contract. Both customers and ride provider can post their ratings through similar functions. The customer can use the \texttt{setRideRating()} function for this process which takes the selected rating as input, as seen in figure \ref{lst:setRideRating}.
 The function ensures, besides other checks, that the rating is in the predefined range of allowed ratings. 
 
 \lstset{
@@ -294,7 +300,7 @@ The function ensures, besides other checks, that the rating is in the predefined
   \label{lst:setRideRating}
 \end{Listing}
 
-It is also possible for the customer to rate passengers. Therefore the following function is used by the ride providers to add passengers to the ride contract. This will allow customers to rate their passengers. For privacy reasons, the customer will only see the pseudonyms known to the ride provider for the passengers. The user can then rate the passengers based on their seating position inside the vehicle and the starting time of their ride. Through this system, it is possible for customers sharing a vehicle to rate each other without the need to share personal information like a name or a profile picture. 
+It is also possible for the customer to rate passengers. Therefore the \texttt{addPassenger()} function is used by the ride providers to add passengers to the ride contract, as seen in \ref{lst:addPassenger}. This will allow customers to rate their passengers. For privacy reasons, the customer will only see the pseudonyms known to the ride provider for the passengers. The user can then rate the passengers based on their seating position inside the vehicle and the starting time of their ride. Through this system, it is possible for customers sharing a vehicle to rate each other without the need to share personal information like a name or a profile picture. 
 
 \lstset{
   basicstyle=\footnotesize\ttfamily,
@@ -320,11 +326,11 @@ It is also possible for the customer to rate passengers. Therefore the following
     }
 \end{lstlisting}
   \caption{Contract.sol: addPassenger() Function}
-  \label{lst:setUserCanceldRide}
+  \label{lst:addPassenger}
 \end{Listing}
 
 
-The \texttt{claimETH()} function is used by the ride provider to get the applicable amount of money to cover the ride cost from the smart contract. The function can only be triggered once the customer has marked the ride as successfully completed. After all checks are successfully completed, the contact sends 10\% of the total amount of money on hold inside the contract to a predefined address managed by the GETACAR foundation. Afterwards, the remaining money gets deducted from the amount of money that is claimed by the ride provider to cover the ride cost. This amount is then transferred to the wallet of the ride provider. The remaining deposit left inside the smart contract then gets sent back to the wallet of the customer. 
+The \texttt{claimETH()} function is used by the ride provider to get the applicable amount of money to cover the ride cost from the smart contract, as seen in figure \ref{fig:claimETH}. The function can only be triggered once the customer has marked the ride as successfully completed. After all, checks are successfully completed, the contact sends 10\% of the total amount of money on hold inside the contract to a predefined address managed by the GETACAR foundation. Afterwards, the remaining money gets deducted from the amount of money that is claimed by the ride provider to cover the ride cost. This amount is then transferred to the wallet of the ride provider. The remaining deposit left inside the smart contract then gets sent back to the wallet of the customer. 
 
 \lstset{
   basicstyle=\footnotesize\ttfamily,
@@ -365,7 +371,7 @@ The \texttt{claimETH()} function is used by the ride provider to get the applica
 
 The Matching Contract provides the fully on-chain rating and load-balancing for the off-chain matching services as described in \ref{subsec:MatchingService}. At its core, the function provided by the Matching contract is simple: A customer can provide an array of matching services and a minimum rating, and the smart contract returns the matching service out of this array that complies with the rating requirements and has the lowest number of handled matches so far. This allows for a load balancing between the matching services so that no service can collect too much data.
 
-All matching services that are available to the GETACAR platform are registered inside the Matching contract with a struct that contains the name of the service, the number of matches that were handled by the matching service (that resulted in completed rides) and the number of requests that where managed by the service. To ensure that the request counter is accurate, the contract counts a request every time a specific matching service gets suggested by the Matching Contract, as the design assumes that the customer will follow the suggestion and post their ride request to the suggested matching service. For example, a customer provides an array containing the names of matching services A, B and C without defining a minimum rating. The matching contract determines that matching service A has had the lowest amount of requests out of the three so far and, therefore, suggests the use of matching service A to the customer. This suggestion is counted as a request, and the request counter of matching service A is increased by one.
+All matching services that are available to the GETACAR platform are registered inside the Matching contract with a struct that contains the name of the service, the number of matches that were handled by the matching service (that resulted in completed rides) and the number of requests that where managed by the service, as seen in figure \ref{lst:MatchingServiceObject}. To ensure that the request counter is accurate, the contract counts a request every time a specific matching service gets suggested by the Matching Contract, as the design assumes that the customer will follow the suggestion and post their ride request to the suggested matching service. For example, a customer provides an array containing the names of matching services A, B and C without defining a minimum rating. The matching contract determines that matching service A has had the lowest amount of requests out of the three so far and, therefore, suggests the use of matching service A to the customer. This suggestion is counted as a request, and the request counter of matching service A is increased by one. In the prototype implementation, the load-balancing factor is the number of successful matches managed by the matching service, as this value is hard to manipulate. As an alternative, the number of requests can also be used as the load-balancing factor. Further research is needed to determine which factor is best suited for balancing requests between the matching services.
 
 \lstset{
   basicstyle=\footnotesize\ttfamily,
@@ -387,7 +393,7 @@ All matching services that are available to the GETACAR platform are registered 
 \end{Listing}
 
 
-The actual recommendation function looks as follows: 
+The actual recommendation function can be seen in listing \ref{lst:getMatchingService}. For the prototype, the flow does not support automatic filtering by rating.
 
 \lstset{
   basicstyle=\footnotesize\ttfamily,
@@ -424,7 +430,7 @@ The actual recommendation function looks as follows:
   \label{lst:getMatchingService}
 \end{Listing}
 
-After explaining the request counter, it is important to take a look at how the match counter works, as it is equally necessary for calculating the rating of the matching service. What makes the calculation of this value more complicated is the fact that the contract needs to verify that only rides are counted that were officially handled by the GETACAR platform. If this is not the case, it would open up doors for rating manipulations through external parties. To prevent that, the \texttt{addMatch()} function is not called by a customer who has successfully completed a ride but can only be called by the ride contracts themselves. The function utilises a for loop that checks a list that contains all contracts that are created by the official contract factory. If the contract that calls the function is on the list, the value of the utilised matching service is increased by one.
+After explaining the request counter, it is important to take a look at how the match counter works, as it is equally necessary for calculating the rating of the matching service. What makes the calculation of this value more complicated is the fact that the contract needs to verify that only rides are counted that were officially handled by the GETACAR platform. If this is not the case, it would open up doors for rating manipulations through external parties. To prevent that, the \texttt{addMatch()} function is not called by a customer who has successfully completed a ride but can only be called by the ride contracts themselves. It can be seen in listing \ref{lst:addMatch} The function utilises a for loop that checks a list that contains all contracts that are created by the official contract factory. If the contract that calls the function is on the list, the value of the utilised matching service is increased by one.
 
 \lstset{
   basicstyle=\footnotesize\ttfamily,
@@ -447,7 +453,7 @@ After explaining the request counter, it is important to take a look at how the 
   \label{lst:addMatch}
 \end{Listing}
 
-To enforce that only the contract factory can add ride contract addresses to the list of verified addresses, an \texttt{onlyFactory()} modifier is implemented. Similarly, a \texttt{onlyRegisteredContracts()} modifier ensures that only contracts from the list of verified contracts can add successful matches to the rating services.
+To enforce that only the contract factory can add ride contract addresses to the list of verified addresses, an \texttt{onlyFactory()} modifier is implemented, as seen in listing \ref{lst:modifier}. Similarly, a \texttt{onlyRegisteredContracts()} modifier ensures that only contracts from the list of verified contracts can add successful matches to the rating services.
 
 \lstset{
   basicstyle=\footnotesize\ttfamily,

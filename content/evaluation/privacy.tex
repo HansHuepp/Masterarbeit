@@ -1,8 +1,8 @@
-Insuring privacy throughout the platform is one of the most important aspects of GETACAR. While we showed the general spread of user information across the components of the platform, as shown in \ref{tab:CustomerDataPrivacyMatrix}, it is important to put the platform through a privacy assessment. This assessment is meant to ensure that the privacy design at its core does not contain any loopholes that could endanger user privacy. OMAR et al. provide such an assessment for an anonymity-oriented privacy-preserving reputation system, as it is implemented into GETACAR ~\cite{HasanOmar}.
+Insuring privacy throughout the platform is one of the most important aspects of GETACAR. While we showed the general spread of user information across the components of the platform, as shown in table\ref{tab:CustomerDataPrivacyMatrix}, it is important to put the platform through a privacy assessment. This assessment is meant to ensure that the privacy design at its core does not contain any loopholes that could endanger user privacy. OMAR et al. provide such an assessment for an anonymity-oriented privacy-preserving reputation system, as it is implemented into GETACAR ~\cite{HasanOmar}.
 
 GETACAR fulfils the requirements for this assessment as the true identity of users are hidden on the platform, interactions stay anonymous, users are represented by multiple pseudonyms, and transactions can get carried out anonymously. 
 
-The paper itself focuses on the privacy preservation of rating systems but the assessment itself works on a platform level, as the same systems that preserve privacy for users when they interact with the rating systems are also in place for all other interactions on GETACAR. Table \ref{tab:privacyAssessment} shows all twelve  points of assessment and how the GETACAR platform is evaluated for each.
+The paper itself focuses on the privacy preservation of rating systems, but the assessment itself works on a platform level, as the same systems that preserve privacy for users when they interact with the rating systems are also in place for all other interactions on GETACAR. Table \ref{tab:privacyAssessment} shows all twelve  points of assessment and how the GETACAR platform is evaluated for each.
 
 
 \label{tab:privacyAssessment}
@@ -27,29 +27,29 @@ The paper itself focuses on the privacy preservation of rating systems but the a
 \hline
 \endlastfoot
 
-Multiple Pseudonyms & A user can assume multiple pseudonyms, either per context or per transaction. & Every user can take on a new pseudonym for each new transaction. For off-chain interactions, the authentication service provides the pseudonyms directly, for on-chain transactions the user is able to generate their own new wallet, which then gets registered with the authentication service. & Yes \\
+Multiple Pseudonyms & A user can assume multiple pseudonyms, either per context or per transaction. & Every user can take on a new pseudonym for each new transaction. For off-chain interactions, the authentication service provides the pseudonyms directly; for on-chain transactions, the user is able to generate their own new wallet, which then gets registered with the authentication service. & Yes \\
 \hline
-User-Pseudonym Unlinkability & The true identity of a user is not linkable to any pseudonym they use. & By knowing the identity of a user, it is not possible to identify pseudonyms that belong to the user as there is no information contained in the pseudonym that would allow to make this connection. & Yes\\
+User-Pseudonym Unlinkability & The true identity of a user is not linkable to any pseudonym they use. & By knowing the identity of a user, it is not possible to identify pseudonyms that belong to the user as there is no information contained in the pseudonym that would allow us to make this connection. & Yes\\
 \hline
-Pseudonym-Pseudonym Unlinkability & Two different pseudonyms of the same user cannot be linked. & The pseudonyms are not linked directly to each other. Therefore it is not possible to conclude which pseudonyms belong to the same user. & Yes\\
+Pseudonym-Pseudonym Unlinkability & Two different pseudonyms of the same user cannot be linked. & The pseudonyms are not linked directly to each other. Therefore, it is not possible to conclude which pseudonyms belong to the same user. & Yes\\
 \hline
 Rater Anonymity & A user can rate another user without revealing their true identity. & On GETACAR the rater stays anonymous as they use a newly generated wallet as their pseudonym for the ride flow and to post their rating on the blockchain & Yes \\
 \hline
 Ratee Anonymity & A user can receive a rating without their real identity being disclosed. & GETACAR also provides Ratee anonymity, as users only rate other users based on their wallet pseudonyms on-chain.& Yes\\
 \hline
-Inquirer Anonymity & A user can inquire about another user's reputation anonymously. & Every user can request the rating of another user without exposing their identity. To get a rating it is only necessary to provide the pseudonym of the user to the authentication service. The authentication service can then return the rating of the user connected to the pseudonym. & Yes\\
+Inquirer Anonymity & A user can inquire about another user's reputation anonymously. & Every user can request the rating of another user without exposing their identity. To get a rating, it is only necessary to provide the pseudonym of the user to the authentication service. The authentication service can then return the rating of the user connected to the pseudonym. & Yes\\
 \hline
 Reputation Transfer and Aggregation & A ratee can transfer and aggregate reputation among their pseudonyms. & As each pseudonym is connected to a single user by the authentication service, the rating transfers between all pseudonyms & Yes\\
 \hline
 Reputation Unforgeability & A ratee cannot show reputation higher than their pseudonyms' cumulative reputation. & Reputation forgeability is not possible as a user does not provide their rating themself but through the authentication service that represents a trusted authority & Yes\\
 \hline
-Distinctness & Reputation of a ratee is an aggregate of votes from distinct raters. & As all ratings are posted to a smart contract on the blockchain that logs the rater and ratee and verifies that both parties are part of the platform distinctness of ratings is ensured. & Yes\\
+Distinctness & Reputation of a ratee is an aggregate of votes from distinct raters. & As all ratings are posted to a smart contract on the blockchain that logs the rater and ratee and verifies that both parties are part of the platform, distinctness of ratings is ensured. & Yes\\
 \hline
 Accountability & Users are accountable for adversarial actions. & The rating systems keep users accountable for their actions and allow for the revelation of the identity of a user in edge cases.& Yes\\
 \hline
 Authorizability of Ratings & Only users who have had a transaction with the ratee are allowed to rate her. & The smart contracts ensure that all ratings are valid, as customers and ride providers can only rate each other after signing a ride contract on-chain.& Yes\\
 \hline
-Verifiability by Ratee & A ratee should be able to identify all published feedback linked to their identity and verify their authenticity. &As each user knows all their pseudonyms themselves, they can calculate their rating on their on to verify the calculations of the authentication service.  & Yes\\
+Verifiability by Ratee & A ratee should be able to identify all published feedback linked to their identity and verify their authenticity. &As each user knows all their pseudonyms themselves, they can calculate their rating on their own to verify the calculations of the authentication service.  & Yes\\
 \hline
 \end{longtable}
 

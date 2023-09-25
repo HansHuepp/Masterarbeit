@@ -2,63 +2,65 @@ After showcasing the implementation of the smart contracts and the customer and 
 
 
 \subsection{Endpoints and Data}
-The NodeJs application provides four core endpoints for customers and ride providers to handle all interactions with the matching service. Following ride flow, the first endpoint that is typically utilised is the POST \texttt{/requestRide} endpoint. The customer frontend utilises this endpoint to post ride requests to the matching service. The request contains the following data points:
+The Node.js application provides four core endpoints for customers and ride providers to handle all interactions with the matching service. Following ride flow, the first endpoint that is typically utilised is the POST \texttt{/requestRide} endpoint. The customer frontend utilises this endpoint to post ride requests to the matching service. The request contains the following data points:
 
-\begin{itemize}
-    \item \textbf{userId:} The customer pseudonym provided by an authentication service
-    \item \textbf{pickupLocation:} The cloaked pickup location
-    \item \textbf{dropoffLocation:} A cloaked dropoff location
-    \item \textbf{userRating:} The rating of the customer
-    \item \textbf{rating:} The rating of the customer requesting the ride
-    \item \textbf{userPublicKey:} A newly generated public key from the customer used for the Diffie-Hellman Key Exchange
-    \item \textbf{maxWaitingTime:} The maximum time the customer is willing to wait for the arrival of the ride provider
-    \item \textbf{minRating:} The minimum rating necessary for a ride provider to have to be allowed to manage the ride
-    \item \textbf{minPassengerRating:} The minimum rating for passengers to have to be allowed to share the ride with the customer
-    \item \textbf{maxPassengers:} The maximum amount of passengers the customer is willing to have at once
-\end{itemize}
+\begin{description}
+    \item[userId:] The customer pseudonym provided by an authentication service
+    \item[pickupLocation:] The cloaked pickup location
+    \item[dropoffLocation:] A cloaked dropoff location
+    \item[userRating:] The rating of the customer
+    \item[rating:] The rating of the customer requesting the ride
+    \item[userPublicKey:] A newly generated public key from the customer used for the Diffie-Hellman Key Exchange
+    \item[maxWaitingTime:] The maximum time the customer is willing to wait for the arrival of the ride provider
+    \item[minRating:] The minimum rating necessary for a ride provider to have to be allowed to manage the ride
+    \item[minPassengerRating:] The minimum rating for passengers to have to be allowed to share the ride with the customer
+    \item[maxPassengers:] The maximum amount of passengers the customer is willing to have at once
+\end{description}
+
 
 The Matching Service adds the following data points to the ride request and writes them onto the database:
 
-\begin{itemize}
-    \item \textbf{rideRequestId:} A unique id to identify the ride request
-    \item \textbf{gridLocation:} The grid square from where the ride request came from. This makes it easier for ride provider to find fitting ride requests if a matching service is deployed for a number of different grid squares. 
-    \item \textbf{auctionStartedTimestamp:} The timestamp represents the moment the data was posted onto the matching service visibale for ride providers to bid on the ride request. 
-    \item \textbf{auctionStatus:} The status of the auction. The auction can have one of four different statuses: 'open', 'determining-winner', 'waiting-for-signature' or 'closed'. 
-    \item \textbf{auctionWinner:} The winner of the auction. If the winner was not determined yet, this field is empty.
-    \item \textbf{winningBid:} The unique identifier of the winning bid. If the winner was not determined yet, this field is empty.
-    \item \textbf{p:} The prime number used for Diffie-Hellman key exchange.
-    \item \textbf{g:} The base used for Diffie-Hellman key exchange.
-\end{itemize}
+\begin{description}
+    \item[rideRequestId:] A unique id to identify the ride request
+    \item[gridLocation:] The grid square from where the ride request came from. This makes it easier for ride provider to find fitting ride requests if a matching service is deployed for a number of different grid squares.
+    \item[auctionStartedTimestamp:] The timestamp represents the moment the data was posted onto the matching service visible for ride providers to bid on the ride request.
+    \item[auctionStatus:] The status of the auction. The auction can have one of four different statuses: 'open', 'determining-winner', 'waiting-for-signature' or 'closed'.
+    \item[auctionWinner:] The winner of the auction. If the winner was not determined yet, this field is empty.
+    \item[winningBid:] The unique identifier of the winning bid. If the winner was not determined yet, this field is empty.
+    \item[p:] The prime number used for Diffie-Hellman key exchange.
+    \item[g:] The base used for Diffie-Hellman key exchange.
+\end{description}
+
 
 Once the complete ride request is available in the database, it can be read by ride providers. Ride providers can use the GET \texttt{/rideRequests} endpoint to receive a JSON object containing all ride requests with open auctions. The ride provider can search this dataset and, once they find a fitting ride request, bid on it.
 To bid on a ride request, the ride provider can utilise the POST \texttt{/bid} endpoint. A bid request contains the following data points:
 
-\begin{itemize}
-    \item \textbf{rideRequestId:} The id of the ride request that this bid is for
-    \item \textbf{rideProviderId:} The ride provider pseudonym provided by an authentication service
-    \item \textbf{amount:} The maximum ride cost that the ride provider is willing to offer the ride for
-    \item \textbf{rating:} The rating of the ride provider
-    \item \textbf{model:} The model of the vehicle
-    \item \textbf{estimatedArrivalTime:} The time to get to the customer pickup location
-    \item \textbf{passengerCount:} The number of passengers inside the vehicle when arriving at the pickup location
-    \item \textbf{vehiclePublicKey:} A newly generated public key from the ride provider used for the Diffie-Hellman Key Exchange 
-\end{itemize}
+\begin{description}
+    \item[rideRequestId:] The id of the ride request that this bid is for
+    \item[rideProviderId:] The ride provider pseudonym provided by an authentication service
+    \item[amount:] The maximum ride cost that the ride provider is willing to offer the ride for
+    \item[rating:] The rating of the ride provider
+    \item[model:] The model of the vehicle
+    \item[estimatedArrivalTime:] The time to get to the customer pickup location
+    \item[passengerCount:] The number of passengers inside the vehicle when arriving at the pickup location
+    \item[vehiclePublicKey:] A newly generated public key from the ride provider used for the Diffie-Hellman Key Exchange 
+\end{description}
 
 Before a bid can be posted to the database, the Matching Service compares the timestamp of the bid with the timestamp of the ride request the bid is associated with to ensure that the auction is truly open. For this prototype, the time frame for this is set to 30 seconds. The bid also gets extended with additional data points by the matching service itself before it gets written onto the database. These are the additional data points:
 
-\begin{itemize}
-    \item \textbf{bidId:} A unique id to identify the bid
-    \item \textbf{bidPlacedTimestamp:} Timestamp representing the moment the bid is posted
-\end{itemize}
+\begin{description}
+    \item[bidId:] A unique id to identify the bid
+    \item[bidPlacedTimestamp:] Timestamp representing the moment the bid is posted
+\end{description}
 
-With ride requests and associated bids being written to the database, the next step for the matching service is handling the running auction. Each auction is posted with the status ''open''. A function managed by the Matching Service continuously crawls the database for ride requests where the auction is older than 30 seconds. If such an auction is found, the auction status changes from 'open' to 'determining-winner'. A second function then takes the ride request and analyses all bids connected with the request to determine the winning bid based on the principles of the second price auction. The winning bid is then written into the ride request itself, changing the auction status to 'waiting-for-signature'. 
+With ride requests and associated bids being written to the database, the next step for the matching service is handling the running auction. Each auction is posted with the status ''open''. A function managed by the Matching Service continuously crawls the database for ride requests where the auction is older than 30 seconds. If such an auction is found, the auction status changes from ''open'' to ''determining-winner''. A second function then takes the ride request and analyses all bids connected with the request to determine the winning bid based on the principles of the second price auction. The winning bid is then written into the ride request itself, changing the auction status to ''waiting-for-signature''. 
 
 The customer is able to check the status of their auction through the GET \texttt{/rideRequest/:rideRequestId} endpoint by providing the identifier of their ride request inside the URL. This endpoint returns the status of the auction, and in case a winning bid is found, it additionally returns the winning bid itself. Based on the winning bid, the customer can then decide if they want to take the ride or not. If the customer decides to take the ride, they follow the ride flow and create a ride contract through the contract factory that contains the maximum ride cost as a deposit. They then need to use the GET \texttt{setContractAddress/:rideRequestId/:contractAddress} endpoint to update their ride request with the contact's address on the blockchain. As the creation of the contract is understood as the initial signing of the ride contract, the status of the auction changes from 'waiting-for-signature' to 'closed'. 
 
 The GET \texttt{/rideRequest/:rideRequestId} endpoint also enables the ride provider to track the status of the auction. Through the endpoint, the auction winner is able to receive the address of the ride contract and is, therefore, able to co-sign the contract as a ride provider.
 
 \subsection{Grid System}
-As described in \ref{subsec:MatchingService}, the design of the Matching Service includes a map grid that is utilised to assign matching services to specific jurisdiction zones and to cloak the exact pickup and dropoff locations of customers. There are many possible ways to create a map grid that would allow for this use case. The GETACAR prototype implementation uses H3\footnote{https://h3geo.org}, a hexagonal hierarchical geospatial indexing system that provides a predefined grid for the platform to use. The advantage of H3 is that it provides a number of grid resolutions, as each grid is made up of hexagons and pentagons that themself are made up of smaller hexagons and pentagons. An algorithm allows one to easily check if a hexagon/ pentagon of a smaller resolution is contained within a hexagon/ pentagon of a higher resolution. This approach would allow GETACAR to utilise dynamic resolutions for the  jurisdiction zones and the location cloaking with higher resolutions used for crowded areas with high traffic, like cities and lower resolutions that cover larger, less crowded  areas with less traffic. The prototype uses fixed resolutions with Res 9 for the location cloaking and Res 6 for the  jurisdiction zones of the matching services. 
+As described in \ref{subsec:MatchingService}, the design of the Matching Service includes a map grid that is utilised to assign matching services to specific jurisdiction zones and to cloak the exact pickup and dropoff locations of customers. There are many possible ways to create a map grid that would allow for this use case. The GETACAR prototype implementation uses H3\footnote{https://h3geo.org}, a hexagonal hierarchical geospatial indexing system that provides a predefined grid for the platform to use. The advantage of H3 is that it provides a number of grid resolutions, as each grid is made up of hexagons and pentagons that themself are made up of smaller hexagons and pentagons, as seen in figure \ref{fig:H3Visualisation}. An algorithm allows one to easily check if a hexagon/ pentagon of a smaller resolution is contained within a hexagon/ pentagon of a higher resolution. This approach would allow GETACAR to utilise dynamic resolutions for the  jurisdiction zones and the location cloaking with higher resolutions used for crowded areas with high traffic, like cities and lower resolutions that cover larger, less crowded  areas with less traffic.~\cite{H3Geo.} The prototype uses fixed resolutions with Res 9 for the location cloaking and Res 6 for the  jurisdiction zones of the matching services. The available resolutions are displayed in table \ref{tab:resolutions}.
 
 \begin{figure}[h]
     \centering
